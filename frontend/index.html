@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role Based AI Pathfinder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="top-header">
+        <nav class="skillhive-nav">
+            <button class="brand-badge" type="button" onclick="showSection('home')">
+                <span class="brand-icon">FX</span>
+                <span class="brand-text">AI PATHFINDER</span>
+            </button>
+            <ul class="nav-links skillhive-links">
+                <li><a href="#home" data-section="home" onclick="showSection('home')">Home</a></li>
+                <li><a href="#learning-hub" data-section="learning-hub" onclick="showSection('learning-hub')">Learning Hub</a></li>
+                <li><a href="#mnc" data-section="mnc" onclick="showSection('mnc')">MNC Mock Tests</a></li>
+                <li><a href="#interview" data-section="interview" onclick="showSection('interview')">AI Mock Interview</a></li>
+                <li><a href="#coding" data-section="coding" onclick="showSection('coding')">Career Tools</a></li>
+            </ul>
+            <div class="nav-status-strip">
+                <span class="status-pill">STREAK 0 day</span>
+                <span class="status-pill">XP 180</span>
+                <button id="auth-button" class="login-pill" type="button">Log In</button>
+                <div id="profile-menu" class="profile-menu" style="display:none;">
+                    <button id="profile-trigger" class="profile-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+                        <span id="profile-avatar" class="profile-avatar">U</span>
+                    </button>
+                    <div id="profile-dropdown" class="profile-dropdown" style="display:none;">
+                        <div class="profile-head">
+                            <strong id="profile-user-label">User</strong>
+                            <span id="profile-user-subtitle">Not synced</span>
+                        </div>
+                        <div class="profile-performance">
+                            <p>Test Level: <strong id="profile-test-level">Not Started</strong></p>
+                            <p>Attempts: <strong id="profile-test-attempts">0</strong></p>
+                            <p>Average: <strong id="profile-test-average">No data</strong></p>
+                            <p>Best: <strong id="profile-test-best">No data</strong></p>
+                        </div>
+                        <div class="profile-actions">
+                            <button id="profile-view-btn" type="button">Profile</button>
+                            <button id="profile-logout-btn" type="button">Log Out</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="skillhive-main">
+        <section id="home" class="hero skillhive-home">
+            <div class="hero-grid">
+                <div class="hero-copy">
+                    <p class="eyebrow">#1 Tech Learning Platform - Gamified</p>
+                    <h1>
+                        Learn Tech.<br>
+                        <span>Level Up.</span><br>
+                        Every Day.
+                    </h1>
+                    <p class="tagline">Master aptitude, coding, interview preparation, and role-based placement strategy with one focused platform.</p>
+                    <div class="hero-actions">
+                        <button type="button" onclick="showSection('aptitude')">Start Learning</button>
+                        <button class="ghost-btn" type="button" onclick="showSection('coding')">Browse Modules</button>
+                    </div>
+                    <div class="hero-stats">
+                        <div><strong>4</strong><span>Core Modules</span></div>
+                        <div><strong>100+</strong><span>Practice Sets</span></div>
+                        <div><strong>AI</strong><span>Interview Support</span></div>
+                    </div>
+                </div>
+                <div class="hero-mascot">
+                    <div class="floating-card">7-day streak! Keep going!</div>
+                    <div class="floating-card">Level 12 unlocked!</div>
+                    <div class="mascot">FOXY</div>
+                    <div class="speech-bubble">Let us learn!</div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="learning-hub" class="section" style="display:none;">
+            <h2>Learning Hub</h2>
+            <p class="section-context">Choose a module to start learning: Aptitude, Hands-on IT, Coding, and System Design.</p>
+            <div class="learning-hub-grid">
+                <button type="button" class="hub-course-card module-aptitude" onclick="showSection('aptitude')">
+                    <div class="hub-card-top"><span class="hub-card-icon">Q</span></div>
+                    <div class="hub-card-body">
+                        <div class="hub-card-tags">
+                            <span class="hub-tag level-beginner">Beginner</span>
+                            <span class="hub-tag">Core</span>
+                        </div>
+                        <h3>Aptitude</h3>
+                        <p>Quantitative, logical reasoning, and verbal preparation for placements.</p>
+                        <div class="hub-card-meta"><span>40 topics</span><span>120K learners</span><span>4.8</span></div>
+                        <span class="hub-card-cta">Start Learning -></span>
+                    </div>
+                </button>
+                <button type="button" class="hub-course-card module-coding" onclick="showSection('coding')">
+                    <div class="hub-card-top"><span class="hub-card-icon">CODE</span></div>
+                    <div class="hub-card-body">
+                        <div class="hub-card-tags">
+                            <span class="hub-tag level-intermediate">Intermediate</span>
+                            <span class="hub-tag">Popular</span>
+                        </div>
+                        <h3>Coding</h3>
+                        <p>DSA, coding patterns, and problem-solving practice with guided tracks.</p>
+                        <div class="hub-card-meta"><span>55 topics</span><span>96K learners</span><span>4.9</span></div>
+                        <span class="hub-card-cta">Start Learning -></span>
+                    </div>
+                </button>
+                <article class="hub-course-card static module-it">
+                    <div class="hub-card-top"><span class="hub-card-icon">IT</span></div>
+                    <div class="hub-card-body">
+                        <div class="hub-card-tags">
+                            <span class="hub-tag level-beginner">Beginner</span>
+                        </div>
+                        <h3>Hands-on IT</h3>
+                        <p>Linux, networking, and cloud fundamentals with practical workflows.</p>
+                        <div class="hub-card-meta"><span>30 topics</span><span>67K learners</span><span>4.7</span></div>
+                        <span class="hub-card-cta disabled">Coming Soon</span>
+                    </div>
+                </article>
+                <article class="hub-course-card static module-system-design">
+                    <div class="hub-card-top"><span class="hub-card-icon">SD</span></div>
+                    <div class="hub-card-body">
+                        <div class="hub-card-tags">
+                            <span class="hub-tag level-intermediate">Intermediate</span>
+                        </div>
+                        <h3>System Design</h3>
+                        <p>Architecture patterns, scalability, and system design fundamentals.</p>
+                        <div class="hub-card-meta"><span>22 topics</span><span>48K learners</span><span>4.8</span></div>
+                        <span class="hub-card-cta disabled">Coming Soon</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="mnc" class="section" style="display:none;">
+            <h2 id="mnc-title">MNC Mock Tests</h2>
+            <p id="mnc-context" class="section-context">Select a company to start your mock test and check your readiness.</p>
+            <div class="mnc-explorer-grid" id="mnc-grid"></div>
+        </section>
+
+        <section id="company-info" class="section" style="display:none;">
+            <div class="company-info-container">
+                <button class="back-btn" onclick="hideCompanyInfo()">&larr; Back to Home</button>
+                <div id="company-content"></div>
+            </div>
+        </section>
+
+        <section id="aptitude" class="section" style="display:none;">
+            <h2 id="aptitude-title">Aptitude Practice</h2>
+            <p id="aptitude-context" class="section-context"></p>
+            <div id="aptitude-content">
+                <div class="category-buttons" id="aptitude-categories">
+                    <button onclick="loadAptitude('quantitative')">Quantitative</button>
+                    <button onclick="loadAptitude('logical')">Logical</button>
+                    <button onclick="loadAptitude('verbal')">Verbal</button>
+                    <button onclick="loadRandomAptitude()">Random</button>
+                </div>
+            </div>
+            <div id="aptitude-container" class="question-container"></div>
+        </section>
+
+        <section id="coding" class="section" style="display:none;">
+            <h2 id="coding-title">Coding Practice</h2>
+            <p id="coding-context" class="section-context"></p>
+            <div id="coding-mode-switcher" class="coding-mode-switcher"></div>
+            <div id="coding-list" class="coding-list"></div>
+            <div id="coding-detail" class="coding-detail" style="display:none;"></div>
+        </section>
+
+        <section id="mocktest" class="section" style="display:none;">
+            <button class="back-btn" onclick="showSection('mnc')">&larr; Back to Companies</button>
+            <h2 id="mocktest-title">Company Mock Test</h2>
+            <p id="mocktest-context" class="section-context"></p>
+            <div id="mocktest-content" class="mocktest-container"></div>
+        </section>
+
+        <section id="interview" class="section" style="display:none;">
+            <h2 id="interview-title">Interview Preparation</h2>
+            <p id="interview-context" class="section-context"></p>
+            <div class="category-buttons interview-track-buttons">
+                <button id="interview-technical-btn" type="button" onclick="loadInterview('technical')">Technical Round</button>
+                <button id="interview-hr-btn" type="button" onclick="loadInterview('hr')">HR Round</button>
+            </div>
+            <div class="interview-count-controls">
+                <label for="interview-technical-count" class="interview-count-label interview-count-label-technical">Technical Questions</label>
+                <input id="interview-technical-count" type="number" min="1" max="20" value="5">
+                <label for="interview-hr-count" class="interview-count-label interview-count-label-hr">HR Questions</label>
+                <input id="interview-hr-count" type="number" min="1" max="20" value="5">
+            </div>
+            <div id="interview-container" class="interview-chat-shell"></div>
+        </section>
+
+        <section id="analysis" class="section" style="display:none;">
+            <h2 id="analysis-title">Performance Analysis</h2>
+            <p id="analysis-context" class="section-context"></p>
+            <div class="score-input">
+                <label>Aptitude Score (0-100):</label>
+                <input type="number" id="aptitude-score" min="0" max="100">
+                <label>Coding Score (0-100):</label>
+                <input type="number" id="coding-score" min="0" max="100">
+                <label>Interview Score (0-100):</label>
+                <input type="number" id="interview-score" min="0" max="100">
+                <button id="analysis-button" onclick="analyzePerformance()">Analyze</button>
+            </div>
+            <div id="analysis-result" class="analysis-result"></div>
+        </section>
+
+        <section id="profile" class="section" style="display:none;">
+            <h2>User Profile</h2>
+            <p class="section-context">Track your usage activity and test performance over time.</p>
+            <div id="profile-content"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Role Based AI Pathfinder</p>
+    </footer>
+
+    <div id="auth-modal" class="auth-modal" aria-hidden="true">
+        <div class="auth-modal-card" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+            <button id="auth-close-btn" class="auth-close-btn" type="button" aria-label="Close authentication dialog">x</button>
+            <p class="auth-kicker">AI Pathfinder Account</p>
+            <h3 id="auth-modal-title">Welcome Back</h3>
+            <p id="auth-modal-subtitle" class="auth-modal-subtitle">Log in to continue your learning journey.</p>
+
+            <div class="auth-mode-tabs">
+                <button id="auth-tab-login" type="button" class="active">Log In</button>
+                <button id="auth-tab-signup" type="button">Sign Up</button>
+            </div>
+
+            <form id="auth-form" class="auth-form">
+                <label for="auth-email">Email</label>
+                <input id="auth-email" type="email" placeholder="you@example.com" autocomplete="email" required>
+
+                <label for="auth-password">Password</label>
+                <input id="auth-password" type="password" placeholder="Enter password" autocomplete="current-password" required>
+
+                <button id="auth-submit-btn" type="submit">Log In</button>
+                <p id="auth-form-status" class="auth-form-status" aria-live="polite"></p>
+            </form>
+
+            <p class="auth-switch-row">
+                <span id="auth-switch-text">Don't have an account?</span>
+                <button id="auth-switch-btn" type="button">Sign Up</button>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
