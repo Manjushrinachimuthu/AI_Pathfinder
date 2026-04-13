@@ -1,5 +1,5 @@
-// API Base URL
-const API_BASE = 'http://localhost:5000/api';
+// API Base URL - use relative path for deployment
+const API_BASE = '/api';
 
 // Track current company context
 let currentCompany = null;
