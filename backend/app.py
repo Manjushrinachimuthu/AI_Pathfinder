@@ -3266,10 +3266,15 @@ def get_random_aptitude():
 
 @app.route("/api/tcs/aptitude/<topic>", methods=["GET"])
 def get_tcs_aptitude_questions(topic):
-    """Get TCS-specific aptitude questions by topic"""
-    if topic in tcs_aptitude_questions:
-        return jsonify(tcs_aptitude_questions[topic])
-    return jsonify({"error": "Topic not found"}), 404
+    """Get TCS-specific aptitude questions by topic, optionally filtered by difficulty."""
+    difficulty = request.args.get("difficulty", "").lower()
+    if topic not in tcs_aptitude_questions:
+        return jsonify({"error": "Topic not found"}), 404
+    if difficulty in ("easy", "medium", "hard"):
+        questions = build_tcs_level_questions(topic, difficulty)
+        if questions:
+            return jsonify(questions)
+    return jsonify(tcs_aptitude_questions[topic])
 
 
 @app.route("/api/tcs/aptitude/topics", methods=["GET"])

@@ -1,4 +1,31 @@
+# Environment secrets
+backend/.env
 .env
-.env.example
+
+# Python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Ruff cache
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# Kiro / Claude agent internals
+.claude/
+.kiro/
+
+# OS
+.DS_Store
+Thumbs.db

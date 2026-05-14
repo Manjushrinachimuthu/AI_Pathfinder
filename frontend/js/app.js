@@ -1,4 +1,4 @@
-// API Base URL - use relative path for deployment
+﻿// API Base URL - use relative path for deployment
 const API_BASE = '/api';
 
 // Track current company context
@@ -26,26 +26,10 @@ const careerToolsCatalog = [
     {
         key: 'resume',
         title: 'Resume Builder + Checker',
-        description: 'Build ATS-friendly resume content and get quality checks before applying.',
+        description: 'Build ATS-friendly resume content, check quality scores, and get actionable improvement tips.',
         statLabel: 'Resume readiness',
         scoreField: 'resumeScore',
         cta: 'Open Resume Tool'
-    },
-    {
-        key: 'cover-letter',
-        title: 'Cover Letter Generator',
-        description: 'Generate role-specific cover letters with measurable achievements.',
-        statLabel: 'Cover letter quality',
-        scoreField: 'coverLetterScore',
-        cta: 'Generate Cover Letter'
-    },
-    {
-        key: 'auto-apply',
-        title: 'Auto Job Apply',
-        description: 'Track auto-apply targets, preferred roles, and daily outreach progress.',
-        statLabel: 'Application automation',
-        scoreField: 'jobApplyScore',
-        cta: 'Configure Auto Apply'
     }
 ];
 let careerToolState = {
@@ -278,11 +262,11 @@ function renderCompanyExplorer() {
                         <h3>${item.name}</h3>
                         <p>${description}</p>
                         <div class="mnc-card-meta">
-                            <span>📚 ${item.tests}</span>
-                            <span>👥 ${item.learners}</span>
-                            <span>⭐ ${item.rating}</span>
+                            <span>ðŸ“š ${item.tests}</span>
+                            <span>ðŸ‘¥ ${item.learners}</span>
+                            <span>â­ ${item.rating}</span>
                         </div>
-                        <span class="mnc-card-cta">Start Learning →</span>
+                        <span class="mnc-card-cta">Start Learning â†’</span>
                     </div>
                 </button>
             `;
@@ -303,9 +287,9 @@ function renderCompanyExplorer() {
                     <h3>${item.name}</h3>
                     <p>${description}</p>
                     <div class="mnc-card-meta">
-                        <span>📚 ${item.tests}</span>
-                        <span>👥 ${item.learners}</span>
-                        <span>⭐ ${item.rating}</span>
+                        <span>ðŸ“š ${item.tests}</span>
+                        <span>ðŸ‘¥ ${item.learners}</span>
+                        <span>â­ ${item.rating}</span>
                     </div>
                     <span class="mnc-card-cta disabled">Coming Soon</span>
                 </div>
@@ -792,25 +776,468 @@ function updateSectionContext() {
     analysisButton.textContent = `Analyze ${roleName}`;
 }
 
+// â”€â”€ Glassmorphism Aptitude Topic Picker â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+const aptitudeTopicData = {
+    quantitative: {
+        label: 'Quantitative Aptitude',
+        icon: '∑',
+        color: '#4f8ef7',
+        topics: [
+            { id: 'percentages', title: 'Percentages', sub: 'Core · High Priority', apiKey: 'percentages' },
+            { id: 'profit_loss', title: 'Profit & Loss', sub: 'Core · High Priority', apiKey: 'profit_loss' },
+            { id: 'ratio_proportion', title: 'Ratio & Proportion', sub: 'Core · Medium', apiKey: 'ratio_proportion' },
+            { id: 'time_work', title: 'Time & Work', sub: 'Core · High Priority', apiKey: 'time_work' },
+            { id: 'speed_distance', title: 'Speed & Distance', sub: 'Core · High Priority', apiKey: 'time_speed_distance' },
+            { id: 'simple_compound_interest', title: 'Simple & Compound Interest', sub: 'Core · Medium', apiKey: 'simple_compound_interest' },
+            { id: 'averages', title: 'Averages', sub: 'Core · Medium', apiKey: 'averages' },
+            { id: 'mixtures_alligations', title: 'Mixtures & Alligations', sub: 'Advanced · Medium', apiKey: 'mixtures_alligations' },
+            { id: 'permutations_combinations', title: 'Permutations & Combinations', sub: 'Advanced · High Priority', apiKey: 'permutations_combinations' },
+            { id: 'probability', title: 'Probability', sub: 'Advanced · High Priority', apiKey: 'probability' },
+            { id: 'number_system', title: 'Number System', sub: 'Core · Medium', apiKey: 'number_system' },
+            { id: 'data_interpretation', title: 'Data Interpretation', sub: 'Applied · High Priority', apiKey: 'data_interpretation' },
+            { id: 'geometry_mensuration', title: 'Geometry & Mensuration', sub: 'Applied · Low', apiKey: 'geometry_mensuration' },
+        ]
+    },
+    logical: {
+        label: 'Logical Reasoning',
+        icon: '🧠',
+        color: '#5DCAA5',
+        topics: [
+            { id: 'coding_decoding', title: 'Coding & Decoding', sub: 'Pattern · High Priority', apiKey: 'coding_decoding' },
+            { id: 'blood_relations', title: 'Blood Relations', sub: 'Verbal · Medium', apiKey: 'blood_relations' },
+            { id: 'syllogism', title: 'Syllogism', sub: 'Deductive · High Priority', apiKey: 'syllogism' },
+            { id: 'direction_sense', title: 'Direction Sense', sub: 'Spatial · Medium', apiKey: 'direction_sense' },
+            { id: 'seating_arrangement', title: 'Seating Arrangement', sub: 'Puzzle · High Priority', apiKey: 'seating_arrangement' },
+            { id: 'puzzles', title: 'Puzzles', sub: 'Mixed · High Priority', apiKey: 'puzzles' },
+            { id: 'pattern_recognition', title: 'Pattern Recognition', sub: 'Visual · Medium', apiKey: 'pattern_recognition' },
+            { id: 'series', title: 'Series (Number & Alphabet)', sub: 'Pattern · High Priority', apiKey: 'series' },
+        ]
+    },
+    verbal: {
+        label: 'Verbal Ability',
+        icon: '📖',
+        color: '#f97316',
+        topics: [
+            { id: 'reading_comprehension', title: 'Reading Comprehension', sub: 'Core · High Priority', apiKey: 'reading_comprehension' },
+            { id: 'error_detection', title: 'Error Detection', sub: 'Grammar · Medium', apiKey: 'error_detection' },
+            { id: 'sentence_correction', title: 'Sentence Correction', sub: 'Grammar · Medium', apiKey: 'sentence_correction' },
+            { id: 'synonyms_antonyms', title: 'Synonyms & Antonyms', sub: 'Vocabulary · High Priority', apiKey: 'synonyms_antonyms' },
+            { id: 'para_jumbles', title: 'Para Jumbles', sub: 'Comprehension · Medium', apiKey: 'para_jumbles' },
+            { id: 'vocabulary', title: 'Vocabulary', sub: 'Core · High Priority', apiKey: 'vocabulary' },
+        ]
+    }
+};
+
+const aptitudeConceptNotes = {
+    percentages: {
+        formula: 'Percentage = (Part / Whole) × 100',
+        keyPoints: [
+            'To find X% of N: (X/100) × N',
+            'Percentage increase: [(New − Old) / Old] × 100',
+            'Percentage decrease: [(Old − New) / Old] × 100',
+            'If a value increases by X% then decreases by X%, net change = −(X²/100)%',
+            'To keep expenditure same after P% price rise, reduce consumption by P/(100+P) × 100%',
+        ],
+        tip: 'Always identify the base (denominator) carefully — most mistakes come from using the wrong base.'
+    },
+    profit_loss: {
+        formula: 'Profit% = (Profit / CP) × 100 | Loss% = (Loss / CP) × 100',
+        keyPoints: [
+            'SP = CP × (1 + Profit%/100) or CP × (1 − Loss%/100)',
+            'CP = SP / (1 + Profit%/100)',
+            'Marked Price with discount: SP = MP × (1 − Discount%/100)',
+            'Two successive discounts d1 and d2: Net discount = d1 + d2 − (d1×d2)/100',
+            'If SP of n items = CP of m items: Profit% = (m−n)/n × 100',
+        ],
+        tip: 'Always work with CP as the base for profit/loss percentage, not SP.'
+    },
+    ratio_proportion: {
+        formula: 'a:b = c:d ⟹ ad = bc (cross multiplication)',
+        keyPoints: [
+            'To combine A:B and B:C, make B equal in both ratios',
+            'Divide amount in ratio a:b:c → shares = Total × a/(a+b+c) etc.',
+            'Mean proportional of a and b = √(ab)',
+            'If ratio of speeds is a:b, ratio of time for same distance = b:a',
+            'Compound ratio of a:b and c:d = ac:bd',
+        ],
+        tip: 'When combining two ratios, always equalize the common term first.'
+    },
+    time_work: {
+        formula: '1-day work = 1/Total days | Combined rate = 1/A + 1/B',
+        keyPoints: [
+            'If A takes a days and B takes b days, together they finish in ab/(a+b) days',
+            'Work done = Rate × Time',
+            "If A is n times as efficient as B, A takes 1/n of B's time",
+            'Remaining work after partial completion = 1 − work done',
+            'Pipes: filling pipe adds rate, emptying pipe subtracts rate',
+        ],
+        tip: 'Convert everything to "work per day" fractions first, then add/subtract rates.'
+    },
+    speed_distance: {
+        formula: 'Speed = Distance / Time | Distance = Speed × Time',
+        keyPoints: [
+            'Convert km/h to m/s: multiply by 5/18',
+            'Average speed for equal distances = 2ab/(a+b)',
+            'Train crossing a pole: distance = length of train',
+            'Train crossing a platform: distance = length of train + length of platform',
+            'Relative speed (same direction) = |S1 − S2|; opposite = S1 + S2',
+        ],
+        tip: 'Always convert units consistently before calculating — mixing km/h and m/s is the most common error.'
+    },
+    simple_compound_interest: {
+        formula: 'SI = PRT/100 | CI = P(1 + R/100)ⁿ − P',
+        keyPoints: [
+            'Simple Interest grows linearly; Compound Interest grows exponentially',
+            'CI − SI for 2 years = P(R/100)²',
+            'Effective annual rate for CI compounded half-yearly: use R/2 and 2n',
+            'Rule of 72: years to double ≈ 72/R (for CI)',
+            'If money doubles in n years at SI: R = 100/n %',
+        ],
+        tip: 'For CI problems, always check the compounding frequency — annual, half-yearly, or quarterly changes the formula.'
+    },
+    averages: {
+        formula: 'Average = Sum of all values / Number of values',
+        keyPoints: [
+            'If one value is replaced: new sum = old sum − removed + added',
+            'Average of n consecutive integers starting from a = a + (n−1)/2',
+            'Weighted average = (w1×v1 + w2×v2) / (w1 + w2)',
+            'If average increases by x after adding a new value: new value = old average + x×(n+1)',
+            'Average of first n natural numbers = (n+1)/2',
+        ],
+        tip: 'Work with sums, not averages, when combining groups — convert average × count to get the sum.'
+    },
+    mixtures_alligations: {
+        formula: 'Alligation ratio = (Higher − Mean) : (Mean − Lower)',
+        keyPoints: [
+            'Alligation finds the ratio in which two ingredients must be mixed to get a desired mean value',
+            'After removing x litres from n litres and replacing with water k times: pure liquid = n × (1 − x/n)^k',
+            'Mean price must lie between the two ingredient prices',
+            'Works for prices, concentrations, speeds, or any measurable quantity',
+        ],
+        tip: 'Draw the alligation cross: put the two values on top, the mean in the middle, and cross-subtract diagonally.'
+    },
+    permutations_combinations: {
+        formula: 'P(n,r) = n!/(n−r)! | C(n,r) = n!/[r!(n−r)!]',
+        keyPoints: [
+            'Use Permutation when order matters; Combination when order does not',
+            'Circular permutation of n objects = (n−1)!',
+            'Number of ways to arrange n objects with p identical = n!/p!',
+            'C(n,r) = C(n, n−r) — choosing r is same as rejecting n−r',
+            'Total subsets of n elements = 2ⁿ',
+        ],
+        tip: 'Ask yourself: "Does the order of selection matter?" — Yes → Permutation, No → Combination.'
+    },
+    probability: {
+        formula: 'P(E) = Favourable outcomes / Total outcomes',
+        keyPoints: [
+            'P(A or B) = P(A) + P(B) − P(A and B)',
+            'P(A and B) = P(A) × P(B) for independent events',
+            'P(not A) = 1 − P(A)',
+            'Conditional probability: P(A|B) = P(A∩B) / P(B)',
+            'For a fair die: P(any face) = 1/6; for a coin: P(H) = P(T) = 1/2',
+        ],
+        tip: 'Always list or count total outcomes carefully before counting favourable ones.'
+    },
+    number_system: {
+        formula: 'LCM × HCF = Product of two numbers',
+        keyPoints: [
+            'Divisibility rules: 2 (last digit even), 3 (digit sum ÷3), 9 (digit sum ÷9), 11 (alternating sum)',
+            'Unit digit of powers follows a cycle: find n mod cycle-length',
+            'Number of factors of N = (a+1)(b+1)… where N = pᵃ × qᵇ…',
+            'Sum of factors = (p^(a+1)−1)/(p−1) × (q^(b+1)−1)/(q−1) …',
+            'Remainder theorem: (a×b) mod m = [(a mod m) × (b mod m)] mod m',
+        ],
+        tip: 'For unit digit problems, find the cycle length for that base (2→4, 3→4, 7→4, 9→2) then use remainder.'
+    },
+    data_interpretation: {
+        formula: '% change = (New − Old)/Old × 100 | Ratio = Part/Whole',
+        keyPoints: [
+            'Read the chart/table title and units carefully before calculating',
+            'For bar/line charts: read values precisely at the marked points',
+            'Pie chart: value = (angle/360) × total or (percentage/100) × total',
+            'Approximate when exact calculation is slow — eliminate wrong options first',
+            'Compare ratios by cross-multiplication to avoid decimal errors',
+        ],
+        tip: 'In exams, approximate first to eliminate 2-3 options, then calculate precisely for the remaining ones.'
+    },
+    geometry_mensuration: {
+        formula: 'Area of circle = πr² | Volume of cylinder = πr²h',
+        keyPoints: [
+            'Triangle area = ½ × base × height',
+            'Rectangle: Area = l×b, Perimeter = 2(l+b)',
+            'Circle: Area = πr², Circumference = 2πr',
+            'Cube: Volume = a³, Surface area = 6a²',
+            'Cylinder: Volume = πr²h, Curved SA = 2πrh',
+        ],
+        tip: 'Memorize the key formulas and always check whether the question asks for area, perimeter, or volume.'
+    },
+};
+
+let aptitudePickerState = {
+    activeTab: 'quantitative',
+    done: {},
+    xp: 180,
+    viewingTopic: null
+};
+
 function resetAptitudeView() {
     const aptitudeCategories = document.getElementById('aptitude-categories');
     const aptitudeContainer = document.getElementById('aptitude-container');
-
-    if (aptitudeCategories) {
-        aptitudeCategories.style.display = 'flex';
-    }
+    if (aptitudeCategories) aptitudeCategories.style.display = 'none';
     if (aptitudeContainer) {
-        const tcsShowcase = renderCompanyAptitudeShowcase('tcs');
-        aptitudeContainer.innerHTML = tcsShowcase
-            ? `
-                <div class="home-common-aptitude">
-                    <h3>Common Aptitude Topics</h3>
-                    <p class="subtitle">Practice the full TCS common aptitude set directly from the home Aptitude section.</p>
-                    ${tcsShowcase}
-                </div>
-            `
-            : '';
+        aptitudeContainer.innerHTML = '';
+        aptitudePickerState.viewingTopic = null;
+        renderAptitudePicker(aptitudeContainer);
     }
+}
+
+function renderAptitudePicker(container) {
+    if (!container) return;
+    container.innerHTML = `
+        <div class="apt-picker-shell">
+            <div class="apt-orb apt-orb-purple"></div>
+            <div class="apt-orb apt-orb-teal"></div>
+            <div class="apt-orb apt-orb-coral"></div>
+            <div class="apt-picker-header">
+                <div class="apt-picker-title-row">
+                    <h2 class="apt-picker-title">Learning Hub</h2>
+                    <div class="apt-picker-pills">
+                        <span class="apt-stat-pill" id="apt-topics-pill">Topics: 0 / ${Object.values(aptitudeTopicData).reduce((s,t)=>s+t.topics.length,0)}</span>
+                        <span class="apt-stat-pill" id="apt-xp-pill">XP: ${aptitudePickerState.xp}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="apt-tabs" id="apt-tabs">
+                ${Object.entries(aptitudeTopicData).map(([key, tab]) => `
+                    <button type="button" class="apt-tab ${key === aptitudePickerState.activeTab ? 'active' : ''}"
+                            onclick="switchAptTab('${key}')">
+                        <span class="apt-tab-icon">${tab.icon}</span>
+                        <span>${tab.label}</span>
+                    </button>
+                `).join('')}
+            </div>
+            <div class="apt-topic-grid" id="apt-topic-grid"></div>
+            <div class="apt-footer-bar" id="apt-footer-bar">
+                <div class="apt-footer-left">
+                    <div class="apt-progress-track">
+                        <div class="apt-progress-fill" id="apt-progress-fill"></div>
+                    </div>
+                    <span class="apt-progress-label" id="apt-progress-label"></span>
+                </div>
+                <button type="button" class="apt-practice-btn" onclick="aptPracticeSelected()">
+                    Practice Selected →
+                </button>
+            </div>
+        </div>
+    `;
+    renderAptTopicGrid();
+    updateAptPickerStats();
+}
+
+function renderAptTopicGrid() {
+    const grid = document.getElementById('apt-topic-grid');
+    if (!grid) return;
+    const tab = aptitudeTopicData[aptitudePickerState.activeTab];
+    if (!tab) return;
+    grid.innerHTML = tab.topics.map(topic => {
+        const isDone = Boolean(aptitudePickerState.done[topic.id]);
+        return `
+            <div class="apt-topic-card ${isDone ? 'done' : ''}" id="apt-card-${topic.id}">
+                <div class="apt-card-icon-wrap" style="color:${tab.color}">
+                    <span class="apt-card-icon">${tab.icon}</span>
+                </div>
+                <button type="button" class="apt-card-check ${isDone ? 'checked' : ''}"
+                        id="apt-check-${topic.id}"
+                        title="Mark as done"
+                        onclick="event.stopPropagation(); markAptTopicDone('${topic.id}')">
+                    ${isDone ? '✓' : ''}
+                </button>
+                <div class="apt-card-body" onclick="openAptTopicDetail('${aptitudePickerState.activeTab}', '${topic.id}')" style="cursor:pointer;">
+                    <span class="apt-card-title">${topic.title}</span>
+                    <span class="apt-card-sub">${topic.sub}</span>
+                    <span class="apt-card-learn-hint">Tap to learn &amp; practice →</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function switchAptTab(key) {
+    aptitudePickerState.activeTab = key;
+    aptitudePickerState.viewingTopic = null;
+    document.querySelectorAll('.apt-tab').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.querySelector(`.apt-tab[onclick="switchAptTab('${key}')"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+    renderAptTopicGrid();
+    updateAptPickerStats();
+}
+
+function markAptTopicDone(topicId) {
+    const wasDone = Boolean(aptitudePickerState.done[topicId]);
+    if (wasDone) {
+        delete aptitudePickerState.done[topicId];
+        aptitudePickerState.xp = Math.max(180, aptitudePickerState.xp - 10);
+    } else {
+        aptitudePickerState.done[topicId] = true;
+        aptitudePickerState.xp += 10;
+    }
+    const card = document.getElementById(`apt-card-${topicId}`);
+    const check = document.getElementById(`apt-check-${topicId}`);
+    if (card) card.classList.toggle('done', !wasDone);
+    if (check) {
+        check.classList.toggle('checked', !wasDone);
+        check.textContent = !wasDone ? '✓' : '';
+    }
+    updateAptPickerStats();
+}
+
+function toggleAptTopic(topicId) { markAptTopicDone(topicId); }
+
+function updateAptPickerStats() {
+    const totalTopics = Object.values(aptitudeTopicData).reduce((s, t) => s + t.topics.length, 0);
+    const doneCount = Object.keys(aptitudePickerState.done).length;
+    const topicsPill = document.getElementById('apt-topics-pill');
+    const xpPill = document.getElementById('apt-xp-pill');
+    if (topicsPill) topicsPill.textContent = `Topics: ${doneCount} / ${totalTopics}`;
+    if (xpPill) xpPill.textContent = `XP: ${aptitudePickerState.xp}`;
+    const tab = aptitudeTopicData[aptitudePickerState.activeTab];
+    if (!tab) return;
+    const tabDone = tab.topics.filter(t => aptitudePickerState.done[t.id]).length;
+    const tabTotal = tab.topics.length;
+    const pct = Math.round((tabDone / tabTotal) * 100);
+    const fill = document.getElementById('apt-progress-fill');
+    const label = document.getElementById('apt-progress-label');
+    if (fill) fill.style.width = `${pct}%`;
+    if (label) label.textContent = `${tab.label} — ${pct}% complete`;
+}
+
+function aptPracticeSelected() {
+    const tab = aptitudeTopicData[aptitudePickerState.activeTab];
+    if (!tab) return;
+    const categoryMap = { quantitative: 'quantitative', logical: 'logical', verbal: 'verbal' };
+    const category = categoryMap[aptitudePickerState.activeTab] || 'quantitative';
+    loadAptitude(category);
+}
+
+async function openAptTopicDetail(tabKey, topicId) {
+    const tab = aptitudeTopicData[tabKey];
+    if (!tab) return;
+    const topic = tab.topics.find(t => t.id === topicId);
+    if (!topic) return;
+    aptitudePickerState.viewingTopic = { tabKey, topicId };
+    const container = document.getElementById('aptitude-container');
+    if (!container) return;
+    const notes = aptitudeConceptNotes[topicId];
+    const isDone = Boolean(aptitudePickerState.done[topicId]);
+    container.innerHTML = `
+        <div class="apt-detail-shell">
+            <div class="apt-detail-topbar">
+                <button type="button" class="apt-back-btn" onclick="backToAptPicker()">← Back</button>
+                <div class="apt-detail-title-row">
+                    <span class="apt-detail-icon" style="color:${tab.color}">${tab.icon}</span>
+                    <h2 class="apt-detail-title">${topic.title}</h2>
+                    <span class="apt-detail-sub">${topic.sub}</span>
+                </div>
+                <button type="button" class="apt-done-toggle ${isDone ? 'done' : ''}" id="apt-done-toggle-btn"
+                        onclick="markAptTopicDone('${topicId}'); const b=document.getElementById('apt-done-toggle-btn'); b.classList.toggle('done'); b.textContent = b.classList.contains('done') ? '✓ Marked Done' : 'Mark as Done'">
+                    ${isDone ? '✓ Marked Done' : 'Mark as Done'}
+                </button>
+            </div>
+            ${notes ? `
+            <div class="apt-concept-card">
+                <h3 class="apt-concept-heading">📐 Key Formula</h3>
+                <div class="apt-formula-box">${notes.formula}</div>
+                <h3 class="apt-concept-heading" style="margin-top:1rem;">📌 Key Points</h3>
+                <ul class="apt-key-points">
+                    ${notes.keyPoints.map(p => `<li>${p}</li>`).join('')}
+                </ul>
+                <div class="apt-tip-box">💡 <strong>Exam Tip:</strong> ${notes.tip}</div>
+            </div>
+            ` : ''}
+            <div class="apt-practice-section">
+                <div class="apt-practice-header">
+                    <h3 class="apt-concept-heading">🎯 Practice Questions</h3>
+                    <div class="apt-difficulty-tabs">
+                        <button type="button" class="apt-diff-btn active" id="diff-easy" onclick="loadTopicQuestions('${topic.apiKey}', 'easy')">Easy</button>
+                        <button type="button" class="apt-diff-btn" id="diff-medium" onclick="loadTopicQuestions('${topic.apiKey}', 'medium')">Medium</button>
+                        <button type="button" class="apt-diff-btn" id="diff-hard" onclick="loadTopicQuestions('${topic.apiKey}', 'hard')">Hard</button>
+                    </div>
+                </div>
+                <div id="apt-questions-container" class="apt-questions-container">
+                    <p class="apt-loading">Loading questions…</p>
+                </div>
+            </div>
+        </div>
+    `;
+    loadTopicQuestions(topic.apiKey, 'easy');
+}
+
+function backToAptPicker() {
+    aptitudePickerState.viewingTopic = null;
+    const container = document.getElementById('aptitude-container');
+    if (container) {
+        container.innerHTML = '';
+        renderAptitudePicker(container);
+    }
+}
+
+async function loadTopicQuestions(apiKey, difficulty) {
+    ['easy','medium','hard'].forEach(d => {
+        const btn = document.getElementById(`diff-${d}`);
+        if (btn) btn.classList.toggle('active', d === difficulty);
+    });
+    const qContainer = document.getElementById('apt-questions-container');
+    if (!qContainer) return;
+    qContainer.innerHTML = '<p class="apt-loading">Loading questions…</p>';
+    try {
+        const res = await fetch(`${API_BASE}/tcs/aptitude/${apiKey}?difficulty=${difficulty}`);
+        if (!res.ok) throw new Error('not found');
+        const data = await res.json();
+        let questions = Array.isArray(data) ? data : (data[difficulty] || []);
+        if (!questions.length) {
+            qContainer.innerHTML = '<p class="apt-loading">No questions available for this level yet.</p>';
+            return;
+        }
+        renderTopicQuestions(questions, qContainer);
+    } catch (e) {
+        qContainer.innerHTML = '<p class="apt-loading">Could not load questions. Make sure the backend is running.</p>';
+    }
+}
+
+function renderTopicQuestions(questions, container) {
+    container.innerHTML = questions.map((q, idx) => `
+        <div class="apt-question-card" id="aptq-${idx}">
+            <div class="apt-question-num">Q${idx + 1}</div>
+            <p class="apt-question-text">${escapeHtml(String(q.question))}</p>
+            <div class="apt-options-grid">
+                ${(q.options || []).map(opt => `
+                    <button type="button" class="apt-option-btn"
+                            onclick="checkAptAnswer(${idx}, this, '${escapeJsString(String(opt))}', '${escapeJsString(String(q.answer))}', '${escapeJsString(String(q.explanation || ''))}')">
+                        ${escapeHtml(String(opt))}
+                    </button>
+                `).join('')}
+            </div>
+            <div class="apt-answer-reveal" id="apt-reveal-${idx}" style="display:none;"></div>
+        </div>
+    `).join('');
+}
+
+function checkAptAnswer(idx, clickedBtn, selected, correct, explanation) {
+    const reveal = document.getElementById(`apt-reveal-${idx}`);
+    const card = document.getElementById(`aptq-${idx}`);
+    if (!reveal || !card) return;
+    const isCorrect = selected === correct;
+    reveal.style.display = 'block';
+    reveal.innerHTML = isCorrect
+        ? `<span class="apt-correct">✅ Correct!</span>`
+        : `<span class="apt-wrong">❌ Wrong. Answer: <strong>${escapeHtml(correct)}</strong></span>${explanation ? `<p class="apt-explanation">${escapeHtml(explanation)}</p>` : ''}`;
+    card.querySelectorAll('.apt-option-btn').forEach(btn => {
+        const btnText = btn.textContent.trim();
+        if (btnText === correct) btn.classList.add('opt-correct');
+        else if (btnText === selected && !isCorrect) btn.classList.add('opt-wrong');
+        btn.disabled = true;
+    });
 }
 
 function showHomeAptitudeWithTcs() {
@@ -844,6 +1271,10 @@ function showSection(section) {
     document.getElementById('interview').style.display = 'none';
     document.getElementById('analysis').style.display = 'none';
     document.getElementById('profile').style.display = 'none';
+    const handsOnItEl = document.getElementById('hands-on-it');
+    if (handsOnItEl) handsOnItEl.style.display = 'none';
+    const systemDesignEl = document.getElementById('system-design');
+    if (systemDesignEl) systemDesignEl.style.display = 'none';
     
     // Show the requested section
     const sectionEl = document.getElementById(section);
@@ -875,7 +1306,27 @@ function showSection(section) {
         }
     } else if (section === 'profile') {
         renderUserProfileAnalytics();
+    } else if (section === 'hands-on-it') {
+        renderHandsOnIT();
+    } else if (section === 'system-design') {
+        renderSystemDesign();
     }
+}
+
+function showCodingModule() {
+    // Show the coding section and go straight to the coding concepts (languages),
+    // bypassing the Career Tools default that loadCodingQuestions() forces.
+    const sections = ['home', 'learning-hub', 'company-info', 'aptitude', 'mnc',
+        'mocktest', 'coding', 'interview', 'analysis', 'profile', 'hands-on-it', 'system-design'];
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'none';
+    });
+    const codingEl = document.getElementById('coding');
+    if (codingEl) codingEl.style.display = 'block';
+    setActiveNavLink('coding');
+    updateSectionContext();
+    loadCodingLanguages();
 }
 
 const companyRoadmaps = {
@@ -2257,7 +2708,7 @@ const tcsAptitudeTopicContent = {
             'Only trust what is definitely true from the statement',
             'Do not assume extra overlap unless it is stated'
         ],
-        tips: ['Separate “some” from “all” very carefully.', 'Reject conclusions based on possibility when the question asks for certainty.']
+        tips: ['Separate â€œsomeâ€ from â€œallâ€ very carefully.', 'Reject conclusions based on possibility when the question asks for certainty.']
     },
     direction_sense: {
         title: 'Direction Sense',
@@ -2321,7 +2772,7 @@ const tcsAptitudeTopicContent = {
     reading_comprehension: {
         title: 'Reading Comprehension',
         section: 'Verbal Ability',
-        overview: 'The goal is to understand the author’s central idea, tone, and direct meaning rather than rely on outside knowledge.',
+        overview: 'The goal is to understand the authorâ€™s central idea, tone, and direct meaning rather than rely on outside knowledge.',
         formulasTitle: 'Quick approach:',
         formulas: [
             'Read the questions once before the passage if time is short',
@@ -2571,7 +3022,7 @@ function buildTcsAptitudeTopicMarkup(topicKey, questions, topicLabel) {
     return `
         <div class="company-topic-detail">
             <div class="company-topic-hero">
-                <button class="back-btn" onclick="${backHandler}" style="margin-bottom: 16px;">← Back to Common Aptitude Topics</button>
+                <button class="back-btn" onclick="${backHandler}" style="margin-bottom: 16px;">â† Back to Common Aptitude Topics</button>
                 <span class="company-topic-section">${topicMeta.section}</span>
                 <h3>${topicMeta.title}</h3>
                 <p class="company-topic-overview">${topicMeta.overview}</p>
@@ -2703,22 +3154,22 @@ const companyData = {
         name: "Tata Consultancy Services (TCS)",
         content: `
             <div class="company-detail">
-                <h2>📅 Overview of TCS</h2>
+                <h2>ðŸ“… Overview of TCS</h2>
                 <ul>
                     <li><strong>Founded:</strong> 1968</li>
                     <li><strong>Founder:</strong> Faquir Chand Kohli (known as the father of the Indian IT industry)</li>
                     <li><strong>Headquarters:</strong> Mumbai, India</li>
                     <li><strong>CEO:</strong> K. Krithivasan</li>
-                    <li><strong>Employees:</strong> 600,000+ worldwide 🌍</li>
+                    <li><strong>Employees:</strong> 600,000+ worldwide ðŸŒ</li>
                 </ul>
                 <p>TCS is one of the largest IT employers in India.</p>
 
-                <h2>💻 What TCS Does</h2>
+                <h2>ðŸ’» What TCS Does</h2>
                 <p>TCS provides IT services, consulting, and business solutions to companies around the world.</p>
                 <p>Main services include:</p>
                 <ul>
                     <li>Software development</li>
-                    <li>Cloud computing ☁️</li>
+                    <li>Cloud computing â˜ï¸</li>
                     <li>Artificial Intelligence</li>
                     <li>Cybersecurity</li>
                     <li>Data analytics</li>
@@ -2728,7 +3179,7 @@ const companyData = {
                 </ul>
                 <p>Many global companies depend on TCS for their technology systems.</p>
 
-                <h2>🌎 Global Presence</h2>
+                <h2>ðŸŒŽ Global Presence</h2>
                 <p>TCS operates in 50+ countries and serves clients in industries like:</p>
                 <ul>
                     <li>Banking & Finance</li>
@@ -2746,7 +3197,7 @@ const companyData = {
                     <li>Australia</li>
                 </ul>
 
-                <h2>🏆 Achievements</h2>
+                <h2>ðŸ† Achievements</h2>
                 <ul>
                     <li>One of the most valuable IT companies in the world</li>
                     <li>Listed on the Bombay Stock Exchange (BSE) and National Stock Exchange of India (NSE)</li>
@@ -2754,17 +3205,17 @@ const companyData = {
                     <li>Known for strong employee training programs</li>
                 </ul>
 
-                <h2>👨‍💻 Why Many Students Prefer TCS</h2>
+                <h2>ðŸ‘¨â€ðŸ’» Why Many Students Prefer TCS</h2>
                 <p>Fresh graduates often try to join TCS because:</p>
                 <ul>
-                    <li>✅ Good training for freshers</li>
-                    <li>✅ Job stability</li>
-                    <li>✅ Global projects</li>
-                    <li>✅ Good work culture</li>
-                    <li>✅ Opportunity to work abroad 🌎</li>
+                    <li>âœ… Good training for freshers</li>
+                    <li>âœ… Job stability</li>
+                    <li>âœ… Global projects</li>
+                    <li>âœ… Good work culture</li>
+                    <li>âœ… Opportunity to work abroad ðŸŒŽ</li>
                 </ul>
 
-                <h2>🎓 TCS Hiring Programs</h2>
+                <h2>ðŸŽ“ TCS Hiring Programs</h2>
                 <p>TCS hires freshers through programs like:</p>
                 <ul>
                     <li>TCS National Qualifier Test (TCS NQT)</li>
@@ -2772,46 +3223,46 @@ const companyData = {
                     <li>TCS CodeVita coding contest</li>
                 </ul>
 
-                <h2>📊 Simple Company Structure</h2>
+                <h2>ðŸ“Š Simple Company Structure</h2>
                 <div class="structure">
                     <p>Tata Group</p>
-                    <p>│</p>
-                    <p>▼</p>
+                    <p>â”‚</p>
+                    <p>â–¼</p>
                     <p>Tata Consultancy Services (TCS)</p>
-                    <p>│</p>
-                    <p>├── IT Services</p>
-                    <p>├── Consulting</p>
-                    <p>├── Cloud & AI</p>
-                    <p>├── Cybersecurity</p>
-                    <p>└── Digital Solutions</p>
+                    <p>â”‚</p>
+                    <p>â”œâ”€â”€ IT Services</p>
+                    <p>â”œâ”€â”€ Consulting</p>
+                    <p>â”œâ”€â”€ Cloud & AI</p>
+                    <p>â”œâ”€â”€ Cybersecurity</p>
+                    <p>â””â”€â”€ Digital Solutions</p>
                 </div>
 
-                <h2>1️⃣ TCS Interview Process</h2>
+                <h2>1ï¸âƒ£ TCS Interview Process</h2>
                 <div class="flow-chart">
                     <p>Apply through TCS NextStep / Campus</p>
-                    <p>│</p>
-                    <p>▼</p>
+                    <p>â”‚</p>
+                    <p>â–¼</p>
                     <p>Online Aptitude Test</p>
                     <p>(Quantitative + Logical + Verbal)</p>
-                    <p>│</p>
-                    <p>▼</p>
+                    <p>â”‚</p>
+                    <p>â–¼</p>
                     <p>Programming Test</p>
                     <p>(Coding / Hands-on)</p>
-                    <p>│</p>
-                    <p>▼</p>
+                    <p>â”‚</p>
+                    <p>â–¼</p>
                     <p>Technical Interview</p>
                     <p>(Programming + Core CS Concepts)</p>
-                    <p>│</p>
-                    <p>▼</p>
+                    <p>â”‚</p>
+                    <p>â–¼</p>
                     <p>HR Interview</p>
                     <p>(Personality + Communication)</p>
-                    <p>│</p>
-                    <p>▼</p>
+                    <p>â”‚</p>
+                    <p>â–¼</p>
                     <p>Offer Letter</p>
                 </div>
                 <p><em>Some campuses may combine Technical + HR in one round.</em></p>
 
-                <h2>2️⃣ Common Aptitude Topics You Must Cover 🧠</h2>
+                <h2>2ï¸âƒ£ Common Aptitude Topics You Must Cover ðŸ§ </h2>
                 <h3>Quantitative Aptitude</h3>
                 <p>Focus on these important topics:</p>
                 <ul>
@@ -2829,7 +3280,7 @@ const companyData = {
                     <li>Data Interpretation</li>
                     <li>Geometry & Mensuration</li>
                 </ul>
-                <p>📌 Practice from platforms like IndiaBIX, PrepInsta</p>
+                <p>ðŸ“Œ Practice from platforms like IndiaBIX, PrepInsta</p>
 
                 <h3>Logical Reasoning</h3>
                 <p>Important topics:</p>
@@ -2854,7 +3305,7 @@ const companyData = {
                     <li>Vocabulary</li>
                 </ul>
 
-                <h2>3️⃣ Programming Languages You Should Cover 💻</h2>
+                <h2>3ï¸âƒ£ Programming Languages You Should Cover ðŸ’»</h2>
                 <p>You don't need to learn many languages, but you must be strong in at least one.</p>
                 <p>Recommended languages:</p>
                 <ul>
@@ -2879,7 +3330,7 @@ const companyData = {
                     <li>Basic Data Structures</li>
                 </ul>
 
-                <h2>4️⃣ Core Computer Science Concepts 📚</h2>
+                <h2>4ï¸âƒ£ Core Computer Science Concepts ðŸ“š</h2>
                 <p>Even if you are not from CS, prepare basic concepts.</p>
 
                 <h3>Data Structures</h3>
@@ -2917,7 +3368,7 @@ const companyData = {
                     <li>IP Address</li>
                 </ul>
 
-                <h2>5️⃣ Coding Questions Asked in TCS</h2>
+                <h2>5ï¸âƒ£ Coding Questions Asked in TCS</h2>
                 <p>Common coding problems:</p>
                 <ul>
                     <li>Reverse a string</li>
@@ -2937,7 +3388,7 @@ const companyData = {
                     <li>GeeksforGeeks</li>
                 </ul>
 
-                <h2>6️⃣ Technical Interview Questions (Common) 🎯</h2>
+                <h2>6ï¸âƒ£ Technical Interview Questions (Common) ðŸŽ¯</h2>
                 <p>Examples:</p>
                 <ul>
                     <li>Tell me about yourself</li>
@@ -2950,7 +3401,7 @@ const companyData = {
                 </ul>
                 <p><strong>Tip:</strong> Prepare your project very well.</p>
 
-                <h2>7️⃣ HR Interview Questions 💬</h2>
+                <h2>7ï¸âƒ£ HR Interview Questions ðŸ’¬</h2>
                 <p>Common HR questions:</p>
                 <ul>
                     <li>Why do you want to join TCS?</li>
@@ -2960,24 +3411,24 @@ const companyData = {
                     <li>Why should we hire you?</li>
                 </ul>
 
-                <h2>8️⃣ Important Tips to Crack TCS Interview ⭐</h2>
+                <h2>8ï¸âƒ£ Important Tips to Crack TCS Interview â­</h2>
                 <ul>
-                    <li>✔ Improve communication skills</li>
-                    <li>✔ Practice mock interviews</li>
-                    <li>✔ Be confident while speaking</li>
-                    <li>✔ Prepare resume properly</li>
-                    <li>✔ Know your final year project clearly</li>
-                    <li>✔ Practice coding daily</li>
-                    <li>✔ Revise basic CS concepts</li>
+                    <li>âœ” Improve communication skills</li>
+                    <li>âœ” Practice mock interviews</li>
+                    <li>âœ” Be confident while speaking</li>
+                    <li>âœ” Prepare resume properly</li>
+                    <li>âœ” Know your final year project clearly</li>
+                    <li>âœ” Practice coding daily</li>
+                    <li>âœ” Revise basic CS concepts</li>
                 </ul>
 
-                <h2>9️⃣ Extra Things That Help You Get Selected 🚀</h2>
+                <h2>9ï¸âƒ£ Extra Things That Help You Get Selected ðŸš€</h2>
                 <ul>
                     <li>Learn Object-Oriented Programming (OOP)</li>
                     <li>Learn basic SQL</li>
                     <li>Learn Git basics</li>
                     <li>Know software development lifecycle</li>
-                    <li>Build 2–3 small projects</li>
+                    <li>Build 2â€“3 small projects</li>
                 </ul>
                 <p>Example projects:</p>
                 <ul>
@@ -3008,7 +3459,7 @@ const companyData = {
                 </div>
 
                 <div class="practice-btn-container">
-                    <button class="practice-btn" onclick="showTcsAptitude()">🎯 Practice Common Aptitude Questions</button>
+                    <button class="practice-btn" onclick="showTcsAptitude()">ðŸŽ¯ Practice Common Aptitude Questions</button>
                 </div>
             </div>
         `
@@ -3424,7 +3875,7 @@ async function showCompanyAptitudeTopics(company) {
             <div class="topic-buttons">
                 ${topics.map(topic => `<button onclick="loadCompanyAptitude('${company}', '${topic.key}', '${topic.label.replace(/'/g, "\\'")}')">${topic.label}</button>`).join('')}
             </div>
-            <button class="back-btn" onclick="hideTcsAptitudeTopics()" style="margin-top: 20px;">← Back to ${companyName} Topics</button>
+            <button class="back-btn" onclick="hideTcsAptitudeTopics()" style="margin-top: 20px;">â† Back to ${companyName} Topics</button>
         `;
     } catch (error) {
         aptitudeContainer.innerHTML = '<p class="error">Unable to load aptitude topics right now.</p>';
@@ -3472,7 +3923,7 @@ function displayCompanyAptitudeQuestions(questions, topicLabel, company) {
     container.innerHTML = `
         <h3>${companyName} - ${normalizedLabel}</h3>
         <p class="subtitle">Practice the following ${companyName}-focused questions and check your answers instantly.</p>
-        <button class="back-btn" onclick="showCompanyAptitudeTopics('${company}')" style="margin-bottom: 20px;">← Back to ${companyName} Topics</button>
+        <button class="back-btn" onclick="showCompanyAptitudeTopics('${company}')" style="margin-bottom: 20px;">â† Back to ${companyName} Topics</button>
     `;
 
     questions.forEach(q => {
@@ -3499,9 +3950,9 @@ function checkCompanyAnswer(resultId, selected, correct, explanation) {
     }
 
     if (selected === correct) {
-        resultDiv.innerHTML = '<span class="correct">✅ Correct!</span>';
+        resultDiv.innerHTML = '<span class="correct">âœ… Correct!</span>';
     } else {
-        resultDiv.innerHTML = `<span class="incorrect">❌ Incorrect. Correct answer: ${correct}</span>`;
+        resultDiv.innerHTML = `<span class="incorrect">âŒ Incorrect. Correct answer: ${correct}</span>`;
         if (explanation) {
             resultDiv.innerHTML += `<div class="explanation"><strong>Explanation:</strong> ${explanation}</div>`;
         }
@@ -3572,9 +4023,9 @@ function displayAptitudeQuestions(questions) {
 function checkAnswer(questionId, selected, correct, explanation) {
     const resultDiv = document.getElementById(`result-${questionId}`);
     if (selected === correct) {
-        resultDiv.innerHTML = '<span class="correct">✅ Correct!</span>';
+        resultDiv.innerHTML = '<span class="correct">âœ… Correct!</span>';
     } else {
-        resultDiv.innerHTML = `<span class="incorrect">❌ Incorrect. Correct answer: ${correct}</span>`;
+        resultDiv.innerHTML = `<span class="incorrect">âŒ Incorrect. Correct answer: ${correct}</span>`;
         if (explanation) {
             resultDiv.innerHTML += `<div class="explanation"><strong>Explanation:</strong> ${explanation}</div>`;
         }
@@ -4317,6 +4768,107 @@ function getWeeklyUsageSeries(days = 7) {
     }));
 }
 
+function getWeeklyScoreSeries(days = 7) {
+    const buckets = [];
+    const scores = {};
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    for (let i = days - 1; i >= 0; i -= 1) {
+        const day = new Date(today);
+        day.setDate(today.getDate() - i);
+        const key = day.toISOString().slice(0, 10);
+        scores[key] = { total: 0, count: 0, mockTests: 0, interviews: 0 };
+        buckets.push({
+            key,
+            label: day.toLocaleDateString(undefined, { weekday: 'short' })
+        });
+    }
+
+    (userHistoryState.mncMockTests || []).forEach(entry => {
+        if (!entry || !entry.createdAt || entry.percentage === undefined) return;
+        const d = new Date(entry.createdAt);
+        if (Number.isNaN(d.getTime())) return;
+        const key = d.toISOString().slice(0, 10);
+        if (!Object.prototype.hasOwnProperty.call(scores, key)) return;
+        scores[key].total += Number(entry.percentage);
+        scores[key].count += 1;
+        scores[key].mockTests += 1;
+    });
+
+    (userHistoryState.aiInterviews || []).forEach(entry => {
+        if (!entry || !entry.createdAt || entry.readiness === undefined) return;
+        const d = new Date(entry.createdAt);
+        if (Number.isNaN(d.getTime())) return;
+        const key = d.toISOString().slice(0, 10);
+        if (!Object.prototype.hasOwnProperty.call(scores, key)) return;
+        scores[key].total += Number(entry.readiness);
+        scores[key].count += 1;
+        scores[key].interviews += 1;
+    });
+
+    return buckets.map(item => {
+        const dayData = scores[item.key];
+        const avgScore = dayData.count > 0 ? Math.round(dayData.total / dayData.count) : 0;
+        const meta = dayData.count > 0 
+            ? `${dayData.mockTests} test${dayData.mockTests !== 1 ? 's' : ''}, ${dayData.interviews} interview${dayData.interviews !== 1 ? 's' : ''}`
+            : 'No activity';
+        return {
+            label: item.label,
+            value: avgScore,
+            meta: meta,
+            hasData: dayData.count > 0
+        };
+    });
+}
+
+function getCareerPerformanceTrendSeries(limit = 10) {
+    const entries = [];
+    const tests = Array.isArray(userHistoryState.mncMockTests) ? userHistoryState.mncMockTests : [];
+    const rounds = Array.isArray(userHistoryState.aiInterviews) ? userHistoryState.aiInterviews : [];
+
+    tests.forEach((item, index) => {
+        const score = Number(item.percentage);
+        if (!Number.isFinite(score)) {
+            return;
+        }
+        const createdAt = item.createdAt || '';
+        entries.push({
+            value: Math.max(0, Math.min(100, Math.round(score))),
+            createdAt,
+            label: formatDateLabel(createdAt) || `Test ${index + 1}`,
+            meta: item.companyName ? `${item.companyName} Test` : 'Mock Test'
+        });
+    });
+
+    rounds.forEach((item, index) => {
+        const score = Number(item.readiness);
+        if (!Number.isFinite(score)) {
+            return;
+        }
+        const createdAt = item.createdAt || '';
+        entries.push({
+            value: Math.max(0, Math.min(100, Math.round(score))),
+            createdAt,
+            label: formatDateLabel(createdAt) || `Round ${index + 1}`,
+            meta: item.category ? `${item.category.toUpperCase()} Interview` : 'Interview'
+        });
+    });
+
+    return entries
+        .sort((a, b) => {
+            const timeA = new Date(a.createdAt).getTime();
+            const timeB = new Date(b.createdAt).getTime();
+            return (Number.isFinite(timeA) ? timeA : 0) - (Number.isFinite(timeB) ? timeB : 0);
+        })
+        .slice(-limit)
+        .map((entry, index) => ({
+            label: entry.label === '-' ? `Attempt ${index + 1}` : entry.label,
+            value: entry.value,
+            meta: entry.meta
+        }));
+}
+
 function renderProfileBarChart(items, options = {}) {
     const maxValue = options.maxValue || Math.max(1, ...items.map(item => item.value));
     const emptyText = options.emptyText || 'No data yet.';
@@ -4478,6 +5030,8 @@ function renderCareerToolsDashboard() {
     const testLevel = getUserTestLevelProfile();
     const mockAverage = getMockTestAverage();
     const interviewAverage = getInterviewReadinessAverage();
+    const trendSeries = getCareerPerformanceTrendSeries(8);
+    const weeklyScoreSeries = getWeeklyScoreSeries(7);
     const mncTestsCount = userHistoryState.mncMockTests.length;
     const interviewsCount = userHistoryState.aiInterviews.length;
     const { strongest, focus, recommendations } = buildCareerRecommendations();
@@ -4542,6 +5096,28 @@ function renderCareerToolsDashboard() {
                     <p>Primary focus area: <strong>${focus.label}</strong> (${focus.score}%). Raise this first to improve overall readiness faster.</p>
                 </article>
             </div>
+            <div class="career-performance-chart-card">
+                <div class="career-performance-chart-head">
+                    <h4>User Performance Graph</h4>
+                    <span>Last 8 test/interview attempts</span>
+                </div>
+                ${renderProfileBarChart(trendSeries, {
+                    maxValue: 100,
+                    emptyText: 'No performance attempts yet. Complete a mock test or interview to see your graph.',
+                    className: 'career-performance-chart'
+                })}
+            </div>
+            <div class="career-performance-chart-card">
+                <div class="career-performance-chart-head">
+                    <h4>Day-wise Score</h4>
+                    <span>Your scores by day this week</span>
+                </div>
+                ${renderProfileBarChart(weeklyScoreSeries, {
+                    maxValue: 100,
+                    emptyText: 'No scores yet this week. Take a mock test or interview to see your daily scores.',
+                    className: 'career-performance-chart day-wise-chart'
+                })}
+            </div>
             <div class="career-recommendations">
                 <h4>Personalized Next Actions</h4>
                 <ul>
@@ -4571,145 +5147,226 @@ function renderCareerToolsDashboard() {
 
 function renderCareerToolsHome() {
     const listDiv = document.getElementById('coding-list');
-    if (!listDiv) {
-        return;
-    }
-
+    if (!listDiv) return;
     listDiv.style.display = 'block';
-    listDiv.innerHTML = `
-        <div class="career-tools-shell">
-            <div class="career-tools-grid">
-                ${careerToolsCatalog.map((tool, index) => `
-                    <button
-                        type="button"
-                        class="career-tool-card career-tool-option"
-                        data-tool="${tool.key}"
-                        style="--enter-delay:${index * 140}ms;"
-                    >
-                        <div class="career-tool-card-top">
-                            <span class="career-tool-icon">${tool.key === 'resume' ? 'CV' : tool.key === 'cover-letter' ? 'CL' : 'AJ'}</span>
-                        </div>
-                        <div class="career-tool-card-body">
-                            <h3>${tool.title}</h3>
-                            <p>${tool.description}</p>
-                            <div class="career-tool-meta">
-                                <span>${tool.statLabel}</span>
-                                <strong>${careerToolState[tool.scoreField]}%</strong>
-                            </div>
-                            <span class="career-tool-cta">${tool.cta} &rarr;</span>
-                        </div>
-                    </button>
-                `).join('')}
-            </div>
-        </div>
-    `;
-
-    listDiv.querySelectorAll('.career-tool-option').forEach(card => {
-        card.addEventListener('click', function () {
-            const toolKey = this.getAttribute('data-tool');
-            if (toolKey) {
-                openCareerTool(toolKey);
-            }
-        });
-    });
+    listDiv.innerHTML = renderResumeTool();
+    setTimeout(initResumeLiveChecklist, 0);
 }
 
 function renderResumeTool() {
+    const score = careerToolState.resumeScore || 0;
+    const circumference = 314;
+    const offset = circumference - (score / 100) * circumference;
+    const scoreColor = score >= 80 ? '#1D9E75' : score >= 50 ? '#f59e0b' : '#ef4444';
     return `
-        <div class="career-tool-editor">
-            <button class="back-btn" type="button" onclick="closeCareerTool()">&larr; Back to Career Dashboard</button>
-            <h3>Resume Builder + Checker</h3>
-            <p>Fill your profile details and generate optimized summary points. You can also upload your resume and check score.</p>
-            <div class="career-form-grid">
-                <label>Upload Resume (.pdf, .docx, .txt, .md)
-                    <input id="resume-upload-file" type="file" accept=".pdf,.docx,.txt,.md,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain">
-                </label>
+        <div class="resume-tool-shell">
+            <!-- Header -->
+            <div class="resume-hero">
+                <div class="resume-hero-left">
+                    <span class="resume-eyebrow">âœ¦ Career Tools</span>
+                    <h2 class="resume-hero-title">Resume Builder <span class="resume-hero-amp">&</span> Checker</h2>
+                    <p class="resume-hero-sub">Build an ATS-ready resume from scratch, or upload yours for a deep analysis â€” keyword match, section scoring, and actionable fixes.</p>
+                </div>
+                <div class="resume-score-ring" id="resume-score-ring">
+                    <svg viewBox="0 0 120 120" class="resume-ring-svg">
+                        <circle cx="60" cy="60" r="50" class="resume-ring-bg"/>
+                        <circle cx="60" cy="60" r="50" class="resume-ring-fill" id="resume-ring-fill"
+                            stroke-dasharray="${circumference}"
+                            stroke-dashoffset="${offset}"
+                            stroke="${scoreColor}"/>
+                    </svg>
+                    <div class="resume-ring-label">
+                        <span id="resume-ring-score" style="color:${scoreColor}">${score}</span>
+                        <small>ATS Score</small>
+                    </div>
+                </div>
             </div>
-            <div class="career-form-grid">
-                <label>Target Role
-                    <input id="resume-target-role" type="text" placeholder="Frontend Developer">
-                </label>
-                <label>Top Skills (comma separated)
-                    <input id="resume-skills" type="text" placeholder="React, JavaScript, REST APIs">
-                </label>
-                <label>Project Highlight
-                    <textarea id="resume-project" rows="3" placeholder="Built a placement prep portal used by 300+ students."></textarea>
-                </label>
-                <label>Experience/Internship
-                    <textarea id="resume-experience" rows="3" placeholder="Interned at XYZ and improved page speed by 42%."></textarea>
-                </label>
-            </div>
-            <div class="career-tool-actions">
-                <button type="button" onclick="generateResumeDraft()">Generate Resume Draft</button>
-                <button type="button" class="secondary" onclick="checkResumeQuality()">Check Resume Score</button>
-                <button type="button" class="secondary" onclick="uploadResumeAndScore()">Upload & Score Resume</button>
-            </div>
-            <div id="career-tool-output" class="career-tool-output"></div>
-        </div>
-    `;
-}
 
-function renderCoverLetterTool() {
-    return `
-        <div class="career-tool-editor">
-            <button class="back-btn" type="button" onclick="closeCareerTool()">&larr; Back to Career Dashboard</button>
-            <h3>Cover Letter Generator</h3>
-            <p>Provide role and achievements to generate a personalized cover letter draft.</p>
-            <div class="career-form-grid">
-                <label>Company Name
-                    <input id="cover-company" type="text" placeholder="Infosys">
-                </label>
-                <label>Role Name
-                    <input id="cover-role" type="text" placeholder="Graduate Engineer Trainee">
-                </label>
-                <label>Key Achievements
-                    <textarea id="cover-achievements" rows="3" placeholder="Won smart India hackathon finalist spot and delivered 3 client-ready prototypes."></textarea>
-                </label>
-                <label>Tone
-                    <select id="cover-tone">
-                        <option value="professional">Professional</option>
-                        <option value="confident">Confident</option>
-                        <option value="warm">Warm</option>
-                    </select>
-                </label>
-            </div>
-            <div class="career-tool-actions">
-                <button type="button" onclick="generateCoverLetter()">Generate Cover Letter</button>
-            </div>
-            <div id="career-tool-output" class="career-tool-output"></div>
-        </div>
-    `;
-}
+            <!-- Score Breakdown Bar (shown after analysis) -->
+            <div id="resume-score-breakdown" class="resume-score-breakdown" style="display:none;"></div>
 
-function renderAutoApplyTool() {
-    return `
-        <div class="career-tool-editor">
-            <button class="back-btn" type="button" onclick="closeCareerTool()">&larr; Back to Career Dashboard</button>
-            <h3>Auto Job Apply</h3>
-            <p>Set your daily outreach settings and update applied count to keep momentum.</p>
-            <div class="career-form-grid">
-                <label>Daily Apply Target
-                    <input id="auto-apply-target" type="number" min="1" value="5">
-                </label>
-                <label>Preferred Job Keywords
-                    <input id="auto-apply-keywords" type="text" placeholder="Java, SQL, Freshers">
-                </label>
-                <label>Preferred Locations
-                    <input id="auto-apply-locations" type="text" placeholder="Bangalore, Pune, Hyderabad">
-                </label>
-                <label>Portal Sources
-                    <select id="auto-apply-source">
-                        <option value="naukri-linkedin">Naukri + LinkedIn</option>
-                        <option value="career-pages">Company Career Pages</option>
-                        <option value="all">All Sources</option>
-                    </select>
-                </label>
+            <!-- Tabs -->
+            <div class="resume-tabs">
+                <button type="button" class="resume-tab active" id="tab-build" onclick="switchResumeTab('build')">âœï¸ Build Resume</button>
+                <button type="button" class="resume-tab" id="tab-upload" onclick="switchResumeTab('upload')">ðŸ“¤ Upload & Analyze</button>
+                <button type="button" class="resume-tab" id="tab-tips" onclick="switchResumeTab('tips')">ðŸ’¡ ATS Tips</button>
             </div>
-            <div class="career-tool-actions">
-                <button type="button" onclick="runAutoApplySimulation()">Run Auto Apply</button>
-                <button type="button" class="secondary" onclick="markApplicationSent()">+1 Application Sent</button>
+
+            <!-- â”€â”€ BUILD TAB â”€â”€ -->
+            <div id="resume-tab-build" class="resume-tab-panel">
+                <div class="resume-two-col">
+                    <div class="resume-form-col">
+                        <div class="resume-form-section">
+                            <h4 class="resume-form-section-title">ðŸŽ¯ Target Info</h4>
+                            <div class="career-form-grid">
+                                <label>Target Role <span class="resume-required">*</span>
+                                    <input id="resume-target-role" type="text" placeholder="e.g. Frontend Developer, Data Analyst">
+                                </label>
+                                <label>Target Company / Industry
+                                    <input id="resume-target-company" type="text" placeholder="e.g. TCS, Infosys, Startup">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="resume-form-section">
+                            <h4 class="resume-form-section-title">ðŸ‘¤ Professional Summary</h4>
+                            <div class="career-form-grid">
+                                <label>Summary <span class="resume-required">*</span>
+                                    <textarea id="resume-summary" rows="3" placeholder="Motivated CS graduate with 1 year of internship experience in React and Node.js, seeking a frontend developer role at a product company."></textarea>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="resume-form-section">
+                            <h4 class="resume-form-section-title">ðŸ› ï¸ Skills</h4>
+                            <div class="career-form-grid">
+                                <label>Technical Skills <span class="resume-required">*</span>
+                                    <input id="resume-skills" type="text" placeholder="React, JavaScript, REST APIs, Git, SQL, Python">
+                                </label>
+                                <label>Soft Skills
+                                    <input id="resume-soft-skills" type="text" placeholder="Team collaboration, Problem solving, Communication">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="resume-form-section">
+                            <h4 class="resume-form-section-title">ðŸ’¼ Experience</h4>
+                            <div class="career-form-grid">
+                                <label>Internship / Work Experience
+                                    <textarea id="resume-experience" rows="3" placeholder="Interned at XYZ Corp (Junâ€“Aug 2024). Built REST APIs using Node.js, reducing response time by 35%. Collaborated with 4-member team."></textarea>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="resume-form-section">
+                            <h4 class="resume-form-section-title">ðŸš€ Projects</h4>
+                            <div class="career-form-grid">
+                                <label>Project 1 <span class="resume-required">*</span>
+                                    <textarea id="resume-project" rows="3" placeholder="AI Placement Portal â€” Built with React + Flask. Used by 300+ students. Reduced prep time by 40%."></textarea>
+                                </label>
+                                <label>Project 2 (optional)
+                                    <textarea id="resume-project2" rows="2" placeholder="E-commerce site with payment integration. 500+ orders processed."></textarea>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="resume-form-section">
+                            <h4 class="resume-form-section-title">ðŸŽ“ Education & Extras</h4>
+                            <div class="career-form-grid">
+                                <label>Education <span class="resume-required">*</span>
+                                    <input id="resume-education" type="text" placeholder="B.Tech CSE, XYZ University, 2024, CGPA 8.2">
+                                </label>
+                                <label>Certifications / Achievements
+                                    <input id="resume-certifications" type="text" placeholder="AWS Cloud Practitioner, Smart India Hackathon Finalist">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="resume-build-actions">
+                            <button type="button" class="resume-primary-btn" onclick="checkResumeQuality()">ðŸ” Analyze & Score</button>
+                            <button type="button" class="resume-secondary-btn" onclick="generateResumeDraft()">âœ¨ Generate Draft</button>
+                        </div>
+                    </div>
+
+                    <!-- Live checklist sidebar -->
+                    <div class="resume-sidebar">
+                        <div class="resume-sidebar-card">
+                            <h4 class="resume-sidebar-title">ðŸ“‹ Live Checklist</h4>
+                            <ul class="resume-live-checklist" id="resume-live-checklist">
+                                <li class="rcl-item" id="rcl-role">Target role filled</li>
+                                <li class="rcl-item" id="rcl-summary">Summary written</li>
+                                <li class="rcl-item" id="rcl-skills">3+ skills listed</li>
+                                <li class="rcl-item" id="rcl-experience">Experience added</li>
+                                <li class="rcl-item" id="rcl-project">Project with impact</li>
+                                <li class="rcl-item" id="rcl-education">Education filled</li>
+                                <li class="rcl-item" id="rcl-metrics">Metrics / numbers used</li>
+                                <li class="rcl-item" id="rcl-keywords">Role keywords present</li>
+                            </ul>
+                        </div>
+                        <div class="resume-sidebar-card resume-tips-mini">
+                            <h4 class="resume-sidebar-title">âš¡ Quick Tips</h4>
+                            <ul>
+                                <li>Use numbers: "reduced by 35%", "500+ users"</li>
+                                <li>Match keywords from the job description</li>
+                                <li>Keep to 1 page for freshers</li>
+                                <li>Use action verbs: Built, Designed, Led, Reduced</li>
+                                <li>Avoid photos, tables, and graphics for ATS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="career-tool-output" class="career-tool-output"></div>
+
+            <!-- â”€â”€ UPLOAD TAB â”€â”€ -->
+            <div id="resume-tab-upload" class="resume-tab-panel" style="display:none;">
+                <div class="resume-upload-area">
+                    <div class="resume-upload-zone" id="resume-upload-zone"
+                         ondragover="event.preventDefault(); this.classList.add('drag-over')"
+                         ondragleave="this.classList.remove('drag-over')"
+                         ondrop="handleResumeDrop(event)">
+                        <div class="resume-upload-icon">ðŸ“„</div>
+                        <p class="resume-upload-title">Drop your resume here or click to browse</p>
+                        <p class="resume-upload-sub">Supports .pdf, .docx, .txt, .md â€” Max 5MB</p>
+                        <input id="resume-upload-file" type="file" accept=".pdf,.docx,.txt,.md" class="resume-upload-input" onchange="handleResumeFileSelect(this)">
+                        <button type="button" class="resume-secondary-btn" onclick="document.getElementById('resume-upload-file').click()">Browse File</button>
+                    </div>
+                    <div id="resume-file-preview" class="resume-file-preview" style="display:none;"></div>
+                    <div class="resume-upload-options">
+                        <label class="resume-upload-role-label">Target Role (for keyword matching)
+                            <input id="resume-upload-role" type="text" placeholder="e.g. Backend Developer, Data Scientist">
+                        </label>
+                        <label class="resume-upload-role-label">Job Description (optional â€” paste for deep match)
+                            <textarea id="resume-jd-text" rows="4" placeholder="Paste the job description here for precise keyword gap analysis..."></textarea>
+                        </label>
+                    </div>
+                    <div class="resume-build-actions">
+                        <button type="button" class="resume-primary-btn" onclick="uploadResumeAndScore()">ðŸ” Deep Analyze Resume</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- â”€â”€ ATS TIPS TAB â”€â”€ -->
+            <div id="resume-tab-tips" class="resume-tab-panel" style="display:none;">
+                <div class="resume-tips-grid">
+                    <div class="resume-tip-card">
+                        <span class="resume-tip-icon">ðŸ¤–</span>
+                        <h4>How ATS Works</h4>
+                        <p>Applicant Tracking Systems parse your resume for keywords, section headers, and formatting. Plain text beats fancy layouts every time.</p>
+                    </div>
+                    <div class="resume-tip-card">
+                        <span class="resume-tip-icon">ðŸ”‘</span>
+                        <h4>Keyword Matching</h4>
+                        <p>Mirror exact phrases from the job description. If the JD says "REST API development", use that exact phrase â€” not just "APIs".</p>
+                    </div>
+                    <div class="resume-tip-card">
+                        <span class="resume-tip-icon">ðŸ“</span>
+                        <h4>Section Headers</h4>
+                        <p>Use standard headers: <strong>Experience, Education, Skills, Projects, Certifications</strong>. Avoid creative names like "My Journey" â€” ATS won't recognize them.</p>
+                    </div>
+                    <div class="resume-tip-card">
+                        <span class="resume-tip-icon">ðŸ“</span>
+                        <h4>Length & Format</h4>
+                        <p>1 page for freshers, 2 pages max for experienced. Use .docx or simple PDF. No tables, columns, headers/footers, or text boxes.</p>
+                    </div>
+                    <div class="resume-tip-card">
+                        <span class="resume-tip-icon">ðŸ“Š</span>
+                        <h4>Quantify Everything</h4>
+                        <p>Replace "improved performance" with "reduced load time by 40%". Numbers make your impact concrete and searchable.</p>
+                    </div>
+                    <div class="resume-tip-card">
+                        <span class="resume-tip-icon">âš¡</span>
+                        <h4>Action Verbs</h4>
+                        <p>Start every bullet with a strong verb: <em>Built, Designed, Optimized, Led, Reduced, Delivered, Automated, Integrated, Deployed</em>.</p>
+                    </div>
+                    <div class="resume-tip-card">
+                        <span class="resume-tip-icon">ðŸŽ¯</span>
+                        <h4>Tailor Per Role</h4>
+                        <p>A generic resume gets filtered out. Spend 10 minutes customizing the summary and skills section for each application.</p>
+                    </div>
+                    <div class="resume-tip-card">
+                        <span class="resume-tip-icon">ðŸ”—</span>
+                        <h4>Links & Contact</h4>
+                        <p>Include GitHub, LinkedIn, and portfolio links. Make sure your email is professional. Avoid nicknames or old college IDs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output panel -->
+            <div id="career-tool-output" class="career-tool-output resume-output-panel" style="display:none;"></div>
         </div>
     `;
 }
@@ -4717,28 +5374,91 @@ function renderAutoApplyTool() {
 function openCareerTool(toolKey) {
     careerToolState.activeTool = toolKey;
     saveCareerState();
-
     const listDiv = document.getElementById('coding-list');
-    if (!listDiv) {
-        return;
-    }
-
+    if (!listDiv) return;
     listDiv.style.display = 'block';
-    if (toolKey === 'resume') {
-        listDiv.innerHTML = renderResumeTool();
-        return;
-    }
-    if (toolKey === 'cover-letter') {
-        listDiv.innerHTML = renderCoverLetterTool();
-        return;
-    }
-    listDiv.innerHTML = renderAutoApplyTool();
+    listDiv.innerHTML = renderResumeTool();
+    initResumeLiveChecklist();
 }
 
 function closeCareerTool() {
     careerToolState.activeTool = null;
     saveCareerState();
     renderCareerToolsHome();
+}
+
+function initResumeLiveChecklist() {
+    const fields = [
+        { id: 'resume-target-role', rclId: 'rcl-role' },
+        { id: 'resume-summary', rclId: 'rcl-summary' },
+        { id: 'resume-skills', rclId: 'rcl-skills' },
+        { id: 'resume-experience', rclId: 'rcl-experience' },
+        { id: 'resume-project', rclId: 'rcl-project' },
+        { id: 'resume-education', rclId: 'rcl-education' },
+    ];
+    fields.forEach(({ id, rclId }) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', updateResumeLiveChecklist);
+    });
+}
+
+function updateResumeLiveChecklist() {
+    const role = document.getElementById('resume-target-role')?.value.trim() || '';
+    const summary = document.getElementById('resume-summary')?.value.trim() || '';
+    const skills = document.getElementById('resume-skills')?.value.trim() || '';
+    const experience = document.getElementById('resume-experience')?.value.trim() || '';
+    const project = document.getElementById('resume-project')?.value.trim() || '';
+    const education = document.getElementById('resume-education')?.value.trim() || '';
+    const allText = [role, summary, skills, experience, project, education].join(' ').toLowerCase();
+    const hasMetrics = /\d+\s*(%|users|students|orders|ms|seconds|days|hours|projects|clients|members|lines|commits|features|bugs|issues|requests|apis|endpoints)/.test(allText);
+    const actionVerbs = ['built','designed','developed','created','implemented','optimized','reduced','increased','led','managed','delivered','automated','integrated','deployed','improved','launched'];
+    const hasActionVerbs = actionVerbs.some(v => allText.includes(v));
+
+    const checks = {
+        'rcl-role': role.length >= 3,
+        'rcl-summary': summary.length >= 60,
+        'rcl-skills': skills.split(',').filter(Boolean).length >= 3,
+        'rcl-experience': experience.length >= 40,
+        'rcl-project': project.length >= 40,
+        'rcl-education': education.length >= 10,
+        'rcl-metrics': hasMetrics,
+        'rcl-keywords': hasActionVerbs,
+    };
+    Object.entries(checks).forEach(([id, ok]) => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.classList.toggle('rcl-done', ok);
+            el.classList.toggle('rcl-pending', !ok);
+        }
+    });
+}
+
+function updateResumeScoreRing(score) {
+    const fill = document.getElementById('resume-ring-fill');
+    const scoreEl = document.getElementById('resume-ring-score');
+    if (!fill || !scoreEl) return;
+    const circumference = 314;
+    const offset = circumference - (score / 100) * circumference;
+    const color = score >= 80 ? '#1D9E75' : score >= 50 ? '#f59e0b' : '#ef4444';
+    fill.style.strokeDashoffset = offset;
+    fill.setAttribute('stroke', color);
+    scoreEl.textContent = score;
+    scoreEl.style.color = color;
+}
+
+function handleResumeDrop(event) {
+    event.preventDefault();
+    const zone = document.getElementById('resume-upload-zone');
+    if (zone) zone.classList.remove('drag-over');
+    const file = event.dataTransfer?.files?.[0];
+    if (!file) return;
+    const input = document.getElementById('resume-upload-file');
+    if (input) {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        input.files = dt.files;
+        handleResumeFileSelect(input);
+    }
 }
 
 function setCareerOutput(markup) {
@@ -4781,36 +5501,97 @@ function generateResumeDraft() {
 function checkResumeQuality() {
     const uploadedFile = document.getElementById('resume-upload-file')?.files?.[0];
     const role = document.getElementById('resume-target-role')?.value.trim();
+    const summary = document.getElementById('resume-summary')?.value.trim();
     const skills = document.getElementById('resume-skills')?.value.trim();
     const project = document.getElementById('resume-project')?.value.trim();
     const experience = document.getElementById('resume-experience')?.value.trim();
+    const education = document.getElementById('resume-education')?.value.trim();
+    const certifications = document.getElementById('resume-certifications')?.value.trim();
     const hasTypedInputs = Boolean(role || skills || project || experience);
 
-    // If user selected a resume file but did not fill form fields,
-    // score the uploaded file directly instead of returning 0%.
     if (!hasTypedInputs && uploadedFile) {
         uploadResumeAndScore();
         return;
     }
 
-    const checklist = [
-        { label: 'Target role specified', ok: Boolean(role) },
-        { label: 'Skill keywords added', ok: Boolean(skills && skills.split(',').length >= 2) },
-        { label: 'Project outcome added', ok: Boolean(project && project.length >= 30) },
-        { label: 'Experience impact explained', ok: Boolean(experience && experience.length >= 30) }
+    const allText = [role, summary, skills, project, experience, education, certifications].join(' ').toLowerCase();
+    const hasMetrics = /\d+\s*(%|users|students|orders|ms|seconds|days|hours|projects|clients|members|lines|commits|features|bugs|issues|requests|apis|endpoints)/.test(allText);
+    const skillList = skills ? skills.split(',').map(s => s.trim()).filter(Boolean) : [];
+    const actionVerbs = ['built','designed','developed','created','implemented','optimized','reduced','increased','led','managed','delivered','automated','integrated','deployed','improved','launched','architected','engineered','collaborated','mentored'];
+    const hasActionVerbs = actionVerbs.some(v => allText.includes(v));
+    const roleKeywords = role ? role.toLowerCase().split(/\s+/) : [];
+    const keywordMatch = roleKeywords.length > 0 && roleKeywords.some(k => k.length > 3 && allText.includes(k));
+
+    const sections = [
+        { label: 'Target Role', weight: 10, ok: Boolean(role && role.length >= 3), tip: 'Add a specific target role to help ATS match your profile.' },
+        { label: 'Professional Summary', weight: 15, ok: Boolean(summary && summary.length >= 60), tip: 'Write at least 2 sentences covering your background, skills, and goal.' },
+        { label: 'Technical Skills (3+)', weight: 15, ok: skillList.length >= 3, tip: 'List at least 3 technical skills separated by commas.' },
+        { label: 'Work / Internship Experience', weight: 20, ok: Boolean(experience && experience.length >= 40), tip: 'Describe your role, company, and what you achieved.' },
+        { label: 'Project with Impact', weight: 15, ok: Boolean(project && project.length >= 40), tip: 'Describe what you built and the outcome (users, performance, etc.).' },
+        { label: 'Education', weight: 10, ok: Boolean(education && education.length >= 10), tip: 'Add your degree, university, year, and CGPA.' },
+        { label: 'Quantified Metrics', weight: 10, ok: hasMetrics, tip: 'Add numbers: "reduced by 35%", "500+ users", "3 projects delivered".' },
+        { label: 'Action Verbs Used', weight: 5, ok: hasActionVerbs, tip: 'Start bullets with verbs like Built, Designed, Reduced, Led, Delivered.' },
     ];
-    const passed = checklist.filter(item => item.ok).length;
-    careerToolState.resumeScore = Math.round((passed / checklist.length) * 100);
+
+    const totalWeight = sections.reduce((s, c) => s + c.weight, 0);
+    const earnedWeight = sections.filter(s => s.ok).reduce((s, c) => s + c.weight, 0);
+    const score = Math.round((earnedWeight / totalWeight) * 100);
+
+    careerToolState.resumeScore = score;
     completeCareerTask();
     saveCareerState();
+    updateResumeScoreRing(score);
 
-    setCareerOutput(`
-        <h4>Resume Checker</h4>
-        <ul>
-            ${checklist.map(item => `<li>${item.ok ? '&#10004;' : '&#10006;'} ${item.label}</li>`).join('')}
-        </ul>
-        <p class="career-score-line">Resume quality score: <strong>${careerToolState.resumeScore}%</strong></p>
-    `);
+    const passed = sections.filter(s => s.ok).length;
+    const failed = sections.filter(s => !s.ok);
+    const grade = score >= 85 ? { label: 'Excellent', color: '#1D9E75' } : score >= 65 ? { label: 'Good', color: '#f59e0b' } : score >= 40 ? { label: 'Needs Work', color: '#f97316' } : { label: 'Weak', color: '#ef4444' };
+
+    const output = document.getElementById('career-tool-output');
+    if (!output) return;
+    output.style.display = 'block';
+    output.innerHTML = `
+        <div class="resume-result-shell">
+            <div class="resume-result-header">
+                <div>
+                    <h3 class="resume-result-title">Resume Analysis Report</h3>
+                    <p class="resume-result-sub">${passed} of ${sections.length} checks passed</p>
+                </div>
+                <span class="resume-grade-badge" style="background:${grade.color}22; color:${grade.color}; border-color:${grade.color}44;">${grade.label}</span>
+            </div>
+
+            <div class="resume-section-scores">
+                ${sections.map(s => `
+                    <div class="resume-section-row ${s.ok ? 'pass' : 'fail'}">
+                        <span class="rsr-icon">${s.ok ? 'âœ…' : 'âŒ'}</span>
+                        <div class="rsr-body">
+                            <span class="rsr-label">${s.label}</span>
+                            ${!s.ok ? `<span class="rsr-tip">${s.tip}</span>` : ''}
+                        </div>
+                        <span class="rsr-weight">${s.weight}pts</span>
+                    </div>
+                `).join('')}
+            </div>
+
+            ${failed.length > 0 ? `
+            <div class="resume-fixes-block">
+                <h4>ðŸ”§ Priority Fixes</h4>
+                <ol class="resume-fixes-list">
+                    ${failed.slice(0, 4).map(s => `<li><strong>${s.label}:</strong> ${s.tip}</li>`).join('')}
+                </ol>
+            </div>` : ''}
+
+            ${keywordMatch ? '' : role ? `
+            <div class="resume-keyword-alert">
+                âš ï¸ <strong>Keyword gap:</strong> Your resume doesn't clearly reflect the role "<em>${escapeHtml(role)}</em>". Add role-specific terms in your summary and skills.
+            </div>` : ''}
+
+            <div class="resume-result-footer">
+                <button type="button" class="resume-primary-btn" onclick="generateResumeDraft()">âœ¨ Generate Improved Draft</button>
+                <button type="button" class="resume-secondary-btn" onclick="switchResumeTab('tips')">ðŸ’¡ View ATS Tips</button>
+            </div>
+        </div>
+    `;
+    output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 async function uploadResumeAndScore() {
@@ -5015,7 +5796,7 @@ async function showCodingLanguageTopics(languageKey) {
 
         listDiv.innerHTML = `
             <div class="coding-concepts-shell">
-                <button class="back-btn" type="button" onclick="loadCodingLanguages()">← Back to Languages</button>
+                <button class="back-btn" type="button" onclick="loadCodingLanguages()">â† Back to Languages</button>
                 <div class="coding-concepts-hero">
                     <span class="coding-concepts-eyebrow">${payload.language.name}</span>
                     <h3>${payload.language.name} Topic Roadmap</h3>
@@ -5143,7 +5924,7 @@ async function showCodingTopicDetail(languageKey, topicKey, openPractice = false
 
         listDiv.innerHTML = `
             <div class="coding-concepts-shell">
-                <button class="back-btn" type="button" onclick="showCodingLanguageTopics('${languageKey}')">← Back to ${payload.language.name} Topics</button>
+                <button class="back-btn" type="button" onclick="showCodingLanguageTopics('${languageKey}')">â† Back to ${payload.language.name} Topics</button>
                 <div class="company-topic-hero coding-topic-hero">
                     <span class="company-topic-section">${payload.language.name}</span>
                     <h3>${payload.topic.title}</h3>
@@ -5305,7 +6086,7 @@ function showCodingDetail(question) {
     detailDiv.style.display = 'block';
     
     detailDiv.innerHTML = `
-        <button onclick="hideCodingDetail()">← Back to List</button>
+        <button onclick="hideCodingDetail()">â† Back to List</button>
         <h3>${question.title}</h3>
         <span class="difficulty ${question.difficulty.toLowerCase()}">${question.difficulty}</span>
         <p><strong>Description:</strong> ${question.description}</p>
@@ -5414,14 +6195,14 @@ async function runTestCases(questionId) {
         if (result.success) {
             resultsDiv.innerHTML = `
                 <div class="test-success">
-                    <h4>✅ All Tests Passed!</h4>
+                    <h4>âœ… All Tests Passed!</h4>
                     <p>${result.message}</p>
                 </div>
             `;
         } else {
             resultsDiv.innerHTML = `
                 <div class="test-failure">
-                    <h4>❌ Some Tests Failed</h4>
+                    <h4>âŒ Some Tests Failed</h4>
                     <p>${result.message}</p>
                     <div class="failed-tests">
                         ${result.failed_tests ? result.failed_tests.map(test => `
@@ -5464,14 +6245,14 @@ async function submitCode(questionId) {
         if (result.success) {
             resultsDiv.innerHTML = `
                 <div class="test-success">
-                    <h4>🎉 Congratulations!</h4>
+                    <h4>ðŸŽ‰ Congratulations!</h4>
                     <p>${result.message}</p>
                 </div>
             `;
         } else {
             resultsDiv.innerHTML = `
                 <div class="test-failure">
-                    <h4>❌ Submission Failed</h4>
+                    <h4>âŒ Submission Failed</h4>
                     <p>${result.message}</p>
                 </div>
             `;
@@ -5837,6 +6618,299 @@ async function analyzeTcsPerformance() {
     } catch (error) {
         resultDiv.innerHTML = '<p class="error">Unable to analyze now. Please try again.</p>';
         console.error('Error analyzing TCS performance:', error);
+    }
+}
+
+// â”€â”€ Hands-on IT Module â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+const handsOnITTopics = [
+    {
+        key: 'linux',
+        title: 'Linux Fundamentals',
+        icon: 'ðŸ§',
+        level: 'Beginner',
+        description: 'File system navigation, permissions, processes, and shell scripting basics.',
+        subtopics: [
+            { name: 'File System & Navigation', detail: 'Understand the Linux directory tree (/etc, /var, /home, /usr). Master commands: ls, cd, pwd, find, locate. Learn absolute vs relative paths.' },
+            { name: 'File Permissions & Ownership', detail: 'Read/write/execute bits for user, group, others. chmod (symbolic & octal), chown, chgrp. Special bits: setuid, setgid, sticky bit.' },
+            { name: 'Process Management', detail: 'ps, top, htop, kill, pkill, nice, renice. Foreground vs background jobs. Signals: SIGTERM, SIGKILL, SIGHUP. systemd service management.' },
+            { name: 'Shell Scripting', detail: 'Bash variables, conditionals (if/elif/else), loops (for/while), functions. Input/output redirection, pipes. Cron jobs for scheduling.' },
+            { name: 'Package Management', detail: 'apt (Debian/Ubuntu): apt install, apt update, apt upgrade. yum/dnf (RHEL/CentOS). Checking installed packages, removing, and holding versions.' }
+        ]
+    },
+    {
+        key: 'networking',
+        title: 'Networking Basics',
+        icon: 'ðŸŒ',
+        level: 'Beginner',
+        description: 'TCP/IP model, DNS, HTTP, subnetting, and common network tools.',
+        subtopics: [
+            { name: 'OSI & TCP/IP Models', detail: 'Seven OSI layers vs four TCP/IP layers. Role of each layer: Physical, Data Link, Network, Transport, Session, Presentation, Application. Common protocols per layer.' },
+            { name: 'IP Addressing & Subnetting', detail: 'IPv4 classes, CIDR notation. Subnet mask calculation. Private vs public IP ranges (RFC 1918). IPv6 basics and address format.' },
+            { name: 'DNS & HTTP/HTTPS', detail: 'DNS resolution flow: recursive resolver, root, TLD, authoritative. A, CNAME, MX, TXT records. HTTP methods (GET, POST, PUT, DELETE). Status codes (2xx, 3xx, 4xx, 5xx). TLS handshake overview.' },
+            { name: 'Network Tools', detail: 'ping, traceroute/tracert, nslookup, dig, netstat, ss, curl, wget. Reading network interface info with ip addr and ifconfig.' },
+            { name: 'Firewalls & Ports', detail: 'Common ports: 22 (SSH), 80 (HTTP), 443 (HTTPS), 3306 (MySQL), 5432 (PostgreSQL). iptables basics. UFW (Uncomplicated Firewall) rules.' }
+        ]
+    },
+    {
+        key: 'cloud',
+        title: 'Cloud Fundamentals',
+        icon: 'â˜ï¸',
+        level: 'Beginner',
+        description: 'IaaS/PaaS/SaaS models, core AWS/Azure/GCP services, and deployment basics.',
+        subtopics: [
+            { name: 'Cloud Service Models', detail: 'IaaS (you manage OS up), PaaS (you manage app up), SaaS (fully managed). Shared responsibility model. On-premises vs cloud trade-offs.' },
+            { name: 'Core Compute Services', detail: 'AWS EC2, Azure VMs, GCP Compute Engine. Instance types and sizing. Auto Scaling groups. Serverless: AWS Lambda, Azure Functions, GCP Cloud Functions.' },
+            { name: 'Storage Services', detail: 'Object storage: S3, Azure Blob, GCS. Block storage: EBS, Azure Disk. File storage: EFS, Azure Files. Storage classes and lifecycle policies.' },
+            { name: 'Networking in Cloud', detail: 'VPC (Virtual Private Cloud), subnets, route tables, internet gateways. Security groups vs NACLs. Load balancers: ALB, NLB. CDN: CloudFront, Azure CDN.' },
+            { name: 'IAM & Security', detail: 'Users, groups, roles, policies. Principle of least privilege. MFA enforcement. Service accounts. Key management (KMS, Key Vault).' }
+        ]
+    },
+    {
+        key: 'docker',
+        title: 'Docker & Containers',
+        icon: 'ðŸ³',
+        level: 'Intermediate',
+        description: 'Container concepts, Dockerfile authoring, image management, and Docker Compose.',
+        subtopics: [
+            { name: 'Container Concepts', detail: 'Containers vs VMs: shared kernel, namespaces, cgroups. Images vs containers. Layers and the union file system. Why containers improve consistency.' },
+            { name: 'Dockerfile Basics', detail: 'FROM, RUN, COPY, ADD, WORKDIR, EXPOSE, CMD, ENTRYPOINT. Multi-stage builds to reduce image size. .dockerignore file.' },
+            { name: 'Image Management', detail: 'docker build, docker pull, docker push. Tagging conventions. Docker Hub and private registries (ECR, ACR, GCR). Image scanning for vulnerabilities.' },
+            { name: 'Running Containers', detail: 'docker run flags: -d, -p, -v, --env, --name, --rm. Inspecting with docker logs, docker exec, docker inspect. Stopping and removing containers.' },
+            { name: 'Docker Compose', detail: 'docker-compose.yml structure: services, volumes, networks. Defining multi-container apps. docker compose up/down/logs. Environment variable files.' }
+        ]
+    },
+    {
+        key: 'git',
+        title: 'Git & Version Control',
+        icon: 'ðŸ”€',
+        level: 'Beginner',
+        description: 'Core Git workflow, branching strategies, and collaboration with remote repos.',
+        subtopics: [
+            { name: 'Core Git Workflow', detail: 'git init, git clone. Staging area: git add, git status. Committing: git commit -m. Viewing history: git log, git diff. Undoing: git restore, git reset.' },
+            { name: 'Branching & Merging', detail: 'git branch, git checkout -b, git switch. Merging: fast-forward vs three-way merge. Resolving merge conflicts. git rebase vs merge trade-offs.' },
+            { name: 'Remote Repositories', detail: 'git remote add, git fetch, git pull, git push. Tracking branches. Forking workflow. Pull requests / merge requests.' },
+            { name: 'Branching Strategies', detail: 'Git Flow: main, develop, feature, release, hotfix branches. Trunk-based development. Feature flags. Semantic versioning and tagging.' },
+            { name: 'Advanced Git', detail: 'git stash, git cherry-pick, git bisect. Interactive rebase (git rebase -i). .gitignore patterns. Signing commits with GPG.' }
+        ]
+    },
+    {
+        key: 'databases',
+        title: 'Databases',
+        icon: 'ðŸ—„ï¸',
+        level: 'Beginner',
+        description: 'SQL fundamentals, NoSQL concepts, indexing, and basic query optimization.',
+        subtopics: [
+            { name: 'SQL Fundamentals', detail: 'SELECT, INSERT, UPDATE, DELETE. WHERE, ORDER BY, GROUP BY, HAVING. JOINs: INNER, LEFT, RIGHT, FULL OUTER. Subqueries and CTEs.' },
+            { name: 'Schema Design', detail: 'Tables, primary keys, foreign keys, constraints (NOT NULL, UNIQUE, CHECK). Normalization: 1NF, 2NF, 3NF. ER diagrams.' },
+            { name: 'Indexing & Performance', detail: 'B-tree indexes, composite indexes. EXPLAIN / EXPLAIN ANALYZE. Covering indexes. When indexes hurt (write-heavy tables). Query plan reading.' },
+            { name: 'NoSQL Concepts', detail: 'Document stores (MongoDB), key-value (Redis), column-family (Cassandra), graph (Neo4j). CAP theorem. When to choose NoSQL over SQL.' },
+            { name: 'Transactions & ACID', detail: 'Atomicity, Consistency, Isolation, Durability. Isolation levels: READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE. Deadlocks and how to avoid them.' }
+        ]
+    }
+];
+
+function renderHandsOnIT() {
+    const container = document.getElementById('hands-on-it-content');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="module-learn-shell">
+            <div class="module-topic-grid">
+                ${handsOnITTopics.map(topic => `
+                    <div class="module-topic-card" id="hit-card-${topic.key}">
+                        <div class="module-topic-header">
+                            <span class="module-topic-icon">${topic.icon}</span>
+                            <div>
+                                <h3>${topic.title}</h3>
+                                <span class="hub-tag ${topic.level === 'Beginner' ? 'level-beginner' : 'level-intermediate'}">${topic.level}</span>
+                            </div>
+                        </div>
+                        <p class="module-topic-desc">${topic.description}</p>
+                        <button type="button" class="module-expand-btn" onclick="toggleModuleTopic('hit', '${topic.key}')">
+                            Explore Topics â†’
+                        </button>
+                        <div class="module-subtopics" id="hit-subtopics-${topic.key}" style="display:none;">
+                            ${topic.subtopics.map((sub, i) => `
+                                <div class="module-subtopic-item">
+                                    <button type="button" class="module-subtopic-btn" onclick="toggleSubtopicDetail('hit-${topic.key}', ${i})">
+                                        <span>${sub.name}</span>
+                                        <span class="module-subtopic-arrow">â–¸</span>
+                                    </button>
+                                    <div class="module-subtopic-detail" id="hit-${topic.key}-detail-${i}" style="display:none;">
+                                        <p>${sub.detail}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+// â”€â”€ System Design Module â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+const systemDesignTopics = [
+    {
+        key: 'fundamentals',
+        title: 'Design Fundamentals',
+        icon: 'ðŸ—ï¸',
+        level: 'Beginner',
+        description: 'Scalability, availability, reliability, and the core trade-offs in system design.',
+        subtopics: [
+            { name: 'Scalability', detail: 'Vertical scaling (bigger machine) vs horizontal scaling (more machines). Stateless vs stateful services. Sharding data. Auto-scaling policies. Bottleneck identification.' },
+            { name: 'Availability & Reliability', detail: 'Uptime SLAs (99.9% = 8.7h downtime/year, 99.99% = 52min). Redundancy and replication. MTTR vs MTBF. Health checks and circuit breakers.' },
+            { name: 'CAP Theorem', detail: 'Consistency, Availability, Partition Tolerance â€” pick two. CP systems (HBase, Zookeeper). AP systems (Cassandra, DynamoDB). CA systems (single-node RDBMS). PACELC extension.' },
+            { name: 'Latency vs Throughput', detail: 'Latency: time for one request. Throughput: requests per second. Little\'s Law: L = Î»W. Tail latency (p99, p999). Optimizing for the common case.' },
+            { name: 'Back-of-Envelope Estimation', detail: 'Powers of 2 and latency numbers. Estimating QPS, storage, bandwidth. Example: design Twitter â€” 300M users, 100M tweets/day, 1KB/tweet = ~100GB/day storage.' }
+        ]
+    },
+    {
+        key: 'load-balancing',
+        title: 'Load Balancing & Proxies',
+        icon: 'âš–ï¸',
+        level: 'Beginner',
+        description: 'Distributing traffic, reverse proxies, and health-check strategies.',
+        subtopics: [
+            { name: 'Load Balancing Algorithms', detail: 'Round robin, weighted round robin, least connections, IP hash, random. Sticky sessions (session affinity). Layer 4 vs Layer 7 load balancing.' },
+            { name: 'Reverse Proxy', detail: 'Nginx, HAProxy, AWS ALB. SSL termination at the proxy. Request routing by path or host. Rate limiting and DDoS protection at the edge.' },
+            { name: 'Health Checks', detail: 'Active (probe endpoint) vs passive (monitor traffic errors). Graceful degradation when a node fails. Removing unhealthy nodes from rotation. Warm-up period for new nodes.' },
+            { name: 'Global Load Balancing', detail: 'GeoDNS routing users to nearest data center. Anycast routing. AWS Route 53 latency-based routing. Failover policies.' },
+            { name: 'Service Mesh', detail: 'Sidecar proxy pattern (Envoy, Linkerd). mTLS between services. Observability: distributed tracing, metrics. Traffic management: canary, blue-green.' }
+        ]
+    },
+    {
+        key: 'caching',
+        title: 'Caching Strategies',
+        icon: 'âš¡',
+        level: 'Intermediate',
+        description: 'Cache placement, eviction policies, invalidation, and distributed caching.',
+        subtopics: [
+            { name: 'Cache Placement', detail: 'Client-side, CDN, reverse proxy, application-level, database query cache. Read-through, write-through, write-behind, cache-aside (lazy loading) patterns.' },
+            { name: 'Eviction Policies', detail: 'LRU (Least Recently Used), LFU (Least Frequently Used), FIFO, TTL-based expiry. Redis maxmemory-policy options. Choosing the right policy for your access pattern.' },
+            { name: 'Cache Invalidation', detail: 'The hardest problem in CS. TTL-based expiry. Event-driven invalidation (pub/sub). Write-through ensures consistency. Cache stampede / thundering herd and solutions (mutex, probabilistic early expiry).' },
+            { name: 'Distributed Caching', detail: 'Redis Cluster vs Redis Sentinel. Consistent hashing for key distribution. Memcached vs Redis trade-offs. Hot key problem and local in-process cache as L1.' },
+            { name: 'CDN Caching', detail: 'Edge nodes cache static assets. Cache-Control headers: max-age, s-maxage, no-cache, no-store. Cache busting with content hashes. Dynamic content at the edge (edge computing).' }
+        ]
+    },
+    {
+        key: 'databases-design',
+        title: 'Database Design at Scale',
+        icon: 'ðŸ—ƒï¸',
+        level: 'Intermediate',
+        description: 'Replication, sharding, partitioning, and choosing the right database.',
+        subtopics: [
+            { name: 'Replication', detail: 'Primary-replica (master-slave): sync vs async replication. Multi-primary for write scaling. Replication lag and read-your-writes consistency. Failover and promotion.' },
+            { name: 'Sharding & Partitioning', detail: 'Horizontal sharding by range, hash, or directory. Hotspot problem with range sharding. Consistent hashing. Resharding challenges. Vitess for MySQL sharding.' },
+            { name: 'SQL vs NoSQL', detail: 'SQL: ACID, joins, schema enforcement. NoSQL: flexible schema, horizontal scale, eventual consistency. Choosing based on query patterns, consistency needs, and scale.' },
+            { name: 'Database Indexing at Scale', detail: 'Composite indexes and selectivity. Covering indexes. Partial indexes. Index bloat. Read vs write trade-off. Denormalization for read performance.' },
+            { name: 'NewSQL & Distributed SQL', detail: 'CockroachDB, Google Spanner, TiDB. Distributed transactions with 2PC. Paxos/Raft consensus. Global consistency with bounded staleness.' }
+        ]
+    },
+    {
+        key: 'messaging',
+        title: 'Messaging & Event Streaming',
+        icon: 'ðŸ“¨',
+        level: 'Intermediate',
+        description: 'Message queues, event-driven architecture, and stream processing.',
+        subtopics: [
+            { name: 'Message Queues', detail: 'Point-to-point vs pub/sub. RabbitMQ, AWS SQS, Azure Service Bus. At-least-once vs exactly-once delivery. Dead letter queues. Message ordering guarantees.' },
+            { name: 'Event Streaming', detail: 'Apache Kafka: topics, partitions, consumer groups, offsets. Retention and compaction. Kafka Streams vs Flink for stream processing. Event sourcing pattern.' },
+            { name: 'Async vs Sync Communication', detail: 'Synchronous: REST, gRPC â€” tight coupling, simpler. Asynchronous: queues, events â€” loose coupling, resilient. Saga pattern for distributed transactions.' },
+            { name: 'Backpressure & Flow Control', detail: 'Producer faster than consumer. Bounded queues. Rate limiting producers. Consumer scaling. Circuit breaker to stop cascading failures.' },
+            { name: 'Event-Driven Architecture', detail: 'Event sourcing: store events, derive state. CQRS: separate read and write models. Outbox pattern for reliable event publishing. Idempotent consumers.' }
+        ]
+    },
+    {
+        key: 'api-design',
+        title: 'API Design',
+        icon: 'ðŸ”Œ',
+        level: 'Beginner',
+        description: 'REST, GraphQL, gRPC, versioning, and API gateway patterns.',
+        subtopics: [
+            { name: 'REST Best Practices', detail: 'Resource-based URLs (/users/{id}). HTTP verbs semantics. Statelessness. HATEOAS. Pagination: cursor vs offset. Filtering, sorting, field selection.' },
+            { name: 'GraphQL', detail: 'Schema definition language. Queries, mutations, subscriptions. N+1 problem and DataLoader. Persisted queries. When to choose GraphQL over REST.' },
+            { name: 'gRPC', detail: 'Protocol Buffers for schema. HTTP/2 multiplexing. Unary, server streaming, client streaming, bidirectional streaming. Code generation. When gRPC beats REST.' },
+            { name: 'API Versioning', detail: 'URL versioning (/v1/users), header versioning, query param versioning. Semantic versioning. Deprecation strategy. Backward compatibility rules.' },
+            { name: 'API Gateway', detail: 'Single entry point: auth, rate limiting, routing, logging. AWS API Gateway, Kong, Nginx. BFF (Backend for Frontend) pattern. Aggregating multiple microservices.' }
+        ]
+    },
+    {
+        key: 'case-studies',
+        title: 'Classic Design Problems',
+        icon: 'ðŸ“',
+        level: 'Intermediate',
+        description: 'Walk through URL shortener, rate limiter, news feed, and notification system designs.',
+        subtopics: [
+            { name: 'URL Shortener', detail: 'Requirements: shorten URL, redirect, analytics. Key generation: hash (MD5/SHA) vs counter + base62. Storage: KV store (Redis + DB). Redirect: 301 (cacheable) vs 302. Scale: 100M URLs, 10B redirects/day.' },
+            { name: 'Rate Limiter', detail: 'Algorithms: token bucket, leaky bucket, fixed window, sliding window log, sliding window counter. Storage: Redis with atomic Lua scripts. Distributed rate limiting. Headers: X-RateLimit-Remaining.' },
+            { name: 'News Feed System', detail: 'Fan-out on write (push) vs fan-out on read (pull). Hybrid for celebrities. Feed ranking: recency, engagement, ML score. Pagination with cursor. Cache hot feeds in Redis.' },
+            { name: 'Notification System', detail: 'Push (APNs, FCM), email (SendGrid), SMS (Twilio). Notification service â†’ message queue â†’ workers per channel. Retry with exponential backoff. User preferences and opt-out.' },
+            { name: 'Design a Chat System', detail: 'WebSocket for real-time. Message storage: one table per user pair vs single messages table. Presence service. Group chat fan-out. Read receipts. End-to-end encryption overview.' }
+        ]
+    }
+];
+
+function renderSystemDesign() {
+    const container = document.getElementById('system-design-content');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="module-learn-shell">
+            <div class="module-topic-grid">
+                ${systemDesignTopics.map(topic => `
+                    <div class="module-topic-card" id="sd-card-${topic.key}">
+                        <div class="module-topic-header">
+                            <span class="module-topic-icon">${topic.icon}</span>
+                            <div>
+                                <h3>${topic.title}</h3>
+                                <span class="hub-tag ${topic.level === 'Beginner' ? 'level-beginner' : 'level-intermediate'}">${topic.level}</span>
+                            </div>
+                        </div>
+                        <p class="module-topic-desc">${topic.description}</p>
+                        <button type="button" class="module-expand-btn" onclick="toggleModuleTopic('sd', '${topic.key}')">
+                            Explore Topics â†’
+                        </button>
+                        <div class="module-subtopics" id="sd-subtopics-${topic.key}" style="display:none;">
+                            ${topic.subtopics.map((sub, i) => `
+                                <div class="module-subtopic-item">
+                                    <button type="button" class="module-subtopic-btn" onclick="toggleSubtopicDetail('sd-${topic.key}', ${i})">
+                                        <span>${sub.name}</span>
+                                        <span class="module-subtopic-arrow">â–¸</span>
+                                    </button>
+                                    <div class="module-subtopic-detail" id="sd-${topic.key}-detail-${i}" style="display:none;">
+                                        <p>${sub.detail}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function toggleModuleTopic(prefix, key) {
+    const subtopicsEl = document.getElementById(`${prefix}-subtopics-${key}`);
+    const btn = subtopicsEl?.previousElementSibling;
+    if (!subtopicsEl) return;
+    const isOpen = subtopicsEl.style.display !== 'none';
+    subtopicsEl.style.display = isOpen ? 'none' : 'block';
+    if (btn) btn.textContent = isOpen ? 'Explore Topics â†’' : 'Collapse â†‘';
+}
+
+function toggleSubtopicDetail(topicId, index) {
+    const detailEl = document.getElementById(`${topicId}-detail-${index}`);
+    const btn = detailEl?.previousElementSibling;
+    if (!detailEl) return;
+    const isOpen = detailEl.style.display !== 'none';
+    detailEl.style.display = isOpen ? 'none' : 'block';
+    if (btn) {
+        const arrow = btn.querySelector('.module-subtopic-arrow');
+        if (arrow) arrow.textContent = isOpen ? 'â–¸' : 'â–¾';
     }
 }
 

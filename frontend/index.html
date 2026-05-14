@@ -100,7 +100,7 @@
                         <span class="hub-card-cta">Start Learning -></span>
                     </div>
                 </button>
-                <button type="button" class="hub-course-card module-coding" onclick="showSection('coding')">
+                <button type="button" class="hub-course-card module-coding" onclick="showCodingModule()">
                     <div class="hub-card-top"><span class="hub-card-icon">CODE</span></div>
                     <div class="hub-card-body">
                         <div class="hub-card-tags">
@@ -113,30 +113,32 @@
                         <span class="hub-card-cta">Start Learning -></span>
                     </div>
                 </button>
-                <article class="hub-course-card static module-it">
+                <button type="button" class="hub-course-card module-it" onclick="showSection('hands-on-it')">
                     <div class="hub-card-top"><span class="hub-card-icon">IT</span></div>
                     <div class="hub-card-body">
                         <div class="hub-card-tags">
                             <span class="hub-tag level-beginner">Beginner</span>
+                            <span class="hub-tag">New</span>
                         </div>
                         <h3>Hands-on IT</h3>
                         <p>Linux, networking, and cloud fundamentals with practical workflows.</p>
                         <div class="hub-card-meta"><span>30 topics</span><span>67K learners</span><span>4.7</span></div>
-                        <span class="hub-card-cta disabled">Coming Soon</span>
+                        <span class="hub-card-cta">Start Learning -></span>
                     </div>
-                </article>
-                <article class="hub-course-card static module-system-design">
+                </button>
+                <button type="button" class="hub-course-card module-system-design" onclick="showSection('system-design')">
                     <div class="hub-card-top"><span class="hub-card-icon">SD</span></div>
                     <div class="hub-card-body">
                         <div class="hub-card-tags">
                             <span class="hub-tag level-intermediate">Intermediate</span>
+                            <span class="hub-tag">New</span>
                         </div>
                         <h3>System Design</h3>
                         <p>Architecture patterns, scalability, and system design fundamentals.</p>
                         <div class="hub-card-meta"><span>22 topics</span><span>48K learners</span><span>4.8</span></div>
-                        <span class="hub-card-cta disabled">Coming Soon</span>
+                        <span class="hub-card-cta">Start Learning -></span>
                     </div>
-                </article>
+                </button>
             </div>
         </section>
 
@@ -217,6 +219,20 @@
             <h2>User Profile</h2>
             <p class="section-context">Track your usage activity and test performance over time.</p>
             <div id="profile-content"></div>
+        </section>
+
+        <section id="hands-on-it" class="section" style="display:none;">
+            <button class="back-btn" onclick="showSection('learning-hub')">&larr; Back to Learning Hub</button>
+            <h2>Hands-on IT</h2>
+            <p class="section-context">Linux, networking, and cloud fundamentals with practical workflows.</p>
+            <div id="hands-on-it-content"></div>
+        </section>
+
+        <section id="system-design" class="section" style="display:none;">
+            <button class="back-btn" onclick="showSection('learning-hub')">&larr; Back to Learning Hub</button>
+            <h2>System Design</h2>
+            <p class="section-context">Architecture patterns, scalability, and system design fundamentals.</p>
+            <div id="system-design-content"></div>
         </section>
     </main>
 
