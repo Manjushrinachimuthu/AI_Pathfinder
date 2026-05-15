@@ -5175,57 +5175,247 @@ function renderProfileBarChart(items, options = {}) {
 
 function renderUserProfileAnalytics() {
     const container = document.getElementById('profile-content');
-    if (!container) {
-        return;
+    if (!container) return;
+
+    const testLevel    = getUserTestLevelProfile();
+    const mockAverage  = getMockTestAverage();
+    const interviewAvg = getInterviewReadinessAverage();
+    const testSeries   = getRecentTestPerformanceSeries(7);
+    const interviewSeries = getRecentInterviewSeries(7);
+    const usageSeries  = getWeeklyUsageSeries();
+    const mncCount     = userHistoryState.mncMockTests?.length || 0;
+    const intCount     = userHistoryState.aiInterviews?.length || 0;
+    const totalTests   = mncCount + intCount;
+    const resumeScore  = careerToolState.resumeScore || 0;
+
+    // Determine readiness badge
+    const avg = mockAverage ?? 0;
+    const badge = avg >= 80 ? { label: 'Placement Ready', color: '#1D9E75' }
+                : avg >= 60 ? { label: 'Almost Ready',    color: '#f59e0b' }
+                : avg >= 40 ? { label: 'In Progress',     color: '#f97316' }
+                :             { label: 'Just Started',    color: '#94a3b8' };
+
+    // Build SVG area sparkline from series
+    function sparkline(series, color) {
+        if (!series.length) return `<p style="color:rgba(255,255,255,0.3);font-size:0.8rem;text-align:center;padding:1rem 0;">No data yet</p>`;
+        const w = 300, h = 80, pad = 8;
+        const vals = series.map(s => s.value);
+        const max  = Math.max(...vals, 1);
+        const pts  = vals.map((v, i) => {
+            const x = pad + (i / Math.max(vals.length - 1, 1)) * (w - pad * 2);
+            const y = h - pad - (v / max) * (h - pad * 2);
+            return `${x},${y}`;
+        }).join(' ');
+        const areaClose = `${w - pad},${h - pad} ${pad},${h - pad}`;
+        return `
+            <svg viewBox="0 0 ${w} ${h}" style="width:100%;height:80px;">
+                <defs>
+                    <linearGradient id="sg-${color.replace('#','')}" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="${color}" stop-opacity="0.5"/>
+                        <stop offset="100%" stop-color="${color}" stop-opacity="0.02"/>
+                    </linearGradient>
+                </defs>
+                <polygon points="${pts} ${areaClose}" fill="url(#sg-${color.replace('#','')})" />
+                <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+                ${vals.map((v, i) => {
+                    const x = pad + (i / Math.max(vals.length - 1, 1)) * (w - pad * 2);
+                    const y = h - pad - (v / max) * (h - pad * 2);
+                    return `<circle cx="${x}" cy="${y}" r="3" fill="${color}"/>`;
+                }).join('')}
+            </svg>
+            <div style="display:flex;justify-content:space-between;margin-top:4px;">
+                ${series.map(s => `<span style="color:rgba(255,255,255,0.3);font-size:0.65rem;">${s.label}</span>`).join('')}
+            </div>`;
     }
 
-    const testLevel = getUserTestLevelProfile();
-    const testSeries = getRecentTestPerformanceSeries();
-    const interviewSeries = getRecentInterviewSeries();
-    const usageSeries = getWeeklyUsageSeries();
-    const mockAverage = getMockTestAverage();
-    const interviewAverage = getInterviewReadinessAverage();
-    const totalUsage = (userHistoryState.mncMockTests?.length || 0) + (userHistoryState.aiInterviews?.length || 0);
+    // Bar chart for weekly usage
+    function barChart(series) {
+        if (!series.length) return `<p style="color:rgba(255,255,255,0.3);font-size:0.8rem;text-align:center;padding:1rem 0;">No activity yet</p>`;
+        const max = Math.max(...series.map(s => s.value), 1);
+        const colors = ['#a78bfa','#818cf8','#60a5fa','#34d399','#fbbf24','#f87171','#e879f9'];
+        return `
+            <div style="display:flex;align-items:flex-end;gap:8px;height:80px;padding-bottom:4px;">
+                ${series.map((s, i) => {
+                    const pct = Math.max((s.value / max) * 100, s.value > 0 ? 8 : 0);
+                    return `
+                        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end;">
+                            <span style="color:rgba(255,255,255,0.6);font-size:0.7rem;font-weight:700;">${s.value || ''}</span>
+                            <div style="width:100%;height:${pct}%;background:linear-gradient(180deg,${colors[i % colors.length]},${colors[i % colors.length]}88);border-radius:4px 4px 0 0;min-height:${s.value > 0 ? 4 : 0}px;"></div>
+                            <span style="color:rgba(255,255,255,0.35);font-size:0.65rem;">${s.label}</span>
+                        </div>`;
+                }).join('')}
+            </div>`;
+    }
+
+    // Circular progress ring
+    function ring(score, color, size = 80) {
+        const r = (size / 2) - 8;
+        const circ = 2 * Math.PI * r;
+        const offset = circ - (score / 100) * circ;
+        return `
+            <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="flex-shrink:0;">
+                <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="7"/>
+                <circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${color}" stroke-width="7"
+                    stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${offset}"
+                    transform="rotate(-90 ${size/2} ${size/2})"/>
+                <text x="${size/2}" y="${size/2 + 5}" text-anchor="middle" fill="${color}" font-size="14" font-weight="800">${score}%</text>
+            </svg>`;
+    }
 
     container.innerHTML = `
-        <div class="profile-analytics-shell">
-            <div class="profile-quick-grid">
-                <article class="profile-quick-card">
-                    <h3>User Level</h3>
-                    <strong>${testLevel.level}</strong>
-                    <p>Attempts: ${testLevel.attempts}</p>
-                </article>
-                <article class="profile-quick-card">
-                    <h3>Mock Test Average</h3>
-                    <strong>${mockAverage === null ? 'No data' : `${mockAverage}%`}</strong>
-                    <p>Best: ${testLevel.best === null ? 'No data' : `${testLevel.best}%`}</p>
-                </article>
-                <article class="profile-quick-card">
-                    <h3>Interview Readiness</h3>
-                    <strong>${interviewAverage === null ? 'No data' : `${interviewAverage}%`}</strong>
-                    <p>Total rounds: ${userHistoryState.aiInterviews?.length || 0}</p>
-                </article>
-                <article class="profile-quick-card">
-                    <h3>Total Usage</h3>
-                    <strong>${totalUsage}</strong>
-                    <p>Tests + Interviews completed</p>
-                </article>
+        <div class="upd-shell">
+
+            <!-- ── Header ── -->
+            <div class="upd-header">
+                <div class="upd-header-left">
+                    <div class="upd-avatar">${(activeUserId || 'U')[0].toUpperCase()}</div>
+                    <div>
+                        <h2 class="upd-username">${activeUserId ? activeUserId.split('@')[0] : 'Guest User'}</h2>
+                        <span class="upd-badge" style="background:${badge.color}22;color:${badge.color};border-color:${badge.color}44">${badge.label}</span>
+                    </div>
+                </div>
+                <div class="upd-header-right">
+                    <span class="upd-sync">${activeUserId ? '🟢 Synced' : '⚪ Local mode'}</span>
+                </div>
             </div>
 
-            <div class="profile-graph-grid">
-                <article class="profile-graph-card">
-                    <h4>Recent Mock Test Performance</h4>
-                    ${renderProfileBarChart(testSeries, { maxValue: 100, emptyText: 'No mock test attempts yet.' })}
-                </article>
-                <article class="profile-graph-card">
-                    <h4>Recent Interview Performance</h4>
-                    ${renderProfileBarChart(interviewSeries, { maxValue: 100, emptyText: 'No interview attempts yet.' })}
-                </article>
-                <article class="profile-graph-card profile-graph-card-wide">
-                    <h4>Weekly Usage Activity</h4>
-                    ${renderProfileBarChart(usageSeries, { emptyText: 'No activity in the selected period.', className: 'usage-chart' })}
-                </article>
+            <!-- ── Stat cards ── -->
+            <div class="upd-stat-row">
+                <div class="upd-stat-card" style="--accent:#a78bfa">
+                    <div class="upd-stat-icon">📝</div>
+                    <div class="upd-stat-body">
+                        <span class="upd-stat-value">${mncCount}</span>
+                        <span class="upd-stat-label">Mock Tests Taken</span>
+                    </div>
+                </div>
+                <div class="upd-stat-card" style="--accent:#60a5fa">
+                    <div class="upd-stat-icon">🎤</div>
+                    <div class="upd-stat-body">
+                        <span class="upd-stat-value">${intCount}</span>
+                        <span class="upd-stat-label">AI Interviews Done</span>
+                    </div>
+                </div>
+                <div class="upd-stat-card" style="--accent:#34d399">
+                    <div class="upd-stat-icon">📊</div>
+                    <div class="upd-stat-body">
+                        <span class="upd-stat-value">${mockAverage !== null ? mockAverage + '%' : '--'}</span>
+                        <span class="upd-stat-label">Avg Mock Score</span>
+                    </div>
+                </div>
+                <div class="upd-stat-card" style="--accent:#fbbf24">
+                    <div class="upd-stat-icon">🏆</div>
+                    <div class="upd-stat-body">
+                        <span class="upd-stat-value">${testLevel.best !== null ? testLevel.best + '%' : '--'}</span>
+                        <span class="upd-stat-label">Best Score</span>
+                    </div>
+                </div>
+                <div class="upd-stat-card" style="--accent:#f87171">
+                    <div class="upd-stat-icon">💼</div>
+                    <div class="upd-stat-body">
+                        <span class="upd-stat-value">${resumeScore}%</span>
+                        <span class="upd-stat-label">Resume Score</span>
+                    </div>
+                </div>
+                <div class="upd-stat-card" style="--accent:#e879f9">
+                    <div class="upd-stat-icon">⚡</div>
+                    <div class="upd-stat-body">
+                        <span class="upd-stat-value">${totalTests}</span>
+                        <span class="upd-stat-label">Total Activities</span>
+                    </div>
+                </div>
             </div>
+
+            <!-- ── Charts row ── -->
+            <div class="upd-charts-row">
+
+                <!-- Mock test trend -->
+                <div class="upd-chart-card upd-chart-wide">
+                    <div class="upd-chart-head">
+                        <div>
+                            <h4 class="upd-chart-title">Mock Test Performance</h4>
+                            <p class="upd-chart-sub">Score trend across last ${testSeries.length || 0} attempts</p>
+                        </div>
+                        <span class="upd-chart-badge" style="color:#a78bfa">${mockAverage !== null ? mockAverage + '% avg' : 'No data'}</span>
+                    </div>
+                    ${sparkline(testSeries, '#a78bfa')}
+                </div>
+
+                <!-- Interview trend -->
+                <div class="upd-chart-card upd-chart-wide">
+                    <div class="upd-chart-head">
+                        <div>
+                            <h4 class="upd-chart-title">Interview Readiness</h4>
+                            <p class="upd-chart-sub">Readiness score across last ${interviewSeries.length || 0} rounds</p>
+                        </div>
+                        <span class="upd-chart-badge" style="color:#60a5fa">${interviewAvg !== null ? interviewAvg + '% avg' : 'No data'}</span>
+                    </div>
+                    ${sparkline(interviewSeries, '#60a5fa')}
+                </div>
+
+            </div>
+
+            <!-- ── Bottom row: weekly activity + score rings ── -->
+            <div class="upd-bottom-row">
+
+                <!-- Weekly activity bar chart -->
+                <div class="upd-chart-card" style="flex:2">
+                    <div class="upd-chart-head">
+                        <div>
+                            <h4 class="upd-chart-title">Weekly Activity</h4>
+                            <p class="upd-chart-sub">Tests + interviews per day this week</p>
+                        </div>
+                    </div>
+                    ${barChart(usageSeries)}
+                </div>
+
+                <!-- Score rings -->
+                <div class="upd-rings-card">
+                    <h4 class="upd-chart-title" style="margin-bottom:1rem;">Score Overview</h4>
+                    <div class="upd-rings-grid">
+                        <div class="upd-ring-item">
+                            ${ring(mockAverage ?? 0, '#a78bfa')}
+                            <span>Mock Tests</span>
+                        </div>
+                        <div class="upd-ring-item">
+                            ${ring(interviewAvg ?? 0, '#60a5fa')}
+                            <span>Interviews</span>
+                        </div>
+                        <div class="upd-ring-item">
+                            ${ring(resumeScore, '#34d399')}
+                            <span>Resume</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ── Recent tests table ── -->
+            <div class="upd-chart-card">
+                <div class="upd-chart-head">
+                    <h4 class="upd-chart-title">Recent Test History</h4>
+                    <span class="upd-chart-sub">${mncCount} mock tests recorded</span>
+                </div>
+                ${mncCount === 0 ? `<p style="color:rgba(255,255,255,0.3);font-size:0.85rem;padding:1rem 0;">No mock tests taken yet. Complete a company mock test to see your history here.</p>` : `
+                <div class="upd-table">
+                    <div class="upd-table-head">
+                        <span>#</span><span>Company</span><span>Score</span><span>Level</span><span>Date</span>
+                    </div>
+                    ${[...(userHistoryState.mncMockTests || [])].reverse().slice(0, 8).map((t, i) => {
+                        const score = t.percentage ?? t.score ?? 0;
+                        const color = score >= 80 ? '#34d399' : score >= 60 ? '#fbbf24' : '#f87171';
+                        const date  = t.createdAt ? new Date(t.createdAt).toLocaleDateString('en-IN', { day:'2-digit', month:'short' }) : '--';
+                        return `
+                            <div class="upd-table-row">
+                                <span style="color:rgba(255,255,255,0.4)">${i + 1}</span>
+                                <span style="color:#e0f2fe;font-weight:600">${escapeHtml(String(t.company || t.companyKey || 'Test'))}</span>
+                                <span style="color:${color};font-weight:800">${score}%</span>
+                                <span style="color:rgba(255,255,255,0.6)">${escapeHtml(String(t.level || testLevel.level))}</span>
+                                <span style="color:rgba(255,255,255,0.4)">${date}</span>
+                            </div>`;
+                    }).join('')}
+                </div>`}
+            </div>
+
         </div>
     `;
 }
