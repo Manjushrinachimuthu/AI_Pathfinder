@@ -10,11 +10,18 @@ from flask_cors import CORS
 import random
 import os
 import json
-import subprocess
-import tempfile
-import shutil
 import re
 import io
+
+# subprocess/tempfile/shutil only available in non-serverless environments
+try:
+    import subprocess
+    import tempfile
+    import shutil
+    _HAS_SUBPROCESS = True
+except ImportError:
+    _HAS_SUBPROCESS = False
+
 import zipfile
 from xml.etree import ElementTree as ET
 
@@ -3519,6 +3526,8 @@ def submit_coding_solution(question_id):
 
 def execute_code(code, language, test_input):
     """Execute code in the specified language and return the result"""
+    if not _HAS_SUBPROCESS:
+        raise Exception("Code execution is not available in this deployment environment.")
     temp_dir = tempfile.mkdtemp()
 
     try:
