@@ -1,5 +1,12 @@
-﻿// API Base URL - use relative path for deployment
-const API_BASE = '/api';
+﻿// API Base URL
+// If frontend and backend are on separate Vercel deployments,
+// replace the BACKEND_URL below with your actual backend Vercel URL.
+// Example: 'https://ai-pathfinder-api.vercel.app/api'
+// If deployed together (same project), keep '/api'
+const BACKEND_URL = 'https://ai-pathfinder-backend.vercel.app'; // <-- replace this
+const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? '/api'
+    : `${BACKEND_URL}/api`;
 
 // Track current company context
 let currentCompany = null;

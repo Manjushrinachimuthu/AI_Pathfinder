@@ -38,7 +38,12 @@ from utils.coding_concepts_bank import (
 from utils.groq_question_generator import get_questions as get_groq_questions
 
 app = Flask(__name__, static_folder="../frontend", static_url_path="")
-CORS(app)
+CORS(app, origins=[
+    "http://localhost:5000",
+    "http://127.0.0.1:5000",
+    "https://ai-pathfinder-frontend.vercel.app",  # <-- replace with your frontend URL
+    "https://*.vercel.app"
+])
 
 
 # Serve frontend static files
