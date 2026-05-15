@@ -974,6 +974,192 @@ const aptitudeConceptNotes = {
     },
 };
 
+// ── Logical & Verbal concept notes ─────────────────────────────────────────
+Object.assign(aptitudeConceptNotes, {
+    coding_decoding: {
+        intro: 'Coding-Decoding questions give you a rule used to encode a word or number, then ask you to apply the same rule to decode or encode another. The rule is always consistent — find the pattern first.',
+        formula: 'Shift value = Encoded letter position − Original letter position',
+        keyPoints: [
+            'Letter shift: each letter is moved forward or backward by a fixed number (e.g. A→D means +3)',
+            'Reverse coding: the word is written backwards before applying a shift',
+            'Number coding: each letter is replaced by its position (A=1, B=2 … Z=26)',
+            'Symbol coding: letters are replaced by symbols — find the mapping from the example',
+            'Mixed coding: a combination of shift + reversal + position — decode step by step',
+        ],
+        workedExample: 'If CAT is coded as FDW, find the code for DOG.\nC→F (+3), A→D (+3), T→W (+3). Same rule: D→G, O→R, G→J. Answer: GRJ',
+        tip: 'Always verify your rule on the given example before applying it to the question.'
+    },
+    blood_relations: {
+        intro: 'Blood relation questions describe family relationships in words or through a conversation. You need to identify how two people are related by building a family tree.',
+        formula: 'Draw a tree: boxes for people, lines for parent-child, = for couples',
+        keyPoints: [
+            'Father/Mother → Son/Daughter (one generation down)',
+            'Brother/Sister → same generation, same parents',
+            'Uncle/Aunt → parent\'s sibling',
+            'Nephew/Niece → sibling\'s child',
+            '"Pointing to X, Y says: X is the son of my father\'s only son" → X is Y\'s son',
+        ],
+        workedExample: 'A is B\'s father. C is A\'s sister. D is C\'s son. How is D related to B?\nA is B\'s father → B is A\'s child. C is A\'s sister → C is B\'s aunt. D is C\'s son → D is B\'s cousin.',
+        tip: 'Always draw the family tree — never try to solve blood relation problems in your head.'
+    },
+    syllogism: {
+        intro: 'Syllogism gives you two or more statements (premises) and asks which conclusions logically follow. Use Venn diagrams to visualise the relationship between sets.',
+        formula: 'All A are B + All B are C → All A are C (valid)\nAll A are B + Some B are C → Some A are C (NOT always valid)',
+        keyPoints: [
+            '"All A are B" → draw A completely inside B',
+            '"Some A are B" → draw A and B overlapping',
+            '"No A is B" → draw A and B completely separate',
+            '"Some A are not B" → part of A is outside B',
+            'A conclusion is valid only if it holds in ALL possible Venn diagrams',
+        ],
+        workedExample: 'All cats are animals. Some animals are dogs.\nConclusion: Some cats are dogs — INVALID (cats and dogs may not overlap).\nConclusion: Some animals are cats — VALID.',
+        tip: 'If a conclusion holds in some diagrams but not all, it is NOT valid. Always check the "worst case" diagram.'
+    },
+    direction_sense: {
+        intro: 'Direction sense questions track a person\'s movement across a grid. You need to find the final position, distance from start, or direction faced.',
+        formula: 'Net displacement = √(horizontal² + vertical²)  (Pythagoras for diagonal distance)',
+        keyPoints: [
+            'Standard compass: North is up, South is down, East is right, West is left',
+            'Right turn from North → East; Left turn from North → West',
+            'Track X (East-West) and Y (North-South) movements separately',
+            'Final distance from start = √(net-X² + net-Y²)',
+            'Shadow direction: morning sun is in the East (shadow falls West); evening sun is West (shadow falls East)',
+        ],
+        workedExample: 'Start facing North. Walk 5m North, turn right, walk 3m East, turn right, walk 2m South.\nNet North-South: 5−2 = 3m North. Net East-West: 3m East.\nDistance from start = √(3²+3²) = √18 = 3√2 m.',
+        tip: 'Draw the path on paper — direction problems are almost impossible to solve mentally.'
+    },
+    seating_arrangement: {
+        intro: 'Seating arrangement questions place people in a row, circle, or around a table and give clues about their relative positions. Build the arrangement step by step using the most definite clues first.',
+        formula: 'Circular arrangement: n people → (n−1)! arrangements (one person fixed as reference)',
+        keyPoints: [
+            'Start with absolute clues ("A sits at the extreme left") before relative ones',
+            'In a row: "immediate left/right" means adjacent; "second to the left" means two seats away',
+            'In a circle: "to the left" means clockwise when viewed from above',
+            'Use a table or diagram — never solve in your head',
+            'Eliminate options as you place each person to narrow down faster',
+        ],
+        workedExample: '5 people A B C D E in a row. A is at one end. B is next to A. C is not next to B.\nStart: A-B-?-?-?. C cannot be 3rd. Try: A-B-D-C-E or A-B-E-C-D.',
+        tip: 'Use the most restrictive clue first — it eliminates the most possibilities immediately.'
+    },
+    puzzles: {
+        intro: 'Puzzle questions combine multiple constraints about people, objects, positions, or attributes. The key is to build a grid and fill it systematically using elimination.',
+        formula: 'Grid method: rows = people/items, columns = attributes (floor, colour, job…)',
+        keyPoints: [
+            'List all entities and attributes before starting',
+            'Mark definite assignments with ✓ and ruled-out ones with ✗',
+            'Use "if-then" logic: if A is on floor 3, then B must be on floor 1 (from clue X)',
+            'Work from the most specific clue to the most general',
+            'Re-read all clues after each placement — new deductions often open up',
+        ],
+        workedExample: '3 people (A, B, C) live on floors 1, 2, 3. A is not on floor 1. B is above C.\nC can be 1 or 2. B is above C → if C=2, B=3, A=1 (but A≠1). So C=1, B=2 or 3, A=2 or 3.\nB above C and A≠1 → B=3, A=2.',
+        tip: 'Never guess — every step must follow from a clue. If stuck, try assuming one option and see if it leads to a contradiction.'
+    },
+    pattern_recognition: {
+        intro: 'Pattern recognition questions show a sequence of numbers, letters, or figures and ask you to find the next term or the missing element. Identify the rule governing the change between terms.',
+        formula: 'Difference series: check 1st diff → 2nd diff → 3rd diff until constant',
+        keyPoints: [
+            'Arithmetic: constant difference (e.g. 3, 7, 11, 15 → +4 each time)',
+            'Geometric: constant ratio (e.g. 2, 6, 18, 54 → ×3 each time)',
+            'Square/Cube series: 1, 4, 9, 16 (n²) or 1, 8, 27, 64 (n³)',
+            'Two interleaved series: odd-position terms follow one rule, even-position another',
+            'Fibonacci-style: each term = sum of previous two',
+        ],
+        workedExample: 'Series: 2, 6, 12, 20, 30, ?\n1st differences: 4, 6, 8, 10, 12 → differences increase by 2.\nNext term = 30 + 12 = 42.',
+        tip: 'Always check the first differences first. If not constant, check second differences. Most exam series resolve within 3 levels.'
+    },
+    series: {
+        intro: 'Number and alphabet series questions test your ability to spot arithmetic, geometric, or mixed patterns. For alphabet series, convert letters to their positions (A=1 … Z=26) to find the numeric pattern.',
+        formula: 'Letter position: A=1, B=2, … Z=26. Reverse: Z=1, Y=2, … A=26',
+        keyPoints: [
+            'Number series: check differences, ratios, squares, cubes, and primes',
+            'Alphabet series: convert to numbers, find the pattern, convert back',
+            'Mixed series: alternating +2 and ×2, or two separate interleaved sequences',
+            'Wrong number: find the term that breaks the pattern',
+            'Missing term: apply the rule to the position before and after the gap',
+        ],
+        workedExample: 'Alphabet series: B, E, H, K, ?\nPositions: 2, 5, 8, 11 → +3 each time. Next = 14 = N.',
+        tip: 'For alphabet series, always write out the position numbers first — the pattern is always numeric underneath.'
+    },
+    reading_comprehension: {
+        intro: 'Reading comprehension gives you a passage and asks questions about its content, tone, main idea, or implied meaning. Read the questions first, then scan the passage for relevant sections.',
+        formula: 'Main idea = topic + what the author says about it (not just the topic alone)',
+        keyPoints: [
+            'Read questions before the passage to know what to look for',
+            'Factual questions: the answer is directly stated — find the exact line',
+            'Inference questions: the answer is implied — look for the closest logical conclusion',
+            'Tone questions: identify positive/negative/neutral words used by the author',
+            'Title questions: the title should cover the entire passage, not just one paragraph',
+        ],
+        workedExample: 'If the passage says "Despite challenges, the team delivered results on time", the tone is:\nA) Pessimistic  B) Appreciative  C) Critical  D) Neutral\nAnswer: B — "despite challenges" + "delivered" signals appreciation.',
+        tip: 'Never use outside knowledge — all answers must come from the passage itself.'
+    },
+    error_detection: {
+        intro: 'Error detection questions give you a sentence split into parts and ask you to identify the part with a grammatical error. Focus on subject-verb agreement, tense consistency, articles, prepositions, and pronoun usage.',
+        formula: 'Check order: Subject-Verb agreement → Tense → Articles → Prepositions → Pronouns',
+        keyPoints: [
+            'Subject-verb agreement: singular subject → singular verb (He goes, not He go)',
+            'Tense consistency: do not mix past and present in the same clause without reason',
+            'Articles: "a" before consonant sounds, "an" before vowel sounds',
+            'Prepositions: "interested in", "good at", "afraid of" — these are fixed phrases',
+            'Double negatives: "I don\'t know nothing" is incorrect → "I don\'t know anything"',
+        ],
+        workedExample: '"He don\'t know the answer." → Error: "don\'t" should be "doesn\'t" (He is third-person singular → does not → doesn\'t).',
+        tip: 'Read the sentence aloud in your head — grammatical errors often sound wrong even before you analyse them.'
+    },
+    sentence_correction: {
+        intro: 'Sentence correction gives you a sentence with an underlined part and asks you to choose the best replacement. The correct option must be grammatically accurate, clear, and concise.',
+        formula: 'Correct = Grammatically right + Concise + No redundancy + Consistent tense',
+        keyPoints: [
+            'Eliminate options that change the meaning of the original sentence',
+            'Prefer active voice over passive voice when both are grammatically correct',
+            'Avoid redundancy: "end result", "past history", "future plans" are all redundant',
+            'Parallelism: items in a list must have the same grammatical form',
+            'Dangling modifier: the introductory phrase must logically refer to the subject',
+        ],
+        workedExample: '"Having finished the report, the meeting was called." → Error: the meeting did not finish the report.\nCorrection: "Having finished the report, she called the meeting."',
+        tip: 'Always check if the meaning is preserved — a grammatically correct option that changes the meaning is wrong.'
+    },
+    synonyms_antonyms: {
+        intro: 'Synonym questions ask for a word with the same meaning; antonym questions ask for the opposite. Context matters — many words have multiple meanings, and the correct answer depends on how the word is used.',
+        formula: 'Synonym = same meaning | Antonym = opposite meaning | Always check context',
+        keyPoints: [
+            'Eliminate options that are clearly unrelated first',
+            'Watch for words that look similar but mean differently (e.g. "ingenious" vs "ingenuous")',
+            'Use root words: "bene-" = good, "mal-" = bad, "mis-" = wrong, "pre-" = before',
+            'Common prefixes for antonyms: un-, in-, im-, dis-, non-, anti-',
+            'If unsure, use the word in a sentence and see which option fits the same context',
+        ],
+        workedExample: 'Synonym of BENEVOLENT:\nA) Malicious  B) Generous  C) Strict  D) Timid\n"Bene-" = good/kind → Generous. Answer: B.',
+        tip: 'Learn word roots and prefixes — they let you decode unfamiliar words without memorising every word individually.'
+    },
+    para_jumbles: {
+        intro: 'Para jumble questions give you 4–6 sentences in random order and ask you to arrange them into a coherent paragraph. Find the opening sentence first, then link sentences using pronouns, connectors, and logical flow.',
+        formula: 'Opening → Context → Development → Conclusion (most paragraphs follow this flow)',
+        keyPoints: [
+            'The opening sentence introduces the topic — it has no pronoun referring to something before it',
+            'Pronouns (he, she, it, they, this, that) must follow the noun they refer to',
+            'Connectors signal order: "however", "therefore", "moreover", "for example", "finally"',
+            'A sentence starting with "This" or "These" must follow the sentence that introduces that thing',
+            'The concluding sentence often summarises or gives a result/consequence',
+        ],
+        workedExample: 'Sentences: (A) It was a huge success. (B) The team worked hard. (C) They launched the product. (D) Everyone celebrated.\nOrder: B → C → A → D (cause → action → result → reaction).',
+        tip: 'Find the mandatory pair first — two sentences that must be adjacent because one refers to the other.'
+    },
+    vocabulary: {
+        intro: 'Vocabulary questions test your knowledge of word meanings, usage, and context. They appear as fill-in-the-blank, odd-one-out, or direct meaning questions. A strong vocabulary is built through reading and root-word study.',
+        formula: 'Root + Prefix + Suffix = Word meaning (e.g. "un" + "predict" + "able" = unpredictable)',
+        keyPoints: [
+            'Common roots: "aud" = hear, "vis" = see, "port" = carry, "dict" = say, "scrib" = write',
+            'Common prefixes: "pre" = before, "post" = after, "sub" = under, "super" = above',
+            'Common suffixes: "-tion"/"-sion" = noun, "-ous"/"-ful" = adjective, "-ly" = adverb',
+            'Contextual clues: the sentence around the blank often hints at the meaning needed',
+            'Connotation: some words are positive (diligent), negative (cunning), or neutral (said)',
+        ],
+        workedExample: 'Fill in: "The scientist made a _____ discovery that changed medicine."\nOptions: A) trivial  B) groundbreaking  C) ordinary  D) delayed\nContext clue: "changed medicine" → significant → B) groundbreaking.',
+        tip: 'For fill-in-the-blank, read the full sentence and decide the tone (positive/negative/neutral) before looking at options.'
+    },
+});
+
 let aptitudePickerState = {
     activeTab: 'quantitative',
     done: {},
@@ -1125,53 +1311,190 @@ async function openAptTopicDetail(tabKey, topicId) {
     if (!tab) return;
     const topic = tab.topics.find(t => t.id === topicId);
     if (!topic) return;
+
     aptitudePickerState.viewingTopic = { tabKey, topicId };
     const container = document.getElementById('aptitude-container');
     if (!container) return;
+
     const notes = aptitudeConceptNotes[topicId];
     const isDone = Boolean(aptitudePickerState.done[topicId]);
+
     container.innerHTML = `
-        <div class="apt-detail-shell">
-            <div class="apt-detail-topbar">
-                <button type="button" class="apt-back-btn" onclick="backToAptPicker()">← Back</button>
-                <div class="apt-detail-title-row">
-                    <span class="apt-detail-icon" style="color:${tab.color}">${tab.icon}</span>
-                    <h2 class="apt-detail-title">${topic.title}</h2>
-                    <span class="apt-detail-sub">${topic.sub}</span>
-                </div>
+        <div class="apt-topic-page">
+
+            <!-- Back bar -->
+            <div class="apt-topbar">
+                <button class="back-btn" type="button" onclick="backToAptPicker()">&#8592; Back to Topics</button>
                 <button type="button" class="apt-done-toggle ${isDone ? 'done' : ''}" id="apt-done-toggle-btn"
-                        onclick="markAptTopicDone('${topicId}'); const b=document.getElementById('apt-done-toggle-btn'); b.classList.toggle('done'); b.textContent = b.classList.contains('done') ? '✓ Marked Done' : 'Mark as Done'">
-                    ${isDone ? '✓ Marked Done' : 'Mark as Done'}
+                    onclick="markAptTopicDone('${topicId}'); const b=document.getElementById('apt-done-toggle-btn'); b.classList.toggle('done'); b.textContent = b.classList.contains('done') ? '&#10003; Marked Done' : 'Mark as Done'">
+                    ${isDone ? '&#10003; Marked Done' : 'Mark as Done'}
                 </button>
             </div>
+
+            <!-- Hero -->
+            <div class="apt-topic-hero-bar" style="border-left: 4px solid ${tab.color}">
+                <div class="apt-hero-icon" style="background: ${tab.color}22; color: ${tab.color}">${tab.icon}</div>
+                <div>
+                    <p class="apt-hero-eyebrow" style="color:${tab.color}">${tab.label} &nbsp;&#183;&nbsp; ${topic.sub}</p>
+                    <h2 class="apt-hero-title">${topic.title}</h2>
+                </div>
+            </div>
+
             ${notes ? `
-            <div class="apt-concept-card">
-                <h3 class="apt-concept-heading">📐 Key Formula</h3>
-                <div class="apt-formula-box">${notes.formula}</div>
-                <h3 class="apt-concept-heading" style="margin-top:1rem;">📌 Key Points</h3>
-                <ul class="apt-key-points">
+            <!-- ===== SECTION 1: LEARN ===== -->
+            <div class="apt-section-divider">
+                <span class="apt-section-badge" style="background:${tab.color}22; color:${tab.color}; border-color:${tab.color}44">01 &nbsp; Learn</span>
+                <div class="apt-divider-line"></div>
+            </div>
+
+            <!-- Intro -->
+            <div class="apt-intro-card">
+                <p>${notes.intro}</p>
+            </div>
+
+            <!-- Formula -->
+            <div class="apt-formula-card">
+                <div class="apt-card-label">&#128208; Key Formula</div>
+                <div class="apt-formula-text">${notes.formula}</div>
+            </div>
+
+            <!-- Key Points -->
+            <div class="apt-keypoints-card">
+                <div class="apt-card-label">&#128204; Key Points</div>
+                <ol class="apt-keypoints-list">
                     ${notes.keyPoints.map(p => `<li>${p}</li>`).join('')}
-                </ul>
-                <div class="apt-tip-box">💡 <strong>Exam Tip:</strong> ${notes.tip}</div>
+                </ol>
+            </div>
+
+            <!-- Worked Example -->
+            ${notes.workedExample ? `
+            <div class="apt-example-card">
+                <div class="apt-card-label">&#9999;&#65039; Worked Example</div>
+                <pre class="apt-example-pre">${notes.workedExample}</pre>
+            </div>` : ''}
+
+            <!-- Tip -->
+            <div class="apt-tip-card">
+                &#128161; <strong>Exam Tip:</strong> ${notes.tip}
+            </div>
+
+            <!-- ===== SECTION 2: PRACTICE ===== -->
+            <div class="apt-section-divider" style="margin-top:2rem;">
+                <span class="apt-section-badge" style="background:${tab.color}22; color:${tab.color}; border-color:${tab.color}44">02 &nbsp; Practice</span>
+                <div class="apt-divider-line"></div>
             </div>
             ` : ''}
-            <div class="apt-practice-section">
-                <div class="apt-practice-header">
-                    <h3 class="apt-concept-heading">🎯 Practice Questions</h3>
-                    <div class="apt-difficulty-tabs">
-                        <button type="button" class="apt-diff-btn active" id="diff-easy" onclick="loadTopicQuestions('${topic.apiKey}', 'easy')">Easy</button>
-                        <button type="button" class="apt-diff-btn" id="diff-medium" onclick="loadTopicQuestions('${topic.apiKey}', 'medium')">Medium</button>
-                        <button type="button" class="apt-diff-btn" id="diff-hard" onclick="loadTopicQuestions('${topic.apiKey}', 'hard')">Hard</button>
+
+            <!-- Practice panel -->
+            <div class="apt-practice-box">
+                <div class="apt-practice-box-header">
+                    <div>
+                        <h4 class="apt-practice-title">${topic.title} &mdash; Practice Questions</h4>
+                        <p class="apt-practice-sub">10 questions per level. Click an option to instantly check your answer and see the explanation.</p>
                     </div>
                 </div>
-                <div id="apt-questions-container" class="apt-questions-container">
-                    <p class="apt-loading">Loading questions…</p>
+
+                <!-- Difficulty selector -->
+                <div class="apt-diff-row" id="apt-diff-row-${topic.apiKey}">
+                    <button class="apt-diff-pill easy active" id="apt-diff-easy-${topic.apiKey}"
+                            onclick="selectAptDifficulty('${topic.apiKey}', 'Easy')">&#128994; Easy</button>
+                    <button class="apt-diff-pill medium" id="apt-diff-medium-${topic.apiKey}"
+                            onclick="selectAptDifficulty('${topic.apiKey}', 'Medium')">&#128993; Medium</button>
+                    <button class="apt-diff-pill hard" id="apt-diff-hard-${topic.apiKey}"
+                            onclick="selectAptDifficulty('${topic.apiKey}', 'Hard')">&#128308; Hard</button>
+                </div>
+
+                <!-- Questions render here -->
+                <div id="apt-qbox-${topic.apiKey}" class="apt-qbox">
+                    <div class="apt-qbox-placeholder">
+                        <p>&#9654; Click a difficulty level above to load questions</p>
+                    </div>
                 </div>
             </div>
+
         </div>
     `;
-    loadTopicQuestions(topic.apiKey, 'easy');
+
+    // Auto-load Easy questions
+    loadAptDifficultyQuestions('${topic.apiKey}', 'Easy');
 }
+
+function selectAptDifficulty(apiKey, level) {
+    ['Easy','Medium','Hard'].forEach(l => {
+        const btn = document.getElementById(`apt-diff-${l.toLowerCase()}-${apiKey}`);
+        if (btn) btn.classList.toggle('active', l === level);
+    });
+    loadAptDifficultyQuestions(apiKey, level);
+}
+
+async function loadAptDifficultyQuestions(apiKey, level) {
+    const box = document.getElementById(`apt-qbox-${apiKey}`);
+    if (!box) return;
+    box.innerHTML = '<p class="apt-loading">Loading questions&#8230;</p>';
+
+    try {
+        const res = await fetch(`${API_BASE}/tcs/aptitude/${apiKey}?difficulty=${level.toLowerCase()}`);
+        if (!res.ok) throw new Error('not found');
+        const data = await res.json();
+        const questions = Array.isArray(data) ? data : (data[level.toLowerCase()] || []);
+
+        if (!questions.length) {
+            box.innerHTML = '<p class="apt-loading">No questions available for this level yet.</p>';
+            return;
+        }
+
+        box.innerHTML = `
+            <div class="apt-questions-list">
+                ${questions.map((q, idx) => `
+                    <div class="apt-q-item" id="apt-qi-${apiKey}-${level.toLowerCase()}-${idx}">
+                        <div class="apt-q-num">Q${idx + 1}</div>
+                        <p class="apt-q-text">${escapeHtml(String(q.question))}</p>
+                        <div class="apt-q-options">
+                            ${(q.options || []).map(opt => `
+                                <button class="apt-q-opt"
+                                    onclick="checkAptQ('${apiKey}','${level.toLowerCase()}',${idx},this,'${escapeJsString(String(opt))}','${escapeJsString(String(q.answer))}','${escapeJsString(String(q.explanation || ''))}')">
+                                    ${escapeHtml(String(opt))}
+                                </button>
+                            `).join('')}
+                        </div>
+                        <div class="apt-q-result" id="apt-qr-${apiKey}-${level.toLowerCase()}-${idx}" style="display:none;"></div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } catch (e) {
+        box.innerHTML = '<p class="apt-loading">Could not load questions. Make sure the backend is running.</p>';
+    }
+}
+
+function checkAptQ(apiKey, level, idx, clickedBtn, selected, correct, explanation) {
+    const resultDiv = document.getElementById(`apt-qr-${apiKey}-${level}-${idx}`);
+    const card = document.getElementById(`apt-qi-${apiKey}-${level}-${idx}`);
+    if (!resultDiv || !card) return;
+
+    const isCorrect = selected === correct;
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = isCorrect
+        ? `<span class="apt-ans-correct">&#10003; Correct!</span>`
+        : `<span class="apt-ans-wrong">&#10007; Wrong &mdash; Answer: <strong>${escapeHtml(correct)}</strong></span>
+           ${explanation ? `<p class="apt-ans-explanation">${escapeHtml(explanation)}</p>` : ''}`;
+
+    card.querySelectorAll('.apt-q-opt').forEach(btn => {
+        const t = btn.textContent.trim();
+        if (t === correct) btn.classList.add('apt-opt-correct');
+        else if (t === selected && !isCorrect) btn.classList.add('apt-opt-wrong');
+        btn.disabled = true;
+    });
+}
+
+// Legacy aliases kept so nothing else breaks
+function renderAptSubtopicDetail() {}
+function updateAptSubtopic() {}
+function renderAptPracticeButtons() { return ''; }
+function focusAptPractice() {}
+async function loadAptTopicPractice() {}
+function buildAptPracticeMarkup() { return ''; }
+async function loadTopicQuestions() {}
 
 function backToAptPicker() {
     aptitudePickerState.viewingTopic = null;
@@ -1182,63 +1505,13 @@ function backToAptPicker() {
     }
 }
 
+
 async function loadTopicQuestions(apiKey, difficulty) {
-    ['easy','medium','hard'].forEach(d => {
-        const btn = document.getElementById(`diff-${d}`);
-        if (btn) btn.classList.toggle('active', d === difficulty);
-    });
-    const qContainer = document.getElementById('apt-questions-container');
-    if (!qContainer) return;
-    qContainer.innerHTML = '<p class="apt-loading">Loading questions…</p>';
-    try {
-        const res = await fetch(`${API_BASE}/tcs/aptitude/${apiKey}?difficulty=${difficulty}`);
-        if (!res.ok) throw new Error('not found');
-        const data = await res.json();
-        let questions = Array.isArray(data) ? data : (data[difficulty] || []);
-        if (!questions.length) {
-            qContainer.innerHTML = '<p class="apt-loading">No questions available for this level yet.</p>';
-            return;
-        }
-        renderTopicQuestions(questions, qContainer);
-    } catch (e) {
-        qContainer.innerHTML = '<p class="apt-loading">Could not load questions. Make sure the backend is running.</p>';
-    }
+    // Legacy alias — redirects to new practice system
+    loadAptTopicPractice(apiKey, difficulty.charAt(0).toUpperCase() + difficulty.slice(1));
 }
 
-function renderTopicQuestions(questions, container) {
-    container.innerHTML = questions.map((q, idx) => `
-        <div class="apt-question-card" id="aptq-${idx}">
-            <div class="apt-question-num">Q${idx + 1}</div>
-            <p class="apt-question-text">${escapeHtml(String(q.question))}</p>
-            <div class="apt-options-grid">
-                ${(q.options || []).map(opt => `
-                    <button type="button" class="apt-option-btn"
-                            onclick="checkAptAnswer(${idx}, this, '${escapeJsString(String(opt))}', '${escapeJsString(String(q.answer))}', '${escapeJsString(String(q.explanation || ''))}')">
-                        ${escapeHtml(String(opt))}
-                    </button>
-                `).join('')}
-            </div>
-            <div class="apt-answer-reveal" id="apt-reveal-${idx}" style="display:none;"></div>
-        </div>
-    `).join('');
-}
 
-function checkAptAnswer(idx, clickedBtn, selected, correct, explanation) {
-    const reveal = document.getElementById(`apt-reveal-${idx}`);
-    const card = document.getElementById(`aptq-${idx}`);
-    if (!reveal || !card) return;
-    const isCorrect = selected === correct;
-    reveal.style.display = 'block';
-    reveal.innerHTML = isCorrect
-        ? `<span class="apt-correct">✅ Correct!</span>`
-        : `<span class="apt-wrong">❌ Wrong. Answer: <strong>${escapeHtml(correct)}</strong></span>${explanation ? `<p class="apt-explanation">${escapeHtml(explanation)}</p>` : ''}`;
-    card.querySelectorAll('.apt-option-btn').forEach(btn => {
-        const btnText = btn.textContent.trim();
-        if (btnText === correct) btn.classList.add('opt-correct');
-        else if (btnText === selected && !isCorrect) btn.classList.add('opt-wrong');
-        btn.disabled = true;
-    });
-}
 
 function showHomeAptitudeWithTcs() {
     currentCompany = null;
@@ -5378,7 +5651,67 @@ function openCareerTool(toolKey) {
     if (!listDiv) return;
     listDiv.style.display = 'block';
     listDiv.innerHTML = renderResumeTool();
-    initResumeLiveChecklist();
+    setTimeout(initResumeLiveChecklist, 0);
+}
+
+// ── Resume tab switching ────────────────────────────────────────────────────
+function switchResumeTab(tab) {
+    ['build', 'upload', 'tips'].forEach(t => {
+        const panel = document.getElementById(`resume-tab-${t}`);
+        const btn   = document.getElementById(`tab-${t}`);
+        if (panel) panel.style.display = t === tab ? 'block' : 'none';
+        if (btn)   btn.classList.toggle('active', t === tab);
+    });
+}
+
+// ── File select preview ─────────────────────────────────────────────────────
+function handleResumeFileSelect(input) {
+    const file = input?.files?.[0];
+    const preview = document.getElementById('resume-file-preview');
+    const zone    = document.getElementById('resume-upload-zone');
+    if (!file || !preview) return;
+
+    const sizeMB = (file.size / 1024 / 1024).toFixed(2);
+    const ext    = file.name.split('.').pop().toUpperCase();
+    const iconMap = { PDF: '&#128213;', DOCX: '&#128216;', TXT: '&#128196;', MD: '&#128221;' };
+    const icon   = iconMap[ext] || '&#128196;';
+
+    preview.style.display = 'flex';
+    preview.innerHTML = `
+        <div class="resume-file-info">
+            <span class="resume-file-icon">${icon}</span>
+            <div>
+                <p class="resume-file-name">${escapeHtml(file.name)}</p>
+                <p class="resume-file-meta">${ext} &nbsp;&middot;&nbsp; ${sizeMB} MB</p>
+            </div>
+            <button type="button" class="resume-file-remove" onclick="clearResumeFile()" title="Remove">&times;</button>
+        </div>
+    `;
+    if (zone) zone.style.display = 'none';
+}
+
+function clearResumeFile() {
+    const input   = document.getElementById('resume-upload-file');
+    const preview = document.getElementById('resume-file-preview');
+    const zone    = document.getElementById('resume-upload-zone');
+    if (input)   input.value = '';
+    if (preview) { preview.style.display = 'none'; preview.innerHTML = ''; }
+    if (zone)    zone.style.display = 'block';
+}
+
+function handleResumeDrop(event) {
+    event.preventDefault();
+    const zone = document.getElementById('resume-upload-zone');
+    if (zone) zone.classList.remove('drag-over');
+    const file = event.dataTransfer?.files?.[0];
+    if (!file) return;
+    const input = document.getElementById('resume-upload-file');
+    if (input) {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        input.files = dt.files;
+        handleResumeFileSelect(input);
+    }
 }
 
 function closeCareerTool() {
@@ -5444,21 +5777,6 @@ function updateResumeScoreRing(score) {
     fill.setAttribute('stroke', color);
     scoreEl.textContent = score;
     scoreEl.style.color = color;
-}
-
-function handleResumeDrop(event) {
-    event.preventDefault();
-    const zone = document.getElementById('resume-upload-zone');
-    if (zone) zone.classList.remove('drag-over');
-    const file = event.dataTransfer?.files?.[0];
-    if (!file) return;
-    const input = document.getElementById('resume-upload-file');
-    if (input) {
-        const dt = new DataTransfer();
-        dt.items.add(file);
-        input.files = dt.files;
-        handleResumeFileSelect(input);
-    }
 }
 
 function setCareerOutput(markup) {
@@ -5595,17 +5913,29 @@ function checkResumeQuality() {
 }
 
 async function uploadResumeAndScore() {
-    const fileInput = document.getElementById('resume-upload-file');
+    const fileInput  = document.getElementById('resume-upload-file');
     const resumeFile = fileInput?.files?.[0];
+    const output     = document.getElementById('career-tool-output');
 
     if (!resumeFile) {
-        setCareerOutput('<p>Please choose a resume file first.</p>');
+        if (output) {
+            output.style.display = 'block';
+            output.innerHTML = '<p style="color:#fca5a5;padding:1rem;">&#9888; Please select a resume file first (PDF, DOCX, TXT, or MD).</p>';
+        }
         return;
+    }
+
+    if (output) {
+        output.style.display = 'block';
+        output.innerHTML = `
+            <div style="display:flex;align-items:center;gap:0.75rem;padding:1rem;color:#93c5fd;">
+                <span style="font-size:1.4rem;">&#9203;</span>
+                <span>Analysing <strong>${escapeHtml(resumeFile.name)}</strong>&hellip;</span>
+            </div>`;
     }
 
     const formData = new FormData();
     formData.append('resume', resumeFile);
-    setCareerOutput('<p>Scoring uploaded resume...</p>');
 
     try {
         const response = await fetch(`${API_BASE}/career/resume/score`, {
@@ -5618,29 +5948,90 @@ async function uploadResumeAndScore() {
             throw new Error(result.error || 'Unable to score resume right now.');
         }
 
-        careerToolState.resumeScore = result.score || 0;
+        const score   = result.score || 0;
+        const grade   = score >= 85 ? { label: 'Excellent', color: '#1D9E75' }
+                      : score >= 65 ? { label: 'Good',      color: '#f59e0b' }
+                      : score >= 40 ? { label: 'Needs Work', color: '#f97316' }
+                      :               { label: 'Weak',       color: '#ef4444' };
+
+        careerToolState.resumeScore = score;
         completeCareerTask();
         saveCareerState();
+        updateResumeScoreRing(score);
 
-        setCareerOutput(`
-            <h4>Uploaded Resume Score</h4>
-            <p>File: <strong>${escapeHtml(resumeFile.name)}</strong></p>
-            <p>Word count: <strong>${result.word_count || 0}</strong></p>
-            <ul>
-                ${(result.checklist || []).map(item => `<li>${item.ok ? '&#10004;' : '&#10006;'} ${escapeHtml(item.label)}</li>`).join('')}
-            </ul>
-            <p class="career-score-line">Resume quality score: <strong>${careerToolState.resumeScore}%</strong></p>
-            <h4>Suggestions</h4>
-            <ul>
-                ${(result.suggestions || []).map(tip => `<li>${escapeHtml(tip)}</li>`).join('')}
-            </ul>
-        `);
+        const checklist  = result.checklist  || [];
+        const suggestions = result.suggestions || [];
+        const passed     = checklist.filter(c => c.ok).length;
+        const circumference = 251;
+        const offset     = circumference - (score / 100) * circumference;
+
+        if (output) {
+            output.style.display = 'block';
+            output.innerHTML = `
+                <div class="upload-result-shell">
+
+                    <!-- Score header -->
+                    <div class="upload-result-header">
+                        <div class="upload-result-meta">
+                            <h3 class="upload-result-title">&#128196; Resume Analysis Report</h3>
+                            <p class="upload-result-file">${escapeHtml(resumeFile.name)} &nbsp;&middot;&nbsp; ${result.word_count || 0} words</p>
+                            <p class="upload-result-summary">${passed} of ${checklist.length} checks passed</p>
+                        </div>
+                        <div class="upload-score-ring">
+                            <svg viewBox="0 0 90 90" width="90" height="90">
+                                <circle cx="45" cy="45" r="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"/>
+                                <circle cx="45" cy="45" r="40" fill="none"
+                                    stroke="${grade.color}" stroke-width="8"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="${circumference}"
+                                    stroke-dashoffset="${offset}"
+                                    transform="rotate(-90 45 45)"
+                                    style="transition:stroke-dashoffset 0.8s ease"/>
+                            </svg>
+                            <div class="upload-score-label">
+                                <span style="color:${grade.color};font-size:1.4rem;font-weight:800;line-height:1">${score}</span>
+                                <small style="color:rgba(255,255,255,0.45);font-size:0.65rem;">/ 100</small>
+                            </div>
+                            <span class="upload-grade-badge" style="background:${grade.color}22;color:${grade.color};border-color:${grade.color}44">${grade.label}</span>
+                        </div>
+                    </div>
+
+                    <!-- Checklist -->
+                    <div class="upload-checklist">
+                        ${checklist.map(item => `
+                            <div class="upload-check-row ${item.ok ? 'pass' : 'fail'}">
+                                <span class="upload-check-icon">${item.ok ? '&#10003;' : '&#10007;'}</span>
+                                <span class="upload-check-label">${escapeHtml(item.label)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Suggestions -->
+                    ${suggestions.length ? `
+                    <div class="upload-suggestions">
+                        <h4 class="upload-suggestions-title">&#128295; How to Improve</h4>
+                        <ul class="upload-suggestions-list">
+                            ${suggestions.map(s => `<li>${escapeHtml(s)}</li>`).join('')}
+                        </ul>
+                    </div>` : ''}
+
+                    <!-- Actions -->
+                    <div class="resume-result-footer">
+                        <button type="button" class="resume-primary-btn" onclick="switchResumeTab('build')">&#9998; Edit & Rebuild</button>
+                        <button type="button" class="resume-secondary-btn" onclick="switchResumeTab('tips')">&#128161; ATS Tips</button>
+                    </div>
+                </div>
+            `;
+            output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
     } catch (error) {
-        setCareerOutput(`<p class="error">Error scoring uploaded resume: ${escapeHtml(error.message)}</p>`);
+        if (output) {
+            output.style.display = 'block';
+            output.innerHTML = `<p style="color:#fca5a5;padding:1rem;">&#10007; ${escapeHtml(error.message)}</p>`;
+        }
         console.error('Error scoring uploaded resume:', error);
     }
 }
-
 function generateCoverLetter() {
     const company = document.getElementById('cover-company')?.value.trim() || 'the company';
     const role = document.getElementById('cover-role')?.value.trim() || 'the role';
