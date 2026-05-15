@@ -1,5 +1,10 @@
 # 🎯 AI Pathfinder — Role-Based Career Preparation Platform
 
+## 🌐 Live URL
+**[https://ai-pathfinder-sdcu.vercel.app/](https://ai-pathfinder-sdcu.vercel.app/)**
+
+---
+
 > A full-stack web application that helps students and freshers prepare for placements at top MNCs with AI-powered mock tests, aptitude learning, coding practice, resume analysis, and interview preparation.
 
 ---
