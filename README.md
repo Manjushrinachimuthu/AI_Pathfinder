@@ -1,7 +1,6 @@
+# **🌐 Live Demo → [ai-pathfinder-sdcu.vercel.app](https://ai-pathfinder-sdcu.vercel.app/)**
 # 🎯 AI Pathfinder — Role-Based Career Preparation Platform
 
-## 🌐 Live URL
-**[https://ai-pathfinder-sdcu.vercel.app/](https://ai-pathfinder-sdcu.vercel.app/)**
 
 ---
 
