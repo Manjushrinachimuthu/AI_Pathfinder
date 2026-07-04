@@ -1,5 +1,5 @@
 ﻿// API Base URL
-const BACKEND_URL = 'https://ai-pathfinder-t2gn.vercel.app';
+const BACKEND_URL = 'https://ai-pathfinder-4.onrender.com';
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? '/api'
     : `${BACKEND_URL}/api`;
