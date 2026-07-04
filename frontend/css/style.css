@@ -3967,73 +3967,120 @@ footer p {
 .mocktest-options {
     display: flex;
     flex-direction: column;
+    gap: 0.55rem;
     margin-bottom: 1.5rem;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid rgba(148, 163, 184, 0.18);
 }
 
 .mocktest-option {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.25rem;
-    background: rgba(15, 23, 42, 0.6);
-    border: none;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-    border-radius: 0;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
     color: var(--text-1);
     text-align: left;
     cursor: pointer;
-    transition: background 0.15s ease;
+    transition: all 0.18s ease;
     box-shadow: none;
+    position: relative;
+    overflow: hidden;
 }
 
-.mocktest-option:last-child {
-    border-bottom: none;
+.mocktest-option::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: transparent;
+    border-radius: 12px 0 0 12px;
+    transition: background 0.18s ease;
 }
 
 .mocktest-option:hover {
-    background: rgba(34, 211, 238, 0.06);
-    transform: none;
+    background: rgba(34,211,238,0.06);
+    border-color: rgba(34,211,238,0.3);
+    transform: translateX(3px);
     box-shadow: none;
 }
 
-.mocktest-option.selected {
-    background: rgba(34, 211, 238, 0.08);
+.mocktest-option:hover::before {
+    background: var(--accent-1);
 }
 
-/* Square checkbox */
-.mocktest-opt-checkbox {
-    width: 26px;
-    height: 26px;
-    min-width: 26px;
-    border-radius: 6px;
-    border: 2px solid rgba(148, 163, 184, 0.4);
-    background: transparent;
-    transition: all 0.15s ease;
+.mocktest-option.selected {
+    background: rgba(34,211,238,0.1);
+    border-color: rgba(34,211,238,0.5);
+    transform: translateX(3px);
+    box-shadow: 0 0 0 1px rgba(34,211,238,0.2), 4px 0 20px rgba(34,211,238,0.12);
+}
+
+.mocktest-option.selected::before {
+    background: var(--accent-1);
+}
+
+/* Number circle */
+.mto-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.82rem;
+    font-weight: 800;
+    font-family: 'Sora', sans-serif;
+    transition: all 0.18s ease;
     flex-shrink: 0;
 }
 
-.mocktest-option:hover .mocktest-opt-checkbox {
+.mocktest-option:hover .mto-num {
+    background: rgba(34,211,238,0.15);
     border-color: var(--accent-1);
+    color: var(--accent-1);
 }
 
-.mocktest-opt-checkbox.checked {
+.mocktest-option.selected .mto-num {
     background: var(--accent-1);
     border-color: var(--accent-1);
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 8l3.5 3.5L13 4' stroke='%230f172a' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-size: 14px;
-    background-repeat: no-repeat;
-    background-position: center;
+    color: #0f172a;
+    font-weight: 900;
 }
 
 /* Option text */
-.mocktest-opt-text {
+.mto-text {
     flex: 1;
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.5;
-    color: var(--text-1);
+    color: rgba(255,255,255,0.8);
+    transition: color 0.18s ease;
+}
+
+.mocktest-option.selected .mto-text {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Right dot indicator */
+.mto-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    flex-shrink: 0;
+    transition: all 0.18s ease;
+}
+
+.mocktest-option.selected .mto-indicator {
+    background: var(--accent-1);
+    border-color: var(--accent-1);
+    box-shadow: 0 0 8px var(--accent-1);
 }
 
 .mocktest-code-area {
