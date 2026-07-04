@@ -265,11 +265,11 @@ function renderCompanyExplorer() {
                         <h3>${item.name}</h3>
                         <p>${description}</p>
                         <div class="mnc-card-meta">
-                            <span>ðŸ“š ${item.tests}</span>
-                            <span>ðŸ‘¥ ${item.learners}</span>
-                            <span>â­ ${item.rating}</span>
+                            <span>;š ${item.tests}</span>
+                            <span>;¥ ${item.learners}</span>
+                            <span>&#11088; ${item.rating}</span>
                         </div>
-                        <span class="mnc-card-cta">Start Learning â†’</span>
+                        <span class="mnc-card-cta">Start Learning â†&#8217;</span>
                     </div>
                 </button>
             `;
@@ -290,9 +290,9 @@ function renderCompanyExplorer() {
                     <h3>${item.name}</h3>
                     <p>${description}</p>
                     <div class="mnc-card-meta">
-                        <span>ðŸ“š ${item.tests}</span>
-                        <span>ðŸ‘¥ ${item.learners}</span>
-                        <span>â­ ${item.rating}</span>
+                        <span>;š ${item.tests}</span>
+                        <span>;¥ ${item.learners}</span>
+                        <span>&#11088; ${item.rating}</span>
                     </div>
                     <span class="mnc-card-cta disabled">Coming Soon</span>
                 </div>
@@ -779,7 +779,7 @@ function updateSectionContext() {
     analysisButton.textContent = `Analyze ${roleName}`;
 }
 
-// â”€â”€ Glassmorphism Aptitude Topic Picker â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â&#8221;€â&#8221;€ Glassmorphism Aptitude Topic Picker â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€
 
 const aptitudeTopicData = {
     quantitative: {
@@ -842,7 +842,7 @@ const aptitudeConceptNotes = {
             'If a value increases by X% then decreases by X%, net change = −(X²/100)%',
             'To keep expenditure same after P% price rise, reduce consumption by P/(100+P) × 100%',
         ],
-        tip: 'Always identify the base (denominator) carefully — most mistakes come from using the wrong base.'
+        tip: 'Always identify the base (denominator) carefully &mdash; most mistakes come from using the wrong base.'
     },
     profit_loss: {
         formula: 'Profit% = (Profit / CP) × 100 | Loss% = (Loss / CP) × 100',
@@ -859,7 +859,7 @@ const aptitudeConceptNotes = {
         formula: 'a:b = c:d ⟹ ad = bc (cross multiplication)',
         keyPoints: [
             'To combine A:B and B:C, make B equal in both ratios',
-            'Divide amount in ratio a:b:c → shares = Total × a/(a+b+c) etc.',
+            'Divide amount in ratio a:b:c &rarr; shares = Total × a/(a+b+c) etc.',
             'Mean proportional of a and b = √(ab)',
             'If ratio of speeds is a:b, ratio of time for same distance = b:a',
             'Compound ratio of a:b and c:d = ac:bd',
@@ -886,7 +886,7 @@ const aptitudeConceptNotes = {
             'Train crossing a platform: distance = length of train + length of platform',
             'Relative speed (same direction) = |S1 − S2|; opposite = S1 + S2',
         ],
-        tip: 'Always convert units consistently before calculating — mixing km/h and m/s is the most common error.'
+        tip: 'Always convert units consistently before calculating &mdash; mixing km/h and m/s is the most common error.'
     },
     simple_compound_interest: {
         formula: 'SI = PRT/100 | CI = P(1 + R/100)ⁿ − P',
@@ -897,7 +897,7 @@ const aptitudeConceptNotes = {
             'Rule of 72: years to double ≈ 72/R (for CI)',
             'If money doubles in n years at SI: R = 100/n %',
         ],
-        tip: 'For CI problems, always check the compounding frequency — annual, half-yearly, or quarterly changes the formula.'
+        tip: 'For CI problems, always check the compounding frequency &mdash; annual, half-yearly, or quarterly changes the formula.'
     },
     averages: {
         formula: 'Average = Sum of all values / Number of values',
@@ -908,7 +908,7 @@ const aptitudeConceptNotes = {
             'If average increases by x after adding a new value: new value = old average + x×(n+1)',
             'Average of first n natural numbers = (n+1)/2',
         ],
-        tip: 'Work with sums, not averages, when combining groups — convert average × count to get the sum.'
+        tip: 'Work with sums, not averages, when combining groups &mdash; convert average × count to get the sum.'
     },
     mixtures_alligations: {
         formula: 'Alligation ratio = (Higher − Mean) : (Mean − Lower)',
@@ -926,10 +926,10 @@ const aptitudeConceptNotes = {
             'Use Permutation when order matters; Combination when order does not',
             'Circular permutation of n objects = (n−1)!',
             'Number of ways to arrange n objects with p identical = n!/p!',
-            'C(n,r) = C(n, n−r) — choosing r is same as rejecting n−r',
+            'C(n,r) = C(n, n−r) &mdash; choosing r is same as rejecting n−r',
             'Total subsets of n elements = 2ⁿ',
         ],
-        tip: 'Ask yourself: "Does the order of selection matter?" — Yes → Permutation, No → Combination.'
+        tip: 'Ask yourself: "Does the order of selection matter?" &mdash; Yes &rarr; Permutation, No &rarr; Combination.'
     },
     probability: {
         formula: 'P(E) = Favourable outcomes / Total outcomes',
@@ -947,11 +947,11 @@ const aptitudeConceptNotes = {
         keyPoints: [
             'Divisibility rules: 2 (last digit even), 3 (digit sum ÷3), 9 (digit sum ÷9), 11 (alternating sum)',
             'Unit digit of powers follows a cycle: find n mod cycle-length',
-            'Number of factors of N = (a+1)(b+1)… where N = pᵃ × qᵇ…',
-            'Sum of factors = (p^(a+1)−1)/(p−1) × (q^(b+1)−1)/(q−1) …',
+            'Number of factors of N = (a+1)(b+1)&hellip; where N = pᵃ × qᵇ&hellip;',
+            'Sum of factors = (p^(a+1)−1)/(p−1) × (q^(b+1)−1)/(q−1) &hellip;',
             'Remainder theorem: (a×b) mod m = [(a mod m) × (b mod m)] mod m',
         ],
-        tip: 'For unit digit problems, find the cycle length for that base (2→4, 3→4, 7→4, 9→2) then use remainder.'
+        tip: 'For unit digit problems, find the cycle length for that base (2&rarr;4, 3&rarr;4, 7&rarr;4, 9&rarr;2) then use remainder.'
     },
     data_interpretation: {
         formula: '% change = (New − Old)/Old × 100 | Ratio = Part/Whole',
@@ -959,7 +959,7 @@ const aptitudeConceptNotes = {
             'Read the chart/table title and units carefully before calculating',
             'For bar/line charts: read values precisely at the marked points',
             'Pie chart: value = (angle/360) × total or (percentage/100) × total',
-            'Approximate when exact calculation is slow — eliminate wrong options first',
+            'Approximate when exact calculation is slow &mdash; eliminate wrong options first',
             'Compare ratios by cross-multiplication to avoid decimal errors',
         ],
         tip: 'In exams, approximate first to eliminate 2-3 options, then calculate precisely for the remaining ones.'
@@ -980,42 +980,42 @@ const aptitudeConceptNotes = {
 // ── Logical & Verbal concept notes ─────────────────────────────────────────
 Object.assign(aptitudeConceptNotes, {
     coding_decoding: {
-        intro: 'Coding-Decoding questions give you a rule used to encode a word or number, then ask you to apply the same rule to decode or encode another. The rule is always consistent — find the pattern first.',
+        intro: 'Coding-Decoding questions give you a rule used to encode a word or number, then ask you to apply the same rule to decode or encode another. The rule is always consistent &mdash; find the pattern first.',
         formula: 'Shift value = Encoded letter position − Original letter position',
         keyPoints: [
-            'Letter shift: each letter is moved forward or backward by a fixed number (e.g. A→D means +3)',
+            'Letter shift: each letter is moved forward or backward by a fixed number (e.g. A&rarr;D means +3)',
             'Reverse coding: the word is written backwards before applying a shift',
-            'Number coding: each letter is replaced by its position (A=1, B=2 … Z=26)',
-            'Symbol coding: letters are replaced by symbols — find the mapping from the example',
-            'Mixed coding: a combination of shift + reversal + position — decode step by step',
+            'Number coding: each letter is replaced by its position (A=1, B=2 &hellip; Z=26)',
+            'Symbol coding: letters are replaced by symbols &mdash; find the mapping from the example',
+            'Mixed coding: a combination of shift + reversal + position &mdash; decode step by step',
         ],
-        workedExample: 'If CAT is coded as FDW, find the code for DOG.\nC→F (+3), A→D (+3), T→W (+3). Same rule: D→G, O→R, G→J. Answer: GRJ',
+        workedExample: 'If CAT is coded as FDW, find the code for DOG.\nC&rarr;F (+3), A&rarr;D (+3), T&rarr;W (+3). Same rule: D&rarr;G, O&rarr;R, G&rarr;J. Answer: GRJ',
         tip: 'Always verify your rule on the given example before applying it to the question.'
     },
     blood_relations: {
         intro: 'Blood relation questions describe family relationships in words or through a conversation. You need to identify how two people are related by building a family tree.',
         formula: 'Draw a tree: boxes for people, lines for parent-child, = for couples',
         keyPoints: [
-            'Father/Mother → Son/Daughter (one generation down)',
-            'Brother/Sister → same generation, same parents',
-            'Uncle/Aunt → parent\'s sibling',
-            'Nephew/Niece → sibling\'s child',
-            '"Pointing to X, Y says: X is the son of my father\'s only son" → X is Y\'s son',
+            'Father/Mother &rarr; Son/Daughter (one generation down)',
+            'Brother/Sister &rarr; same generation, same parents',
+            'Uncle/Aunt &rarr; parent\'s sibling',
+            'Nephew/Niece &rarr; sibling\'s child',
+            '"Pointing to X, Y says: X is the son of my father\'s only son" &rarr; X is Y\'s son',
         ],
-        workedExample: 'A is B\'s father. C is A\'s sister. D is C\'s son. How is D related to B?\nA is B\'s father → B is A\'s child. C is A\'s sister → C is B\'s aunt. D is C\'s son → D is B\'s cousin.',
-        tip: 'Always draw the family tree — never try to solve blood relation problems in your head.'
+        workedExample: 'A is B\'s father. C is A\'s sister. D is C\'s son. How is D related to B?\nA is B\'s father &rarr; B is A\'s child. C is A\'s sister &rarr; C is B\'s aunt. D is C\'s son &rarr; D is B\'s cousin.',
+        tip: 'Always draw the family tree &mdash; never try to solve blood relation problems in your head.'
     },
     syllogism: {
         intro: 'Syllogism gives you two or more statements (premises) and asks which conclusions logically follow. Use Venn diagrams to visualise the relationship between sets.',
-        formula: 'All A are B + All B are C → All A are C (valid)\nAll A are B + Some B are C → Some A are C (NOT always valid)',
+        formula: 'All A are B + All B are C &rarr; All A are C (valid)\nAll A are B + Some B are C &rarr; Some A are C (NOT always valid)',
         keyPoints: [
-            '"All A are B" → draw A completely inside B',
-            '"Some A are B" → draw A and B overlapping',
-            '"No A is B" → draw A and B completely separate',
-            '"Some A are not B" → part of A is outside B',
+            '"All A are B" &rarr; draw A completely inside B',
+            '"Some A are B" &rarr; draw A and B overlapping',
+            '"No A is B" &rarr; draw A and B completely separate',
+            '"Some A are not B" &rarr; part of A is outside B',
             'A conclusion is valid only if it holds in ALL possible Venn diagrams',
         ],
-        workedExample: 'All cats are animals. Some animals are dogs.\nConclusion: Some cats are dogs — INVALID (cats and dogs may not overlap).\nConclusion: Some animals are cats — VALID.',
+        workedExample: 'All cats are animals. Some animals are dogs.\nConclusion: Some cats are dogs &mdash; INVALID (cats and dogs may not overlap).\nConclusion: Some animals are cats &mdash; VALID.',
         tip: 'If a conclusion holds in some diagrams but not all, it is NOT valid. Always check the "worst case" diagram.'
     },
     direction_sense: {
@@ -1023,56 +1023,56 @@ Object.assign(aptitudeConceptNotes, {
         formula: 'Net displacement = √(horizontal² + vertical²)  (Pythagoras for diagonal distance)',
         keyPoints: [
             'Standard compass: North is up, South is down, East is right, West is left',
-            'Right turn from North → East; Left turn from North → West',
+            'Right turn from North &rarr; East; Left turn from North &rarr; West',
             'Track X (East-West) and Y (North-South) movements separately',
             'Final distance from start = √(net-X² + net-Y²)',
             'Shadow direction: morning sun is in the East (shadow falls West); evening sun is West (shadow falls East)',
         ],
         workedExample: 'Start facing North. Walk 5m North, turn right, walk 3m East, turn right, walk 2m South.\nNet North-South: 5−2 = 3m North. Net East-West: 3m East.\nDistance from start = √(3²+3²) = √18 = 3√2 m.',
-        tip: 'Draw the path on paper — direction problems are almost impossible to solve mentally.'
+        tip: 'Draw the path on paper &mdash; direction problems are almost impossible to solve mentally.'
     },
     seating_arrangement: {
         intro: 'Seating arrangement questions place people in a row, circle, or around a table and give clues about their relative positions. Build the arrangement step by step using the most definite clues first.',
-        formula: 'Circular arrangement: n people → (n−1)! arrangements (one person fixed as reference)',
+        formula: 'Circular arrangement: n people &rarr; (n−1)! arrangements (one person fixed as reference)',
         keyPoints: [
             'Start with absolute clues ("A sits at the extreme left") before relative ones',
             'In a row: "immediate left/right" means adjacent; "second to the left" means two seats away',
             'In a circle: "to the left" means clockwise when viewed from above',
-            'Use a table or diagram — never solve in your head',
+            'Use a table or diagram &mdash; never solve in your head',
             'Eliminate options as you place each person to narrow down faster',
         ],
         workedExample: '5 people A B C D E in a row. A is at one end. B is next to A. C is not next to B.\nStart: A-B-?-?-?. C cannot be 3rd. Try: A-B-D-C-E or A-B-E-C-D.',
-        tip: 'Use the most restrictive clue first — it eliminates the most possibilities immediately.'
+        tip: 'Use the most restrictive clue first &mdash; it eliminates the most possibilities immediately.'
     },
     puzzles: {
         intro: 'Puzzle questions combine multiple constraints about people, objects, positions, or attributes. The key is to build a grid and fill it systematically using elimination.',
-        formula: 'Grid method: rows = people/items, columns = attributes (floor, colour, job…)',
+        formula: 'Grid method: rows = people/items, columns = attributes (floor, colour, job&hellip;)',
         keyPoints: [
             'List all entities and attributes before starting',
             'Mark definite assignments with ✓ and ruled-out ones with ✗',
             'Use "if-then" logic: if A is on floor 3, then B must be on floor 1 (from clue X)',
             'Work from the most specific clue to the most general',
-            'Re-read all clues after each placement — new deductions often open up',
+            'Re-read all clues after each placement &mdash; new deductions often open up',
         ],
-        workedExample: '3 people (A, B, C) live on floors 1, 2, 3. A is not on floor 1. B is above C.\nC can be 1 or 2. B is above C → if C=2, B=3, A=1 (but A≠1). So C=1, B=2 or 3, A=2 or 3.\nB above C and A≠1 → B=3, A=2.',
-        tip: 'Never guess — every step must follow from a clue. If stuck, try assuming one option and see if it leads to a contradiction.'
+        workedExample: '3 people (A, B, C) live on floors 1, 2, 3. A is not on floor 1. B is above C.\nC can be 1 or 2. B is above C &rarr; if C=2, B=3, A=1 (but A≠1). So C=1, B=2 or 3, A=2 or 3.\nB above C and A≠1 &rarr; B=3, A=2.',
+        tip: 'Never guess &mdash; every step must follow from a clue. If stuck, try assuming one option and see if it leads to a contradiction.'
     },
     pattern_recognition: {
         intro: 'Pattern recognition questions show a sequence of numbers, letters, or figures and ask you to find the next term or the missing element. Identify the rule governing the change between terms.',
-        formula: 'Difference series: check 1st diff → 2nd diff → 3rd diff until constant',
+        formula: 'Difference series: check 1st diff &rarr; 2nd diff &rarr; 3rd diff until constant',
         keyPoints: [
-            'Arithmetic: constant difference (e.g. 3, 7, 11, 15 → +4 each time)',
-            'Geometric: constant ratio (e.g. 2, 6, 18, 54 → ×3 each time)',
+            'Arithmetic: constant difference (e.g. 3, 7, 11, 15 &rarr; +4 each time)',
+            'Geometric: constant ratio (e.g. 2, 6, 18, 54 &rarr; ×3 each time)',
             'Square/Cube series: 1, 4, 9, 16 (n²) or 1, 8, 27, 64 (n³)',
             'Two interleaved series: odd-position terms follow one rule, even-position another',
             'Fibonacci-style: each term = sum of previous two',
         ],
-        workedExample: 'Series: 2, 6, 12, 20, 30, ?\n1st differences: 4, 6, 8, 10, 12 → differences increase by 2.\nNext term = 30 + 12 = 42.',
+        workedExample: 'Series: 2, 6, 12, 20, 30, ?\n1st differences: 4, 6, 8, 10, 12 &rarr; differences increase by 2.\nNext term = 30 + 12 = 42.',
         tip: 'Always check the first differences first. If not constant, check second differences. Most exam series resolve within 3 levels.'
     },
     series: {
-        intro: 'Number and alphabet series questions test your ability to spot arithmetic, geometric, or mixed patterns. For alphabet series, convert letters to their positions (A=1 … Z=26) to find the numeric pattern.',
-        formula: 'Letter position: A=1, B=2, … Z=26. Reverse: Z=1, Y=2, … A=26',
+        intro: 'Number and alphabet series questions test your ability to spot arithmetic, geometric, or mixed patterns. For alphabet series, convert letters to their positions (A=1 &hellip; Z=26) to find the numeric pattern.',
+        formula: 'Letter position: A=1, B=2, &hellip; Z=26. Reverse: Z=1, Y=2, &hellip; A=26',
         keyPoints: [
             'Number series: check differences, ratios, squares, cubes, and primes',
             'Alphabet series: convert to numbers, find the pattern, convert back',
@@ -1080,34 +1080,34 @@ Object.assign(aptitudeConceptNotes, {
             'Wrong number: find the term that breaks the pattern',
             'Missing term: apply the rule to the position before and after the gap',
         ],
-        workedExample: 'Alphabet series: B, E, H, K, ?\nPositions: 2, 5, 8, 11 → +3 each time. Next = 14 = N.',
-        tip: 'For alphabet series, always write out the position numbers first — the pattern is always numeric underneath.'
+        workedExample: 'Alphabet series: B, E, H, K, ?\nPositions: 2, 5, 8, 11 &rarr; +3 each time. Next = 14 = N.',
+        tip: 'For alphabet series, always write out the position numbers first &mdash; the pattern is always numeric underneath.'
     },
     reading_comprehension: {
         intro: 'Reading comprehension gives you a passage and asks questions about its content, tone, main idea, or implied meaning. Read the questions first, then scan the passage for relevant sections.',
         formula: 'Main idea = topic + what the author says about it (not just the topic alone)',
         keyPoints: [
             'Read questions before the passage to know what to look for',
-            'Factual questions: the answer is directly stated — find the exact line',
-            'Inference questions: the answer is implied — look for the closest logical conclusion',
+            'Factual questions: the answer is directly stated &mdash; find the exact line',
+            'Inference questions: the answer is implied &mdash; look for the closest logical conclusion',
             'Tone questions: identify positive/negative/neutral words used by the author',
             'Title questions: the title should cover the entire passage, not just one paragraph',
         ],
-        workedExample: 'If the passage says "Despite challenges, the team delivered results on time", the tone is:\nA) Pessimistic  B) Appreciative  C) Critical  D) Neutral\nAnswer: B — "despite challenges" + "delivered" signals appreciation.',
-        tip: 'Never use outside knowledge — all answers must come from the passage itself.'
+        workedExample: 'If the passage says "Despite challenges, the team delivered results on time", the tone is:\nA) Pessimistic  B) Appreciative  C) Critical  D) Neutral\nAnswer: B &mdash; "despite challenges" + "delivered" signals appreciation.',
+        tip: 'Never use outside knowledge &mdash; all answers must come from the passage itself.'
     },
     error_detection: {
         intro: 'Error detection questions give you a sentence split into parts and ask you to identify the part with a grammatical error. Focus on subject-verb agreement, tense consistency, articles, prepositions, and pronoun usage.',
-        formula: 'Check order: Subject-Verb agreement → Tense → Articles → Prepositions → Pronouns',
+        formula: 'Check order: Subject-Verb agreement &rarr; Tense &rarr; Articles &rarr; Prepositions &rarr; Pronouns',
         keyPoints: [
-            'Subject-verb agreement: singular subject → singular verb (He goes, not He go)',
+            'Subject-verb agreement: singular subject &rarr; singular verb (He goes, not He go)',
             'Tense consistency: do not mix past and present in the same clause without reason',
             'Articles: "a" before consonant sounds, "an" before vowel sounds',
-            'Prepositions: "interested in", "good at", "afraid of" — these are fixed phrases',
-            'Double negatives: "I don\'t know nothing" is incorrect → "I don\'t know anything"',
+            'Prepositions: "interested in", "good at", "afraid of" &mdash; these are fixed phrases',
+            'Double negatives: "I don\'t know nothing" is incorrect &rarr; "I don\'t know anything"',
         ],
-        workedExample: '"He don\'t know the answer." → Error: "don\'t" should be "doesn\'t" (He is third-person singular → does not → doesn\'t).',
-        tip: 'Read the sentence aloud in your head — grammatical errors often sound wrong even before you analyse them.'
+        workedExample: '"He don\'t know the answer." &rarr; Error: "don\'t" should be "doesn\'t" (He is third-person singular &rarr; does not &rarr; doesn\'t).',
+        tip: 'Read the sentence aloud in your head &mdash; grammatical errors often sound wrong even before you analyse them.'
     },
     sentence_correction: {
         intro: 'Sentence correction gives you a sentence with an underlined part and asks you to choose the best replacement. The correct option must be grammatically accurate, clear, and concise.',
@@ -1119,11 +1119,11 @@ Object.assign(aptitudeConceptNotes, {
             'Parallelism: items in a list must have the same grammatical form',
             'Dangling modifier: the introductory phrase must logically refer to the subject',
         ],
-        workedExample: '"Having finished the report, the meeting was called." → Error: the meeting did not finish the report.\nCorrection: "Having finished the report, she called the meeting."',
-        tip: 'Always check if the meaning is preserved — a grammatically correct option that changes the meaning is wrong.'
+        workedExample: '"Having finished the report, the meeting was called." &rarr; Error: the meeting did not finish the report.\nCorrection: "Having finished the report, she called the meeting."',
+        tip: 'Always check if the meaning is preserved &mdash; a grammatically correct option that changes the meaning is wrong.'
     },
     synonyms_antonyms: {
-        intro: 'Synonym questions ask for a word with the same meaning; antonym questions ask for the opposite. Context matters — many words have multiple meanings, and the correct answer depends on how the word is used.',
+        intro: 'Synonym questions ask for a word with the same meaning; antonym questions ask for the opposite. Context matters &mdash; many words have multiple meanings, and the correct answer depends on how the word is used.',
         formula: 'Synonym = same meaning | Antonym = opposite meaning | Always check context',
         keyPoints: [
             'Eliminate options that are clearly unrelated first',
@@ -1132,21 +1132,21 @@ Object.assign(aptitudeConceptNotes, {
             'Common prefixes for antonyms: un-, in-, im-, dis-, non-, anti-',
             'If unsure, use the word in a sentence and see which option fits the same context',
         ],
-        workedExample: 'Synonym of BENEVOLENT:\nA) Malicious  B) Generous  C) Strict  D) Timid\n"Bene-" = good/kind → Generous. Answer: B.',
-        tip: 'Learn word roots and prefixes — they let you decode unfamiliar words without memorising every word individually.'
+        workedExample: 'Synonym of BENEVOLENT:\nA) Malicious  B) Generous  C) Strict  D) Timid\n"Bene-" = good/kind &rarr; Generous. Answer: B.',
+        tip: 'Learn word roots and prefixes &mdash; they let you decode unfamiliar words without memorising every word individually.'
     },
     para_jumbles: {
-        intro: 'Para jumble questions give you 4–6 sentences in random order and ask you to arrange them into a coherent paragraph. Find the opening sentence first, then link sentences using pronouns, connectors, and logical flow.',
-        formula: 'Opening → Context → Development → Conclusion (most paragraphs follow this flow)',
+        intro: 'Para jumble questions give you 4&ndash;6 sentences in random order and ask you to arrange them into a coherent paragraph. Find the opening sentence first, then link sentences using pronouns, connectors, and logical flow.',
+        formula: 'Opening &rarr; Context &rarr; Development &rarr; Conclusion (most paragraphs follow this flow)',
         keyPoints: [
-            'The opening sentence introduces the topic — it has no pronoun referring to something before it',
+            'The opening sentence introduces the topic &mdash; it has no pronoun referring to something before it',
             'Pronouns (he, she, it, they, this, that) must follow the noun they refer to',
             'Connectors signal order: "however", "therefore", "moreover", "for example", "finally"',
             'A sentence starting with "This" or "These" must follow the sentence that introduces that thing',
             'The concluding sentence often summarises or gives a result/consequence',
         ],
-        workedExample: 'Sentences: (A) It was a huge success. (B) The team worked hard. (C) They launched the product. (D) Everyone celebrated.\nOrder: B → C → A → D (cause → action → result → reaction).',
-        tip: 'Find the mandatory pair first — two sentences that must be adjacent because one refers to the other.'
+        workedExample: 'Sentences: (A) It was a huge success. (B) The team worked hard. (C) They launched the product. (D) Everyone celebrated.\nOrder: B &rarr; C &rarr; A &rarr; D (cause &rarr; action &rarr; result &rarr; reaction).',
+        tip: 'Find the mandatory pair first &mdash; two sentences that must be adjacent because one refers to the other.'
     },
     vocabulary: {
         intro: 'Vocabulary questions test your knowledge of word meanings, usage, and context. They appear as fill-in-the-blank, odd-one-out, or direct meaning questions. A strong vocabulary is built through reading and root-word study.',
@@ -1158,7 +1158,7 @@ Object.assign(aptitudeConceptNotes, {
             'Contextual clues: the sentence around the blank often hints at the meaning needed',
             'Connotation: some words are positive (diligent), negative (cunning), or neutral (said)',
         ],
-        workedExample: 'Fill in: "The scientist made a _____ discovery that changed medicine."\nOptions: A) trivial  B) groundbreaking  C) ordinary  D) delayed\nContext clue: "changed medicine" → significant → B) groundbreaking.',
+        workedExample: 'Fill in: "The scientist made a _____ discovery that changed medicine."\nOptions: A) trivial  B) groundbreaking  C) ordinary  D) delayed\nContext clue: "changed medicine" &rarr; significant &rarr; B) groundbreaking.',
         tip: 'For fill-in-the-blank, read the full sentence and decide the tone (positive/negative/neutral) before looking at options.'
     },
 });
@@ -1215,7 +1215,7 @@ function renderAptitudePicker(container) {
                     <span class="apt-progress-label" id="apt-progress-label"></span>
                 </div>
                 <button type="button" class="apt-practice-btn" onclick="aptPracticeSelected()">
-                    Practice Selected →
+                    Practice Selected &rarr;
                 </button>
             </div>
         </div>
@@ -1245,7 +1245,7 @@ function renderAptTopicGrid() {
                 <div class="apt-card-body" onclick="openAptTopicDetail('${aptitudePickerState.activeTab}', '${topic.id}')" style="cursor:pointer;">
                     <span class="apt-card-title">${topic.title}</span>
                     <span class="apt-card-sub">${topic.sub}</span>
-                    <span class="apt-card-learn-hint">Tap to learn &amp; practice →</span>
+                    <span class="apt-card-learn-hint">Tap to learn &amp; practice &rarr;</span>
                 </div>
             </div>
         `;
@@ -1298,7 +1298,7 @@ function updateAptPickerStats() {
     const fill = document.getElementById('apt-progress-fill');
     const label = document.getElementById('apt-progress-label');
     if (fill) fill.style.width = `${pct}%`;
-    if (label) label.textContent = `${tab.label} — ${pct}% complete`;
+    if (label) label.textContent = `${tab.label} &mdash; ${pct}% complete`;
 }
 
 function aptPracticeSelected() {
@@ -1510,7 +1510,7 @@ function backToAptPicker() {
 
 
 async function loadTopicQuestions(apiKey, difficulty) {
-    // Legacy alias — redirects to new practice system
+    // Legacy alias &mdash; redirects to new practice system
     loadAptTopicPractice(apiKey, difficulty.charAt(0).toUpperCase() + difficulty.slice(1));
 }
 
@@ -2984,7 +2984,7 @@ const tcsAptitudeTopicContent = {
             'Only trust what is definitely true from the statement',
             'Do not assume extra overlap unless it is stated'
         ],
-        tips: ['Separate â€œsomeâ€ from â€œallâ€ very carefully.', 'Reject conclusions based on possibility when the question asks for certainty.']
+        tips: ['Separate &#8221;œsome&#8221; from &#8221;œall&#8221; very carefully.', 'Reject conclusions based on possibility when the question asks for certainty.']
     },
     direction_sense: {
         title: 'Direction Sense',
@@ -3048,7 +3048,7 @@ const tcsAptitudeTopicContent = {
     reading_comprehension: {
         title: 'Reading Comprehension',
         section: 'Verbal Ability',
-        overview: 'The goal is to understand the authorâ€™s central idea, tone, and direct meaning rather than rely on outside knowledge.',
+        overview: 'The goal is to understand the author&#8221;™s central idea, tone, and direct meaning rather than rely on outside knowledge.',
         formulasTitle: 'Quick approach:',
         formulas: [
             'Read the questions once before the passage if time is short',
@@ -3430,17 +3430,17 @@ const companyData = {
         name: "Tata Consultancy Services (TCS)",
         content: `
             <div class="company-detail">
-                <h2>ðŸ“… Overview of TCS</h2>
+                <h2>;&hellip; Overview of TCS</h2>
                 <ul>
                     <li><strong>Founded:</strong> 1968</li>
                     <li><strong>Founder:</strong> Faquir Chand Kohli (known as the father of the Indian IT industry)</li>
                     <li><strong>Headquarters:</strong> Mumbai, India</li>
                     <li><strong>CEO:</strong> K. Krithivasan</li>
-                    <li><strong>Employees:</strong> 600,000+ worldwide ðŸŒ</li>
+                    <li><strong>Employees:</strong> 600,000+ worldwide &#127757;</li>
                 </ul>
                 <p>TCS is one of the largest IT employers in India.</p>
 
-                <h2>ðŸ’» What TCS Does</h2>
+                <h2>;» What TCS Does</h2>
                 <p>TCS provides IT services, consulting, and business solutions to companies around the world.</p>
                 <p>Main services include:</p>
                 <ul>
@@ -3455,7 +3455,7 @@ const companyData = {
                 </ul>
                 <p>Many global companies depend on TCS for their technology systems.</p>
 
-                <h2>ðŸŒŽ Global Presence</h2>
+                <h2>&#127758; Global Presence</h2>
                 <p>TCS operates in 50+ countries and serves clients in industries like:</p>
                 <ul>
                     <li>Banking & Finance</li>
@@ -3473,7 +3473,7 @@ const companyData = {
                     <li>Australia</li>
                 </ul>
 
-                <h2>ðŸ† Achievements</h2>
+                <h2>&#127959; Achievements</h2>
                 <ul>
                     <li>One of the most valuable IT companies in the world</li>
                     <li>Listed on the Bombay Stock Exchange (BSE) and National Stock Exchange of India (NSE)</li>
@@ -3481,17 +3481,17 @@ const companyData = {
                     <li>Known for strong employee training programs</li>
                 </ul>
 
-                <h2>ðŸ‘¨â€ðŸ’» Why Many Students Prefer TCS</h2>
+                <h2>;¨&#8221;;» Why Many Students Prefer TCS</h2>
                 <p>Fresh graduates often try to join TCS because:</p>
                 <ul>
-                    <li>âœ… Good training for freshers</li>
-                    <li>âœ… Job stability</li>
-                    <li>âœ… Global projects</li>
-                    <li>âœ… Good work culture</li>
-                    <li>âœ… Opportunity to work abroad ðŸŒŽ</li>
+                    <li>âœ&hellip; Good training for freshers</li>
+                    <li>âœ&hellip; Job stability</li>
+                    <li>âœ&hellip; Global projects</li>
+                    <li>âœ&hellip; Good work culture</li>
+                    <li>âœ&hellip; Opportunity to work abroad &#127758;</li>
                 </ul>
 
-                <h2>ðŸŽ“ TCS Hiring Programs</h2>
+                <h2>&#127873;&#8220; TCS Hiring Programs</h2>
                 <p>TCS hires freshers through programs like:</p>
                 <ul>
                     <li>TCS National Qualifier Test (TCS NQT)</li>
@@ -3499,46 +3499,46 @@ const companyData = {
                     <li>TCS CodeVita coding contest</li>
                 </ul>
 
-                <h2>ðŸ“Š Simple Company Structure</h2>
+                <h2>;Š Simple Company Structure</h2>
                 <div class="structure">
                     <p>Tata Group</p>
-                    <p>â”‚</p>
-                    <p>â–¼</p>
+                    <p>â&#8221;‚</p>
+                    <p>â&ndash;¼</p>
                     <p>Tata Consultancy Services (TCS)</p>
-                    <p>â”‚</p>
-                    <p>â”œâ”€â”€ IT Services</p>
-                    <p>â”œâ”€â”€ Consulting</p>
-                    <p>â”œâ”€â”€ Cloud & AI</p>
-                    <p>â”œâ”€â”€ Cybersecurity</p>
-                    <p>â””â”€â”€ Digital Solutions</p>
+                    <p>â&#8221;‚</p>
+                    <p>â&#8221;œâ&#8221;€â&#8221;€ IT Services</p>
+                    <p>â&#8221;œâ&#8221;€â&#8221;€ Consulting</p>
+                    <p>â&#8221;œâ&#8221;€â&#8221;€ Cloud & AI</p>
+                    <p>â&#8221;œâ&#8221;€â&#8221;€ Cybersecurity</p>
+                    <p>â&#8221;&#8221;â&#8221;€â&#8221;€ Digital Solutions</p>
                 </div>
 
                 <h2>1ï¸âƒ£ TCS Interview Process</h2>
                 <div class="flow-chart">
                     <p>Apply through TCS NextStep / Campus</p>
-                    <p>â”‚</p>
-                    <p>â–¼</p>
+                    <p>â&#8221;‚</p>
+                    <p>â&ndash;¼</p>
                     <p>Online Aptitude Test</p>
                     <p>(Quantitative + Logical + Verbal)</p>
-                    <p>â”‚</p>
-                    <p>â–¼</p>
+                    <p>â&#8221;‚</p>
+                    <p>â&ndash;¼</p>
                     <p>Programming Test</p>
                     <p>(Coding / Hands-on)</p>
-                    <p>â”‚</p>
-                    <p>â–¼</p>
+                    <p>â&#8221;‚</p>
+                    <p>â&ndash;¼</p>
                     <p>Technical Interview</p>
                     <p>(Programming + Core CS Concepts)</p>
-                    <p>â”‚</p>
-                    <p>â–¼</p>
+                    <p>â&#8221;‚</p>
+                    <p>â&ndash;¼</p>
                     <p>HR Interview</p>
                     <p>(Personality + Communication)</p>
-                    <p>â”‚</p>
-                    <p>â–¼</p>
+                    <p>â&#8221;‚</p>
+                    <p>â&ndash;¼</p>
                     <p>Offer Letter</p>
                 </div>
                 <p><em>Some campuses may combine Technical + HR in one round.</em></p>
 
-                <h2>2ï¸âƒ£ Common Aptitude Topics You Must Cover ðŸ§ </h2>
+                <h2>2ï¸âƒ£ Common Aptitude Topics You Must Cover &#129487; </h2>
                 <h3>Quantitative Aptitude</h3>
                 <p>Focus on these important topics:</p>
                 <ul>
@@ -3556,7 +3556,7 @@ const companyData = {
                     <li>Data Interpretation</li>
                     <li>Geometry & Mensuration</li>
                 </ul>
-                <p>ðŸ“Œ Practice from platforms like IndiaBIX, PrepInsta</p>
+                <p>;Œ Practice from platforms like IndiaBIX, PrepInsta</p>
 
                 <h3>Logical Reasoning</h3>
                 <p>Important topics:</p>
@@ -3581,7 +3581,7 @@ const companyData = {
                     <li>Vocabulary</li>
                 </ul>
 
-                <h2>3ï¸âƒ£ Programming Languages You Should Cover ðŸ’»</h2>
+                <h2>3ï¸âƒ£ Programming Languages You Should Cover ;»</h2>
                 <p>You don't need to learn many languages, but you must be strong in at least one.</p>
                 <p>Recommended languages:</p>
                 <ul>
@@ -3606,7 +3606,7 @@ const companyData = {
                     <li>Basic Data Structures</li>
                 </ul>
 
-                <h2>4ï¸âƒ£ Core Computer Science Concepts ðŸ“š</h2>
+                <h2>4ï¸âƒ£ Core Computer Science Concepts ;š</h2>
                 <p>Even if you are not from CS, prepare basic concepts.</p>
 
                 <h3>Data Structures</h3>
@@ -3664,7 +3664,7 @@ const companyData = {
                     <li>GeeksforGeeks</li>
                 </ul>
 
-                <h2>6ï¸âƒ£ Technical Interview Questions (Common) ðŸŽ¯</h2>
+                <h2>6ï¸âƒ£ Technical Interview Questions (Common) &#127919;</h2>
                 <p>Examples:</p>
                 <ul>
                     <li>Tell me about yourself</li>
@@ -3677,7 +3677,7 @@ const companyData = {
                 </ul>
                 <p><strong>Tip:</strong> Prepare your project very well.</p>
 
-                <h2>7ï¸âƒ£ HR Interview Questions ðŸ’¬</h2>
+                <h2>7ï¸âƒ£ HR Interview Questions ;¬</h2>
                 <p>Common HR questions:</p>
                 <ul>
                     <li>Why do you want to join TCS?</li>
@@ -3687,24 +3687,24 @@ const companyData = {
                     <li>Why should we hire you?</li>
                 </ul>
 
-                <h2>8ï¸âƒ£ Important Tips to Crack TCS Interview â­</h2>
+                <h2>8ï¸âƒ£ Important Tips to Crack TCS Interview &#11088;</h2>
                 <ul>
-                    <li>âœ” Improve communication skills</li>
-                    <li>âœ” Practice mock interviews</li>
-                    <li>âœ” Be confident while speaking</li>
-                    <li>âœ” Prepare resume properly</li>
-                    <li>âœ” Know your final year project clearly</li>
-                    <li>âœ” Practice coding daily</li>
-                    <li>âœ” Revise basic CS concepts</li>
+                    <li>âœ&#8221; Improve communication skills</li>
+                    <li>âœ&#8221; Practice mock interviews</li>
+                    <li>âœ&#8221; Be confident while speaking</li>
+                    <li>âœ&#8221; Prepare resume properly</li>
+                    <li>âœ&#8221; Know your final year project clearly</li>
+                    <li>âœ&#8221; Practice coding daily</li>
+                    <li>âœ&#8221; Revise basic CS concepts</li>
                 </ul>
 
-                <h2>9ï¸âƒ£ Extra Things That Help You Get Selected ðŸš€</h2>
+                <h2>9ï¸âƒ£ Extra Things That Help You Get Selected &#128640;</h2>
                 <ul>
                     <li>Learn Object-Oriented Programming (OOP)</li>
                     <li>Learn basic SQL</li>
                     <li>Learn Git basics</li>
                     <li>Know software development lifecycle</li>
-                    <li>Build 2â€“3 small projects</li>
+                    <li>Build 2&#8221;&#8220;3 small projects</li>
                 </ul>
                 <p>Example projects:</p>
                 <ul>
@@ -3735,7 +3735,7 @@ const companyData = {
                 </div>
 
                 <div class="practice-btn-container">
-                    <button class="practice-btn" onclick="showTcsAptitude()">ðŸŽ¯ Practice Common Aptitude Questions</button>
+                    <button class="practice-btn" onclick="showTcsAptitude()">&#127919; Practice Common Aptitude Questions</button>
                 </div>
             </div>
         `
@@ -4226,7 +4226,7 @@ function checkCompanyAnswer(resultId, selected, correct, explanation) {
     }
 
     if (selected === correct) {
-        resultDiv.innerHTML = '<span class="correct">âœ… Correct!</span>';
+        resultDiv.innerHTML = '<span class="correct">âœ&hellip; Correct!</span>';
     } else {
         resultDiv.innerHTML = `<span class="incorrect">âŒ Incorrect. Correct answer: ${correct}</span>`;
         if (explanation) {
@@ -4299,7 +4299,7 @@ function displayAptitudeQuestions(questions) {
 function checkAnswer(questionId, selected, correct, explanation) {
     const resultDiv = document.getElementById(`result-${questionId}`);
     if (selected === correct) {
-        resultDiv.innerHTML = '<span class="correct">âœ… Correct!</span>';
+        resultDiv.innerHTML = '<span class="correct">âœ&hellip; Correct!</span>';
     } else {
         resultDiv.innerHTML = `<span class="incorrect">âŒ Incorrect. Correct answer: ${correct}</span>`;
         if (explanation) {
@@ -5296,7 +5296,7 @@ function renderUserProfileAnalytics() {
                     </div>
                 </div>
                 <div class="upd-stat-card" style="--accent:#34d399">
-                    <div class="upd-stat-icon">📊</div>
+                    <div class="upd-stat-icon">&#128202;</div>
                     <div class="upd-stat-body">
                         <span class="upd-stat-value">${mockAverage !== null ? mockAverage + '%' : '--'}</span>
                         <span class="upd-stat-label">Avg Mock Score</span>
@@ -5310,14 +5310,14 @@ function renderUserProfileAnalytics() {
                     </div>
                 </div>
                 <div class="upd-stat-card" style="--accent:#f87171">
-                    <div class="upd-stat-icon">💼</div>
+                    <div class="upd-stat-icon">&#128188;</div>
                     <div class="upd-stat-body">
                         <span class="upd-stat-value">${resumeScore}%</span>
                         <span class="upd-stat-label">Resume Score</span>
                     </div>
                 </div>
                 <div class="upd-stat-card" style="--accent:#e879f9">
-                    <div class="upd-stat-icon">⚡</div>
+                    <div class="upd-stat-icon">&#9889;</div>
                     <div class="upd-stat-body">
                         <span class="upd-stat-value">${totalTests}</span>
                         <span class="upd-stat-label">Total Activities</span>
@@ -5631,7 +5631,7 @@ function renderResumeTool() {
                 <div class="resume-hero-left">
                     <span class="resume-eyebrow">âœ¦ Career Tools</span>
                     <h2 class="resume-hero-title">Resume Builder <span class="resume-hero-amp">&</span> Checker</h2>
-                    <p class="resume-hero-sub">Build an ATS-ready resume from scratch, or upload yours for a deep analysis â€” keyword match, section scoring, and actionable fixes.</p>
+                    <p class="resume-hero-sub">Build an ATS-ready resume from scratch, or upload yours for a deep analysis &#8221;&#8221; keyword match, section scoring, and actionable fixes.</p>
                 </div>
                 <div class="resume-score-ring" id="resume-score-ring">
                     <svg viewBox="0 0 120 120" class="resume-ring-svg">
@@ -5654,16 +5654,16 @@ function renderResumeTool() {
             <!-- Tabs -->
             <div class="resume-tabs">
                 <button type="button" class="resume-tab active" id="tab-build" onclick="switchResumeTab('build')">âœï¸ Build Resume</button>
-                <button type="button" class="resume-tab" id="tab-upload" onclick="switchResumeTab('upload')">ðŸ“¤ Upload & Analyze</button>
-                <button type="button" class="resume-tab" id="tab-tips" onclick="switchResumeTab('tips')">ðŸ’¡ ATS Tips</button>
+                <button type="button" class="resume-tab" id="tab-upload" onclick="switchResumeTab('upload')">;¤ Upload & Analyze</button>
+                <button type="button" class="resume-tab" id="tab-tips" onclick="switchResumeTab('tips')">;¡ ATS Tips</button>
             </div>
 
-            <!-- â”€â”€ BUILD TAB â”€â”€ -->
+            <!-- â&#8221;€â&#8221;€ BUILD TAB â&#8221;€â&#8221;€ -->
             <div id="resume-tab-build" class="resume-tab-panel">
                 <div class="resume-two-col">
                     <div class="resume-form-col">
                         <div class="resume-form-section">
-                            <h4 class="resume-form-section-title">ðŸŽ¯ Target Info</h4>
+                            <h4 class="resume-form-section-title">&#127919; Target Info</h4>
                             <div class="career-form-grid">
                                 <label>Target Role <span class="resume-required">*</span>
                                     <input id="resume-target-role" type="text" placeholder="e.g. Frontend Developer, Data Analyst">
@@ -5674,7 +5674,7 @@ function renderResumeTool() {
                             </div>
                         </div>
                         <div class="resume-form-section">
-                            <h4 class="resume-form-section-title">ðŸ‘¤ Professional Summary</h4>
+                            <h4 class="resume-form-section-title">;¤ Professional Summary</h4>
                             <div class="career-form-grid">
                                 <label>Summary <span class="resume-required">*</span>
                                     <textarea id="resume-summary" rows="3" placeholder="Motivated CS graduate with 1 year of internship experience in React and Node.js, seeking a frontend developer role at a product company."></textarea>
@@ -5682,7 +5682,7 @@ function renderResumeTool() {
                             </div>
                         </div>
                         <div class="resume-form-section">
-                            <h4 class="resume-form-section-title">ðŸ› ï¸ Skills</h4>
+                            <h4 class="resume-form-section-title">&#128507; ï¸ Skills</h4>
                             <div class="career-form-grid">
                                 <label>Technical Skills <span class="resume-required">*</span>
                                     <input id="resume-skills" type="text" placeholder="React, JavaScript, REST APIs, Git, SQL, Python">
@@ -5693,18 +5693,18 @@ function renderResumeTool() {
                             </div>
                         </div>
                         <div class="resume-form-section">
-                            <h4 class="resume-form-section-title">ðŸ’¼ Experience</h4>
+                            <h4 class="resume-form-section-title">;¼ Experience</h4>
                             <div class="career-form-grid">
                                 <label>Internship / Work Experience
-                                    <textarea id="resume-experience" rows="3" placeholder="Interned at XYZ Corp (Junâ€“Aug 2024). Built REST APIs using Node.js, reducing response time by 35%. Collaborated with 4-member team."></textarea>
+                                    <textarea id="resume-experience" rows="3" placeholder="Interned at XYZ Corp (Jun&#8221;&#8220;Aug 2024). Built REST APIs using Node.js, reducing response time by 35%. Collaborated with 4-member team."></textarea>
                                 </label>
                             </div>
                         </div>
                         <div class="resume-form-section">
-                            <h4 class="resume-form-section-title">ðŸš€ Projects</h4>
+                            <h4 class="resume-form-section-title">&#128640; Projects</h4>
                             <div class="career-form-grid">
                                 <label>Project 1 <span class="resume-required">*</span>
-                                    <textarea id="resume-project" rows="3" placeholder="AI Placement Portal â€” Built with React + Flask. Used by 300+ students. Reduced prep time by 40%."></textarea>
+                                    <textarea id="resume-project" rows="3" placeholder="AI Placement Portal &#8221;&#8221; Built with React + Flask. Used by 300+ students. Reduced prep time by 40%."></textarea>
                                 </label>
                                 <label>Project 2 (optional)
                                     <textarea id="resume-project2" rows="2" placeholder="E-commerce site with payment integration. 500+ orders processed."></textarea>
@@ -5712,7 +5712,7 @@ function renderResumeTool() {
                             </div>
                         </div>
                         <div class="resume-form-section">
-                            <h4 class="resume-form-section-title">ðŸŽ“ Education & Extras</h4>
+                            <h4 class="resume-form-section-title">&#127873;&#8220; Education & Extras</h4>
                             <div class="career-form-grid">
                                 <label>Education <span class="resume-required">*</span>
                                     <input id="resume-education" type="text" placeholder="B.Tech CSE, XYZ University, 2024, CGPA 8.2">
@@ -5723,7 +5723,7 @@ function renderResumeTool() {
                             </div>
                         </div>
                         <div class="resume-build-actions">
-                            <button type="button" class="resume-primary-btn" onclick="checkResumeQuality()">ðŸ” Analyze & Score</button>
+                            <button type="button" class="resume-primary-btn" onclick="checkResumeQuality()">; Analyze & Score</button>
                             <button type="button" class="resume-secondary-btn" onclick="generateResumeDraft()">âœ¨ Generate Draft</button>
                         </div>
                     </div>
@@ -5731,7 +5731,7 @@ function renderResumeTool() {
                     <!-- Live checklist sidebar -->
                     <div class="resume-sidebar">
                         <div class="resume-sidebar-card">
-                            <h4 class="resume-sidebar-title">ðŸ“‹ Live Checklist</h4>
+                            <h4 class="resume-sidebar-title">;‹ Live Checklist</h4>
                             <ul class="resume-live-checklist" id="resume-live-checklist">
                                 <li class="rcl-item" id="rcl-role">Target role filled</li>
                                 <li class="rcl-item" id="rcl-summary">Summary written</li>
@@ -5757,16 +5757,16 @@ function renderResumeTool() {
                 </div>
             </div>
 
-            <!-- â”€â”€ UPLOAD TAB â”€â”€ -->
+            <!-- â&#8221;€â&#8221;€ UPLOAD TAB â&#8221;€â&#8221;€ -->
             <div id="resume-tab-upload" class="resume-tab-panel" style="display:none;">
                 <div class="resume-upload-area">
                     <div class="resume-upload-zone" id="resume-upload-zone"
                          ondragover="event.preventDefault(); this.classList.add('drag-over')"
                          ondragleave="this.classList.remove('drag-over')"
                          ondrop="handleResumeDrop(event)">
-                        <div class="resume-upload-icon">ðŸ“„</div>
+                        <div class="resume-upload-icon">;„</div>
                         <p class="resume-upload-title">Drop your resume here or click to browse</p>
-                        <p class="resume-upload-sub">Supports .pdf, .docx, .txt, .md â€” Max 5MB</p>
+                        <p class="resume-upload-sub">Supports .pdf, .docx, .txt, .md &#8221;&#8221; Max 5MB</p>
                         <input id="resume-upload-file" type="file" accept=".pdf,.docx,.txt,.md" class="resume-upload-input" onchange="handleResumeFileSelect(this)">
                         <button type="button" class="resume-secondary-btn" onclick="document.getElementById('resume-upload-file').click()">Browse File</button>
                     </div>
@@ -5775,41 +5775,41 @@ function renderResumeTool() {
                         <label class="resume-upload-role-label">Target Role (for keyword matching)
                             <input id="resume-upload-role" type="text" placeholder="e.g. Backend Developer, Data Scientist">
                         </label>
-                        <label class="resume-upload-role-label">Job Description (optional â€” paste for deep match)
+                        <label class="resume-upload-role-label">Job Description (optional &#8221;&#8221; paste for deep match)
                             <textarea id="resume-jd-text" rows="4" placeholder="Paste the job description here for precise keyword gap analysis..."></textarea>
                         </label>
                     </div>
                     <div class="resume-build-actions">
-                        <button type="button" class="resume-primary-btn" onclick="uploadResumeAndScore()">ðŸ” Deep Analyze Resume</button>
+                        <button type="button" class="resume-primary-btn" onclick="uploadResumeAndScore()">; Deep Analyze Resume</button>
                     </div>
                 </div>
             </div>
 
-            <!-- â”€â”€ ATS TIPS TAB â”€â”€ -->
+            <!-- â&#8221;€â&#8221;€ ATS TIPS TAB â&#8221;€â&#8221;€ -->
             <div id="resume-tab-tips" class="resume-tab-panel" style="display:none;">
                 <div class="resume-tips-grid">
                     <div class="resume-tip-card">
-                        <span class="resume-tip-icon">ðŸ¤–</span>
+                        <span class="resume-tip-icon">&#129300;&ndash;</span>
                         <h4>How ATS Works</h4>
                         <p>Applicant Tracking Systems parse your resume for keywords, section headers, and formatting. Plain text beats fancy layouts every time.</p>
                     </div>
                     <div class="resume-tip-card">
-                        <span class="resume-tip-icon">ðŸ”‘</span>
+                        <span class="resume-tip-icon">;&#8216;</span>
                         <h4>Keyword Matching</h4>
-                        <p>Mirror exact phrases from the job description. If the JD says "REST API development", use that exact phrase â€” not just "APIs".</p>
+                        <p>Mirror exact phrases from the job description. If the JD says "REST API development", use that exact phrase &#8221;&#8221; not just "APIs".</p>
                     </div>
                     <div class="resume-tip-card">
-                        <span class="resume-tip-icon">ðŸ“</span>
+                        <span class="resume-tip-icon">;</span>
                         <h4>Section Headers</h4>
-                        <p>Use standard headers: <strong>Experience, Education, Skills, Projects, Certifications</strong>. Avoid creative names like "My Journey" â€” ATS won't recognize them.</p>
+                        <p>Use standard headers: <strong>Experience, Education, Skills, Projects, Certifications</strong>. Avoid creative names like "My Journey" &#8221;&#8221; ATS won't recognize them.</p>
                     </div>
                     <div class="resume-tip-card">
-                        <span class="resume-tip-icon">ðŸ“</span>
+                        <span class="resume-tip-icon">;</span>
                         <h4>Length & Format</h4>
                         <p>1 page for freshers, 2 pages max for experienced. Use .docx or simple PDF. No tables, columns, headers/footers, or text boxes.</p>
                     </div>
                     <div class="resume-tip-card">
-                        <span class="resume-tip-icon">ðŸ“Š</span>
+                        <span class="resume-tip-icon">;Š</span>
                         <h4>Quantify Everything</h4>
                         <p>Replace "improved performance" with "reduced load time by 40%". Numbers make your impact concrete and searchable.</p>
                     </div>
@@ -5819,12 +5819,12 @@ function renderResumeTool() {
                         <p>Start every bullet with a strong verb: <em>Built, Designed, Optimized, Led, Reduced, Delivered, Automated, Integrated, Deployed</em>.</p>
                     </div>
                     <div class="resume-tip-card">
-                        <span class="resume-tip-icon">ðŸŽ¯</span>
+                        <span class="resume-tip-icon">&#127919;</span>
                         <h4>Tailor Per Role</h4>
                         <p>A generic resume gets filtered out. Spend 10 minutes customizing the summary and skills section for each application.</p>
                     </div>
                     <div class="resume-tip-card">
-                        <span class="resume-tip-icon">ðŸ”—</span>
+                        <span class="resume-tip-icon">;&mdash;</span>
                         <h4>Links & Contact</h4>
                         <p>Include GitHub, LinkedIn, and portfolio links. Make sure your email is professional. Avoid nicknames or old college IDs.</p>
                     </div>
@@ -6073,7 +6073,7 @@ function checkResumeQuality() {
             <div class="resume-section-scores">
                 ${sections.map(s => `
                     <div class="resume-section-row ${s.ok ? 'pass' : 'fail'}">
-                        <span class="rsr-icon">${s.ok ? 'âœ…' : 'âŒ'}</span>
+                        <span class="rsr-icon">${s.ok ? 'âœ&hellip;' : 'âŒ'}</span>
                         <div class="rsr-body">
                             <span class="rsr-label">${s.label}</span>
                             ${!s.ok ? `<span class="rsr-tip">${s.tip}</span>` : ''}
@@ -6085,7 +6085,7 @@ function checkResumeQuality() {
 
             ${failed.length > 0 ? `
             <div class="resume-fixes-block">
-                <h4>ðŸ”§ Priority Fixes</h4>
+                <h4>;§ Priority Fixes</h4>
                 <ol class="resume-fixes-list">
                     ${failed.slice(0, 4).map(s => `<li><strong>${s.label}:</strong> ${s.tip}</li>`).join('')}
                 </ol>
@@ -6098,7 +6098,7 @@ function checkResumeQuality() {
 
             <div class="resume-result-footer">
                 <button type="button" class="resume-primary-btn" onclick="generateResumeDraft()">âœ¨ Generate Improved Draft</button>
-                <button type="button" class="resume-secondary-btn" onclick="switchResumeTab('tips')">ðŸ’¡ View ATS Tips</button>
+                <button type="button" class="resume-secondary-btn" onclick="switchResumeTab('tips')">;¡ View ATS Tips</button>
             </div>
         </div>
     `;
@@ -7107,7 +7107,7 @@ async function runTestCases(questionId) {
         if (result.success) {
             resultsDiv.innerHTML = `
                 <div class="test-success">
-                    <h4>âœ… All Tests Passed!</h4>
+                    <h4>âœ&hellip; All Tests Passed!</h4>
                     <p>${result.message}</p>
                 </div>
             `;
@@ -7157,7 +7157,7 @@ async function submitCode(questionId) {
         if (result.success) {
             resultsDiv.innerHTML = `
                 <div class="test-success">
-                    <h4>ðŸŽ‰ Congratulations!</h4>
+                    <h4>&#127881; Congratulations!</h4>
                     <p>${result.message}</p>
                 </div>
             `;
@@ -7533,13 +7533,13 @@ async function analyzeTcsPerformance() {
     }
 }
 
-// â”€â”€ Hands-on IT Module â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â&#8221;€â&#8221;€ Hands-on IT Module â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€
 
 const handsOnITTopics = [
     {
         key: 'linux',
         title: 'Linux Fundamentals',
-        icon: 'ðŸ§',
+        icon: '&#127975;',
         level: 'Beginner',
         description: 'File system navigation, permissions, processes, and shell scripting basics.',
         subtopics: [
@@ -7553,7 +7553,7 @@ const handsOnITTopics = [
     {
         key: 'networking',
         title: 'Networking Basics',
-        icon: 'ðŸŒ',
+        icon: '&#127760;',
         level: 'Beginner',
         description: 'TCP/IP model, DNS, HTTP, subnetting, and common network tools.',
         subtopics: [
@@ -7581,7 +7581,7 @@ const handsOnITTopics = [
     {
         key: 'docker',
         title: 'Docker & Containers',
-        icon: 'ðŸ³',
+        icon: '&#127987;',
         level: 'Intermediate',
         description: 'Container concepts, Dockerfile authoring, image management, and Docker Compose.',
         subtopics: [
@@ -7595,7 +7595,7 @@ const handsOnITTopics = [
     {
         key: 'git',
         title: 'Git & Version Control',
-        icon: 'ðŸ”€',
+        icon: ';€',
         level: 'Beginner',
         description: 'Core Git workflow, branching strategies, and collaboration with remote repos.',
         subtopics: [
@@ -7609,7 +7609,7 @@ const handsOnITTopics = [
     {
         key: 'databases',
         title: 'Databases',
-        icon: 'ðŸ—„ï¸',
+        icon: ';„ï¸',
         level: 'Beginner',
         description: 'SQL fundamentals, NoSQL concepts, indexing, and basic query optimization.',
         subtopics: [
@@ -7640,14 +7640,14 @@ function renderHandsOnIT() {
                         </div>
                         <p class="module-topic-desc">${topic.description}</p>
                         <button type="button" class="module-expand-btn" onclick="toggleModuleTopic('hit', '${topic.key}')">
-                            Explore Topics â†’
+                            Explore Topics â†&#8217;
                         </button>
                         <div class="module-subtopics" id="hit-subtopics-${topic.key}" style="display:none;">
                             ${topic.subtopics.map((sub, i) => `
                                 <div class="module-subtopic-item">
                                     <button type="button" class="module-subtopic-btn" onclick="toggleSubtopicDetail('hit-${topic.key}', ${i})">
                                         <span>${sub.name}</span>
-                                        <span class="module-subtopic-arrow">â–¸</span>
+                                        <span class="module-subtopic-arrow">â&ndash;¸</span>
                                     </button>
                                     <div class="module-subtopic-detail" id="hit-${topic.key}-detail-${i}" style="display:none;">
                                         <p>${sub.detail}</p>
@@ -7662,27 +7662,27 @@ function renderHandsOnIT() {
     `;
 }
 
-// â”€â”€ System Design Module â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â&#8221;€â&#8221;€ System Design Module â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€â&#8221;€
 
 const systemDesignTopics = [
     {
         key: 'fundamentals',
         title: 'Design Fundamentals',
-        icon: 'ðŸ—ï¸',
+        icon: '&#127959;&mdash;ï¸',
         level: 'Beginner',
         description: 'Scalability, availability, reliability, and the core trade-offs in system design.',
         subtopics: [
             { name: 'Scalability', detail: 'Vertical scaling (bigger machine) vs horizontal scaling (more machines). Stateless vs stateful services. Sharding data. Auto-scaling policies. Bottleneck identification.' },
             { name: 'Availability & Reliability', detail: 'Uptime SLAs (99.9% = 8.7h downtime/year, 99.99% = 52min). Redundancy and replication. MTTR vs MTBF. Health checks and circuit breakers.' },
-            { name: 'CAP Theorem', detail: 'Consistency, Availability, Partition Tolerance â€” pick two. CP systems (HBase, Zookeeper). AP systems (Cassandra, DynamoDB). CA systems (single-node RDBMS). PACELC extension.' },
+            { name: 'CAP Theorem', detail: 'Consistency, Availability, Partition Tolerance &#8221;&#8221; pick two. CP systems (HBase, Zookeeper). AP systems (Cassandra, DynamoDB). CA systems (single-node RDBMS). PACELC extension.' },
             { name: 'Latency vs Throughput', detail: 'Latency: time for one request. Throughput: requests per second. Little\'s Law: L = Î»W. Tail latency (p99, p999). Optimizing for the common case.' },
-            { name: 'Back-of-Envelope Estimation', detail: 'Powers of 2 and latency numbers. Estimating QPS, storage, bandwidth. Example: design Twitter â€” 300M users, 100M tweets/day, 1KB/tweet = ~100GB/day storage.' }
+            { name: 'Back-of-Envelope Estimation', detail: 'Powers of 2 and latency numbers. Estimating QPS, storage, bandwidth. Example: design Twitter &#8221;&#8221; 300M users, 100M tweets/day, 1KB/tweet = ~100GB/day storage.' }
         ]
     },
     {
         key: 'load-balancing',
         title: 'Load Balancing & Proxies',
-        icon: 'âš–ï¸',
+        icon: 'âš&ndash;ï¸',
         level: 'Beginner',
         description: 'Distributing traffic, reverse proxies, and health-check strategies.',
         subtopics: [
@@ -7710,7 +7710,7 @@ const systemDesignTopics = [
     {
         key: 'databases-design',
         title: 'Database Design at Scale',
-        icon: 'ðŸ—ƒï¸',
+        icon: ';ƒï¸',
         level: 'Intermediate',
         description: 'Replication, sharding, partitioning, and choosing the right database.',
         subtopics: [
@@ -7724,13 +7724,13 @@ const systemDesignTopics = [
     {
         key: 'messaging',
         title: 'Messaging & Event Streaming',
-        icon: 'ðŸ“¨',
+        icon: ';¨',
         level: 'Intermediate',
         description: 'Message queues, event-driven architecture, and stream processing.',
         subtopics: [
             { name: 'Message Queues', detail: 'Point-to-point vs pub/sub. RabbitMQ, AWS SQS, Azure Service Bus. At-least-once vs exactly-once delivery. Dead letter queues. Message ordering guarantees.' },
             { name: 'Event Streaming', detail: 'Apache Kafka: topics, partitions, consumer groups, offsets. Retention and compaction. Kafka Streams vs Flink for stream processing. Event sourcing pattern.' },
-            { name: 'Async vs Sync Communication', detail: 'Synchronous: REST, gRPC â€” tight coupling, simpler. Asynchronous: queues, events â€” loose coupling, resilient. Saga pattern for distributed transactions.' },
+            { name: 'Async vs Sync Communication', detail: 'Synchronous: REST, gRPC &#8221;&#8221; tight coupling, simpler. Asynchronous: queues, events &#8221;&#8221; loose coupling, resilient. Saga pattern for distributed transactions.' },
             { name: 'Backpressure & Flow Control', detail: 'Producer faster than consumer. Bounded queues. Rate limiting producers. Consumer scaling. Circuit breaker to stop cascading failures.' },
             { name: 'Event-Driven Architecture', detail: 'Event sourcing: store events, derive state. CQRS: separate read and write models. Outbox pattern for reliable event publishing. Idempotent consumers.' }
         ]
@@ -7738,7 +7738,7 @@ const systemDesignTopics = [
     {
         key: 'api-design',
         title: 'API Design',
-        icon: 'ðŸ”Œ',
+        icon: ';Œ',
         level: 'Beginner',
         description: 'REST, GraphQL, gRPC, versioning, and API gateway patterns.',
         subtopics: [
@@ -7752,14 +7752,14 @@ const systemDesignTopics = [
     {
         key: 'case-studies',
         title: 'Classic Design Problems',
-        icon: 'ðŸ“',
+        icon: ';',
         level: 'Intermediate',
         description: 'Walk through URL shortener, rate limiter, news feed, and notification system designs.',
         subtopics: [
             { name: 'URL Shortener', detail: 'Requirements: shorten URL, redirect, analytics. Key generation: hash (MD5/SHA) vs counter + base62. Storage: KV store (Redis + DB). Redirect: 301 (cacheable) vs 302. Scale: 100M URLs, 10B redirects/day.' },
             { name: 'Rate Limiter', detail: 'Algorithms: token bucket, leaky bucket, fixed window, sliding window log, sliding window counter. Storage: Redis with atomic Lua scripts. Distributed rate limiting. Headers: X-RateLimit-Remaining.' },
             { name: 'News Feed System', detail: 'Fan-out on write (push) vs fan-out on read (pull). Hybrid for celebrities. Feed ranking: recency, engagement, ML score. Pagination with cursor. Cache hot feeds in Redis.' },
-            { name: 'Notification System', detail: 'Push (APNs, FCM), email (SendGrid), SMS (Twilio). Notification service â†’ message queue â†’ workers per channel. Retry with exponential backoff. User preferences and opt-out.' },
+            { name: 'Notification System', detail: 'Push (APNs, FCM), email (SendGrid), SMS (Twilio). Notification service â†&#8217; message queue â†&#8217; workers per channel. Retry with exponential backoff. User preferences and opt-out.' },
             { name: 'Design a Chat System', detail: 'WebSocket for real-time. Message storage: one table per user pair vs single messages table. Presence service. Group chat fan-out. Read receipts. End-to-end encryption overview.' }
         ]
     }
@@ -7783,14 +7783,14 @@ function renderSystemDesign() {
                         </div>
                         <p class="module-topic-desc">${topic.description}</p>
                         <button type="button" class="module-expand-btn" onclick="toggleModuleTopic('sd', '${topic.key}')">
-                            Explore Topics â†’
+                            Explore Topics â†&#8217;
                         </button>
                         <div class="module-subtopics" id="sd-subtopics-${topic.key}" style="display:none;">
                             ${topic.subtopics.map((sub, i) => `
                                 <div class="module-subtopic-item">
                                     <button type="button" class="module-subtopic-btn" onclick="toggleSubtopicDetail('sd-${topic.key}', ${i})">
                                         <span>${sub.name}</span>
-                                        <span class="module-subtopic-arrow">â–¸</span>
+                                        <span class="module-subtopic-arrow">â&ndash;¸</span>
                                     </button>
                                     <div class="module-subtopic-detail" id="sd-${topic.key}-detail-${i}" style="display:none;">
                                         <p>${sub.detail}</p>
@@ -7811,7 +7811,7 @@ function toggleModuleTopic(prefix, key) {
     if (!subtopicsEl) return;
     const isOpen = subtopicsEl.style.display !== 'none';
     subtopicsEl.style.display = isOpen ? 'none' : 'block';
-    if (btn) btn.textContent = isOpen ? 'Explore Topics â†’' : 'Collapse â†‘';
+    if (btn) btn.textContent = isOpen ? 'Explore Topics â†&#8217;' : 'Collapse â†&#8216;';
 }
 
 function toggleSubtopicDetail(topicId, index) {
@@ -7822,7 +7822,7 @@ function toggleSubtopicDetail(topicId, index) {
     detailEl.style.display = isOpen ? 'none' : 'block';
     if (btn) {
         const arrow = btn.querySelector('.module-subtopic-arrow');
-        if (arrow) arrow.textContent = isOpen ? 'â–¸' : 'â–¾';
+        if (arrow) arrow.textContent = isOpen ? 'â&ndash;¸' : 'â&ndash;¾';
     }
 }
 
