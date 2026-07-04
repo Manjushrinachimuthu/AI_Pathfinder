@@ -50,6 +50,17 @@ let firebaseAppInstance = null;
 let firebaseAuth = null;
 let firestoreDb = null;
 let activeUserId = null;
+let activeUserEmail = null;
+let activeUserName = null;
+
+function getDisplayUsername() {
+    if (activeUserName) return activeUserName;
+    if (activeUserEmail) return activeUserEmail.split('@')[0];
+    return 'Guest User';
+}
+function getDisplayInitial() {
+    return getDisplayUsername().charAt(0).toUpperCase();
+}
 let currentAuthMode = 'login';
 let userHistoryState = {
     mncMockTests: [],
@@ -4902,7 +4913,9 @@ function initFirebaseClient() {
         firestoreDb = firebaseAppInstance.firestore();
 
         firebaseAuth.onAuthStateChanged(async user => {
-            activeUserId = user ? user.uid : null;
+            activeUserId   = user ? user.uid : null;
+            activeUserEmail = user ? (user.email || null) : null;
+            activeUserName  = user ? (user.displayName || (user.email ? user.email.split('@')[0] : null)) : null;
             updateAuthButtonState(user);
             await loadCareerState();
             await loadUserHistory();
@@ -5275,9 +5288,10 @@ function renderUserProfileAnalytics() {
             <!-- ── Header ── -->
             <div class="upd-header">
                 <div class="upd-header-left">
-                    <div class="upd-avatar">${(activeUserId || 'U')[0].toUpperCase()}</div>
+                    <div class="upd-avatar">${getDisplayInitial()}</div>
                     <div>
-                        <h2 class="upd-username">${activeUserId ? activeUserId.split('@')[0] : 'Guest User'}</h2>
+                        <h2 class="upd-username">${getDisplayUsername()}</h2>
+                        <p class="upd-user-email">${activeUserEmail || "Not logged in"}</p>
                         <span class="upd-badge" style="background:${badge.color}22;color:${badge.color};border-color:${badge.color}44">${badge.label}</span>
                     </div>
                 </div>
@@ -5402,7 +5416,7 @@ function renderUserProfileAnalytics() {
                     <h4 class="upd-chart-title">Recent Test History</h4>
                     <span class="upd-chart-sub">${mncCount} mock tests recorded</span>
                 </div>
-                ${mncCount === 0 ? `<p style="color:rgba(255,255,255,0.3);font-size:0.85rem;padding:1rem 0;">No mock tests taken yet. Complete a company mock test to see your history here.</p>` : `
+                ${mncCount === 0 ? `<p style="color:rgba(255,255,255,0.3);font-size:0.85rem;padding:1rem 0;">You have not taken any mock tests yet. Go to MNC Mock Tests, pick a company, and complete a test to see your performance here.</p>` : `
                 <div class="upd-table">
                     <div class="upd-table-head">
                         <span>#</span><span>Company</span><span>Score</span><span>Level</span><span>Date</span>

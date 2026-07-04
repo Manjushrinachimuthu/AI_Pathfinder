@@ -6510,3 +6510,28 @@ footer p {
 
 /* Radar + donut centering */
 .rc-radar-card, .rc-donut-card { display: flex; flex-direction: column; align-items: center; }
+
+/* User profile — name + email fix */
+.upd-user-email {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.78rem;
+    margin: 0.15rem 0 0.35rem;
+}
+
+/* New user empty state */
+.upd-empty-state {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: rgba(255,255,255,0.35);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    border: 1px dashed rgba(255,255,255,0.1);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.02);
+}
+.upd-empty-state strong {
+    color: rgba(255,255,255,0.6);
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+}
