@@ -6332,3 +6332,100 @@ footer p {
     .upd-table-head span:nth-child(4),
     .upd-table-row span:nth-child(4) { display: none; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   RESUME CHECKER PAGE
+   ══════════════════════════════════════════════════════════════════════════ */
+
+.rc-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    animation: fadeSlideUp 0.25s ease;
+}
+
+/* Hero */
+.rc-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    background: linear-gradient(135deg, rgba(14,165,164,0.12), rgba(3,105,161,0.1));
+    border: 1px solid rgba(34,211,238,0.2);
+    border-radius: 18px;
+    padding: 1.5rem 1.75rem;
+}
+.rc-hero-left  { flex: 1; min-width: 220px; }
+.rc-eyebrow {
+    display: inline-block;
+    color: #67e8f9;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+}
+.rc-hero-title {
+    color: #f0f8ff;
+    font-size: 1.55rem;
+    font-weight: 800;
+    margin: 0 0 0.5rem;
+    font-family: 'Sora', sans-serif;
+}
+.rc-hero-sub   { color: #9bb5d8; font-size: 0.91rem; line-height: 1.6; margin: 0; }
+.rc-score-ring { position: relative; width: 110px; height: 110px; flex-shrink: 0; }
+
+/* Upload area */
+.rc-upload-area    { display: flex; flex-direction: column; gap: 1rem; }
+.rc-upload-options { display: grid; gap: 0.75rem; }
+
+/* Charts shell */
+.rc-charts-shell {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 1.25rem;
+    margin-top: 0.5rem;
+}
+.rc-charts-title {
+    color: #e0f2fe;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 1.1rem;
+    font-family: 'Sora', sans-serif;
+}
+.rc-charts-row {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+@media (max-width: 900px) { .rc-charts-row { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .rc-charts-row { grid-template-columns: 1fr; } }
+
+.rc-chart-card {
+    background: rgba(255,255,255,0.04);
+    border: 0.5px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+}
+.rc-chart-label {
+    color: #93c5fd;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 0.85rem;
+}
+
+/* Bar chart */
+.rc-bar-chart  { display: flex; flex-direction: column; gap: 0.6rem; }
+.rc-bar-row    { display: flex; align-items: center; gap: 0.6rem; }
+.rc-bar-label  { color: rgba(255,255,255,0.65); font-size: 0.76rem; width: 90px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rc-bar-track  { flex: 1; height: 8px; background: rgba(255,255,255,0.08); border-radius: 999px; overflow: hidden; }
+.rc-bar-fill   { height: 100%; border-radius: 999px; transition: width 0.6s ease; }
+.rc-bar-val    { font-size: 0.78rem; font-weight: 700; width: 22px; text-align: right; flex-shrink: 0; }
+
+/* Radar + donut centering */
+.rc-radar-card, .rc-donut-card { display: flex; flex-direction: column; align-items: center; }

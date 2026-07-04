@@ -66,8 +66,8 @@ const defaultSectionCopy = {
         context: 'Select a company to practice company-specific aptitude questions and view their preparation roadmap.'
     },
     coding: {
-        title: 'Career Tools',
-        context: 'Use resume, cover letter, and auto-apply tools with a live dashboard to track job search progress.'
+        title: 'Resume Checker',
+        context: 'Upload your resume and get an instant ATS score with section analysis, keyword gaps, and actionable improvement tips.'
     },
     interview: {
         title: 'Interview Preparation',
@@ -6216,6 +6216,8 @@ async function uploadResumeAndScore() {
                 </div>
             `;
             output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            // Render visual charts below the result
+            renderUploadScoreCharts(result);
         }
     } catch (error) {
         if (output) {
@@ -6224,6 +6226,48 @@ async function uploadResumeAndScore() {
         }
         console.error('Error scoring uploaded resume:', error);
     }
+}
+// ── Upload Resume Score Charts ──────────────────────────────────────────────
+function renderUploadScoreCharts(result) {
+    const area = document.getElementById('rc-charts-area');
+    if (!area) return;
+    const checklist = result.checklist || [];
+    const overall   = result.score || 0;
+    const sections  = checklist.map((item, i) => {
+        const colors = ['#a78bfa','#60a5fa','#34d399','#fbbf24','#f87171','#e879f9','#67e8f9'];
+        return { label: item.label.split(' ').slice(0,2).join(' '), score: item.ok ? 100 : 0, color: colors[i % colors.length] };
+    });
+
+    area.style.display = 'block';
+    area.innerHTML = `
+        <div class="rc-charts-shell">
+            <h3 class="rc-charts-title">&#128202; Score Breakdown</h3>
+            <div class="rc-charts-row">
+                <div class="rc-chart-card">
+                    <h4 class="rc-chart-label">Section Analysis</h4>
+                    <div class="rc-bar-chart">
+                        ${sections.map(s => `
+                            <div class="rc-bar-row">
+                                <span class="rc-bar-label">${s.label}</span>
+                                <div class="rc-bar-track">
+                                    <div class="rc-bar-fill" style="width:${s.score}%;background:${s.color};"></div>
+                                </div>
+                                <span class="rc-bar-val" style="color:${s.color}">${s.score === 100 ? '&#10003;' : '&#10007;'}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="rc-chart-card rc-radar-card">
+                    <h4 class="rc-chart-label">Resume Radar</h4>
+                    ${renderRadarChart(sections)}
+                </div>
+                <div class="rc-chart-card rc-donut-card">
+                    <h4 class="rc-chart-label">Overall ATS Score</h4>
+                    ${renderDonutChart(overall)}
+                </div>
+            </div>
+        </div>`;
+    area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 function generateCoverLetter() {
     const company = document.getElementById('cover-company')?.value.trim() || 'the company';
@@ -6309,20 +6353,304 @@ function setCodingMode(mode) {
 
 // Load coding questions
 async function loadCodingQuestions() {
-    const listDiv = document.getElementById('coding-list');
-    const detailDiv = document.getElementById('coding-detail');
-
-    renderCodingModeSwitcher();
-    detailDiv.style.display = 'none';
-    detailDiv.innerHTML = '';
-    codingMode = 'career-tools';
-
-    // Always land on Career Tools options first (cards view),
-    // then open a tool only when user clicks a card.
-    careerToolState.activeTool = null;
-    saveCareerState();
-    renderCareerToolsHome();
+    renderResumeCheckerPage();
 }
+
+function renderResumeCheckerPage() {
+    const listDiv = document.getElementById('coding-list');
+    if (!listDiv) return;
+    const modeSwitcher = document.getElementById('coding-mode-switcher');
+    if (modeSwitcher) modeSwitcher.innerHTML = '';
+    listDiv.style.display = 'block';
+    listDiv.innerHTML = renderResumeCheckerShell();
+    setTimeout(initResumeLiveChecklist, 0);
+}
+
+function renderResumeCheckerShell() {
+    const score = careerToolState.resumeScore || 0;
+    const circumference = 314;
+    const offset = circumference - (score / 100) * circumference;
+    const scoreColor = score >= 80 ? '#1D9E75' : score >= 50 ? '#f59e0b' : '#ef4444';
+    return `
+    <div class="rc-page">
+        <div class="rc-hero">
+            <div class="rc-hero-left">
+                <span class="rc-eyebrow">Resume Checker</span>
+                <h2 class="rc-hero-title">Analyse Your Resume</h2>
+                <p class="rc-hero-sub">Upload your resume or fill in your details below. Get an instant ATS score with section-by-section analysis, keyword gap detection, visual score breakdown, and actionable improvement tips.</p>
+            </div>
+            <div class="rc-score-ring">
+                <svg viewBox="0 0 120 120" class="resume-ring-svg">
+                    <circle cx="60" cy="60" r="50" class="resume-ring-bg"/>
+                    <circle cx="60" cy="60" r="50" class="resume-ring-fill" id="resume-ring-fill"
+                        stroke-dasharray="${circumference}" stroke-dashoffset="${offset}" stroke="${scoreColor}"/>
+                </svg>
+                <div class="resume-ring-label">
+                    <span id="resume-ring-score" style="color:${scoreColor}">${score}</span>
+                    <small>ATS Score</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="resume-tabs">
+            <button type="button" class="resume-tab active" id="tab-upload" onclick="switchResumeTab('upload')">&#128228; Upload Resume</button>
+            <button type="button" class="resume-tab" id="tab-build"  onclick="switchResumeTab('build')" >&#9998;&#65039;  Fill Details</button>
+            <button type="button" class="resume-tab" id="tab-tips"   onclick="switchResumeTab('tips')"  >&#128161; ATS Tips</button>
+        </div>
+
+        <!-- UPLOAD TAB -->
+        <div id="resume-tab-upload" class="resume-tab-panel">
+            <div class="rc-upload-area">
+                <div class="resume-upload-zone" id="resume-upload-zone"
+                     ondragover="event.preventDefault();this.classList.add('drag-over')"
+                     ondragleave="this.classList.remove('drag-over')"
+                     ondrop="handleResumeDrop(event)">
+                    <div class="resume-upload-icon">&#128196;</div>
+                    <p class="resume-upload-title">Drop your resume here or click to browse</p>
+                    <p class="resume-upload-sub">Supports PDF, DOCX, TXT, MD &mdash; Max 5MB</p>
+                    <input id="resume-upload-file" type="file" accept=".pdf,.docx,.txt,.md"
+                           class="resume-upload-input" onchange="handleResumeFileSelect(this)">
+                    <button type="button" class="resume-secondary-btn"
+                            onclick="document.getElementById('resume-upload-file').click()">Browse File</button>
+                </div>
+                <div id="resume-file-preview" class="resume-file-preview" style="display:none;"></div>
+                <div class="rc-upload-options">
+                    <label class="resume-upload-role-label">Target Role
+                        <input id="resume-upload-role" type="text" placeholder="e.g. Frontend Developer, Data Scientist">
+                    </label>
+                    <label class="resume-upload-role-label">Job Description (optional &mdash; paste for deep keyword match)
+                        <textarea id="resume-jd-text" rows="3" placeholder="Paste the job description for precise keyword gap analysis..."></textarea>
+                    </label>
+                </div>
+                <div class="resume-build-actions">
+                    <button type="button" class="resume-primary-btn" onclick="uploadResumeAndScore()">&#128269; Analyse Resume</button>
+                </div>
+            </div>
+            <div id="career-tool-output" class="career-tool-output resume-output-panel" style="display:none;"></div>
+            <div id="rc-charts-area" style="display:none;"></div>
+        </div>
+
+        <!-- FILL DETAILS TAB -->
+        <div id="resume-tab-build" class="resume-tab-panel" style="display:none;">
+            <div class="resume-two-col">
+                <div class="resume-form-col">
+                    <div class="resume-form-section">
+                        <h4 class="resume-form-section-title">&#127919; Target Info</h4>
+                        <div class="career-form-grid">
+                            <label>Target Role <span class="resume-required">*</span>
+                                <input id="resume-target-role" type="text" placeholder="e.g. Frontend Developer, Data Analyst">
+                            </label>
+                            <label>Target Company / Industry
+                                <input id="resume-target-company" type="text" placeholder="e.g. TCS, Infosys, Startup">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="resume-form-section">
+                        <h4 class="resume-form-section-title">&#128100; Professional Summary</h4>
+                        <div class="career-form-grid">
+                            <label>Summary <span class="resume-required">*</span>
+                                <textarea id="resume-summary" rows="3" placeholder="Motivated CS graduate with 1 year of internship experience in React and Node.js..."></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="resume-form-section">
+                        <h4 class="resume-form-section-title">&#128295; Skills</h4>
+                        <div class="career-form-grid">
+                            <label>Technical Skills <span class="resume-required">*</span>
+                                <input id="resume-skills" type="text" placeholder="React, JavaScript, REST APIs, Git, SQL, Python">
+                            </label>
+                            <label>Soft Skills
+                                <input id="resume-soft-skills" type="text" placeholder="Team collaboration, Problem solving, Communication">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="resume-form-section">
+                        <h4 class="resume-form-section-title">&#128188; Experience</h4>
+                        <div class="career-form-grid">
+                            <label>Internship / Work Experience
+                                <textarea id="resume-experience" rows="3" placeholder="Interned at XYZ Corp (Jun-Aug 2024). Built REST APIs using Node.js, reducing response time by 35%."></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="resume-form-section">
+                        <h4 class="resume-form-section-title">&#128640; Projects</h4>
+                        <div class="career-form-grid">
+                            <label>Project 1 <span class="resume-required">*</span>
+                                <textarea id="resume-project" rows="3" placeholder="AI Placement Portal - Built with React + Flask. Used by 300+ students. Reduced prep time by 40%."></textarea>
+                            </label>
+                            <label>Project 2 (optional)
+                                <textarea id="resume-project2" rows="2" placeholder="E-commerce site with payment integration. 500+ orders processed."></textarea>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="resume-form-section">
+                        <h4 class="resume-form-section-title">&#127891; Education &amp; Extras</h4>
+                        <div class="career-form-grid">
+                            <label>Education <span class="resume-required">*</span>
+                                <input id="resume-education" type="text" placeholder="B.Tech CSE, XYZ University, 2024, CGPA 8.2">
+                            </label>
+                            <label>Certifications / Achievements
+                                <input id="resume-certifications" type="text" placeholder="AWS Cloud Practitioner, Smart India Hackathon Finalist">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="resume-build-actions">
+                        <button type="button" class="resume-primary-btn" onclick="checkResumeQualityAndChart()">&#128269; Analyse &amp; Score</button>
+                        <button type="button" class="resume-secondary-btn" onclick="generateResumeDraft()">&#10024; Generate Draft</button>
+                    </div>
+                </div>
+                <div class="resume-sidebar">
+                    <div class="resume-sidebar-card">
+                        <h4 class="resume-sidebar-title">&#128203; Live Checklist</h4>
+                        <ul class="resume-live-checklist" id="resume-live-checklist">
+                            <li class="rcl-item" id="rcl-role">Target role filled</li>
+                            <li class="rcl-item" id="rcl-summary">Summary written</li>
+                            <li class="rcl-item" id="rcl-skills">3+ skills listed</li>
+                            <li class="rcl-item" id="rcl-experience">Experience added</li>
+                            <li class="rcl-item" id="rcl-project">Project with impact</li>
+                            <li class="rcl-item" id="rcl-education">Education filled</li>
+                            <li class="rcl-item" id="rcl-metrics">Metrics / numbers used</li>
+                            <li class="rcl-item" id="rcl-keywords">Role keywords present</li>
+                        </ul>
+                    </div>
+                    <div class="resume-sidebar-card resume-tips-mini">
+                        <h4 class="resume-sidebar-title">&#9889; Quick Tips</h4>
+                        <ul>
+                            <li>Use numbers: "reduced by 35%", "500+ users"</li>
+                            <li>Match keywords from the job description</li>
+                            <li>Keep to 1 page for freshers</li>
+                            <li>Use action verbs: Built, Designed, Led, Reduced</li>
+                            <li>Avoid photos, tables, and graphics for ATS</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="career-tool-output-build" class="career-tool-output resume-output-panel" style="display:none;"></div>
+            <div id="rc-charts-area-build" style="display:none;"></div>
+        </div>
+
+        <!-- ATS TIPS TAB -->
+        <div id="resume-tab-tips" class="resume-tab-panel" style="display:none;">
+            <div class="resume-tips-grid">
+                <div class="resume-tip-card"><span class="resume-tip-icon">&#129302;</span><h4>How ATS Works</h4><p>ATS systems parse your resume for keywords, section headers, and formatting. Plain text beats fancy layouts every time.</p></div>
+                <div class="resume-tip-card"><span class="resume-tip-icon">&#128273;</span><h4>Keyword Matching</h4><p>Mirror exact phrases from the job description. "REST API development" beats just "APIs".</p></div>
+                <div class="resume-tip-card"><span class="resume-tip-icon">&#128208;</span><h4>Section Headers</h4><p>Use standard headers: Experience, Education, Skills, Projects. Avoid creative names like "My Journey".</p></div>
+                <div class="resume-tip-card"><span class="resume-tip-icon">&#128208;</span><h4>Length &amp; Format</h4><p>1 page for freshers, 2 pages max. Use .docx or simple PDF. No tables, columns, or text boxes.</p></div>
+                <div class="resume-tip-card"><span class="resume-tip-icon">&#128202;</span><h4>Quantify Everything</h4><p>Replace "improved performance" with "reduced load time by 40%". Numbers make impact concrete.</p></div>
+                <div class="resume-tip-card"><span class="resume-tip-icon">&#9889;</span><h4>Action Verbs</h4><p>Start every bullet: Built, Designed, Optimized, Led, Reduced, Delivered, Automated, Deployed.</p></div>
+                <div class="resume-tip-card"><span class="resume-tip-icon">&#127919;</span><h4>Tailor Per Role</h4><p>Spend 10 minutes customising the summary and skills section for each application.</p></div>
+                <div class="resume-tip-card"><span class="resume-tip-icon">&#128279;</span><h4>Links &amp; Contact</h4><p>Include GitHub, LinkedIn, and portfolio. Use a professional email. No nicknames.</p></div>
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+// checkResumeQuality wrapper that also renders charts
+function checkResumeQualityAndChart() {
+    checkResumeQuality();
+    setTimeout(() => renderResumeScoreCharts('build'), 400);
+}
+
+// Render visual charts after score is calculated
+function renderResumeScoreCharts(mode) {
+    const areaId = mode === 'build' ? 'rc-charts-area-build' : 'rc-charts-area';
+    const area   = document.getElementById(areaId);
+    if (!area) return;
+    const sections = [
+        { label: 'Target Role',    score: document.getElementById('resume-target-role')?.value.trim() ? 100 : 0,  color: '#a78bfa' },
+        { label: 'Summary',        score: (document.getElementById('resume-summary')?.value.trim()?.length || 0) >= 60 ? 100 : 40,  color: '#60a5fa' },
+        { label: 'Skills',         score: (document.getElementById('resume-skills')?.value.split(',').filter(Boolean).length || 0) >= 3 ? 100 : 30, color: '#34d399' },
+        { label: 'Experience',     score: (document.getElementById('resume-experience')?.value.trim()?.length || 0) >= 40 ? 100 : 20, color: '#fbbf24' },
+        { label: 'Projects',       score: (document.getElementById('resume-project')?.value.trim()?.length || 0) >= 40 ? 100 : 20, color: '#f87171' },
+        { label: 'Education',      score: document.getElementById('resume-education')?.value.trim() ? 100 : 0, color: '#e879f9' },
+    ];
+    const overall = Math.round(sections.reduce((s, c) => s + c.score, 0) / sections.length);
+    area.style.display = 'block';
+    area.innerHTML = `
+        <div class="rc-charts-shell">
+            <h3 class="rc-charts-title">&#128202; Score Breakdown</h3>
+            <div class="rc-charts-row">
+                <!-- Bar chart -->
+                <div class="rc-chart-card">
+                    <h4 class="rc-chart-label">Section Scores</h4>
+                    <div class="rc-bar-chart">
+                        ${sections.map(s => `
+                            <div class="rc-bar-row">
+                                <span class="rc-bar-label">${s.label}</span>
+                                <div class="rc-bar-track">
+                                    <div class="rc-bar-fill" style="width:${s.score}%;background:${s.color};"></div>
+                                </div>
+                                <span class="rc-bar-val" style="color:${s.color}">${s.score}%</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <!-- Radar / spider via SVG -->
+                <div class="rc-chart-card rc-radar-card">
+                    <h4 class="rc-chart-label">Resume Radar</h4>
+                    ${renderRadarChart(sections)}
+                </div>
+                <!-- Overall donut -->
+                <div class="rc-chart-card rc-donut-card">
+                    <h4 class="rc-chart-label">Overall ATS Score</h4>
+                    ${renderDonutChart(overall)}
+                </div>
+            </div>
+        </div>`;
+}
+
+function renderRadarChart(sections) {
+    const cx = 110, cy = 110, r = 80;
+    const n = sections.length;
+    const angles = sections.map((_, i) => (i / n) * 2 * Math.PI - Math.PI / 2);
+    const gridLevels = [0.25, 0.5, 0.75, 1];
+    const gridPaths = gridLevels.map(level =>
+        angles.map((a, i) => {
+            const x = cx + r * level * Math.cos(a);
+            const y = cy + r * level * Math.sin(a);
+            return (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1);
+        }).join(' ') + 'Z'
+    );
+    const dataPoints = sections.map((s, i) => {
+        const val = s.score / 100;
+        return { x: cx + r * val * Math.cos(angles[i]), y: cy + r * val * Math.sin(angles[i]) };
+    });
+    const dataPath = dataPoints.map((p, i) => (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1)).join(' ') + 'Z';
+    return `
+        <svg viewBox="0 0 220 220" style="width:100%;max-width:220px;display:block;margin:0 auto;">
+            ${gridPaths.map(d => `<path d="${d}" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>`).join('')}
+            ${angles.map((a, i) => `<line x1="${cx}" y1="${cy}" x2="${(cx + r * Math.cos(a)).toFixed(1)}" y2="${(cy + r * Math.sin(a)).toFixed(1)}" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>`).join('')}
+            <path d="${dataPath}" fill="rgba(167,139,250,0.25)" stroke="#a78bfa" stroke-width="2"/>
+            ${dataPoints.map((p, i) => `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="${sections[i].color}"/>`).join('')}
+            ${sections.map((s, i) => {
+                const lx = cx + (r + 18) * Math.cos(angles[i]);
+                const ly = cy + (r + 18) * Math.sin(angles[i]);
+                return `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" fill="rgba(255,255,255,0.55)" font-size="9">${s.label}</text>`;
+            }).join('')}
+        </svg>`;
+}
+
+function renderDonutChart(score) {
+    const r = 50, cx = 70, cy = 70;
+    const circ = 2 * Math.PI * r;
+    const offset = circ - (score / 100) * circ;
+    const color = score >= 80 ? '#1D9E75' : score >= 60 ? '#f59e0b' : score >= 40 ? '#f97316' : '#ef4444';
+    const grade = score >= 80 ? 'Excellent' : score >= 60 ? 'Good' : score >= 40 ? 'Needs Work' : 'Weak';
+    return `
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;">
+            <svg viewBox="0 0 140 140" style="width:140px;height:140px;">
+                <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="14"/>
+                <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="14"
+                    stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${offset}"
+                    transform="rotate(-90 ${cx} ${cy})"/>
+                <text x="${cx}" y="${cy - 6}" text-anchor="middle" fill="${color}" font-size="22" font-weight="800">${score}%</text>
+                <text x="${cx}" y="${cy + 14}" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="10">ATS Score</text>
+            </svg>
+            <span style="background:${color}22;color:${color};border:1px solid ${color}44;border-radius:999px;padding:3px 14px;font-size:0.78rem;font-weight:800;">${grade}</span>
+        </div>`;
+}
+
 
 async function loadCodingLanguages() {
     const listDiv = document.getElementById('coding-list');
