@@ -3976,14 +3976,14 @@ footer p {
     align-items: center;
     gap: 0.85rem;
     padding: 0.85rem 1rem;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03) !important;
+    border: 1px solid rgba(255,255,255,0.08) !important;
     border-radius: 12px;
-    color: var(--text-1);
+    color: rgba(255,255,255,0.85) !important;
     text-align: left;
     cursor: pointer;
     transition: all 0.18s ease;
-    box-shadow: none;
+    box-shadow: none !important;
     position: relative;
     overflow: hidden;
 }
@@ -3999,50 +3999,40 @@ footer p {
 }
 
 .mocktest-option:hover {
-    background: rgba(34,211,238,0.06);
-    border-color: rgba(34,211,238,0.3);
+    background: rgba(255,255,255,0.06) !important;
+    border-color: rgba(148,163,184,0.3) !important;
     transform: translateX(3px);
-    box-shadow: none;
+    box-shadow: none !important;
 }
 
-.mocktest-option:hover::before {
-    background: var(--accent-1);
-}
+.mocktest-option:hover::before { background: rgba(148,163,184,0.5); }
 
 .mocktest-option.selected {
-    background: rgba(34,211,238,0.1);
-    border-color: rgba(34,211,238,0.5);
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(148,163,184,0.4) !important;
     transform: translateX(3px);
-    box-shadow: 0 0 0 1px rgba(34,211,238,0.2), 4px 0 20px rgba(34,211,238,0.12);
+    box-shadow: none !important;
 }
 
-.mocktest-option.selected::before {
-    background: var(--accent-1);
-}
+.mocktest-option.selected::before { background: var(--accent-1); }
 
-/* Number circle */
+/* Number circle — this is the only teal element */
 .mto-num {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.5);
-    font-size: 0.82rem;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.55);
+    font-size: 0.8rem;
     font-weight: 800;
     font-family: 'Sora', sans-serif;
     transition: all 0.18s ease;
     flex-shrink: 0;
-}
-
-.mocktest-option:hover .mto-num {
-    background: rgba(34,211,238,0.15);
-    border-color: var(--accent-1);
-    color: var(--accent-1);
 }
 
 .mocktest-option.selected .mto-num {
@@ -4052,27 +4042,28 @@ footer p {
     font-weight: 900;
 }
 
+.mocktest-option:hover .mto-num {
+    border-color: rgba(148,163,184,0.5);
+    color: rgba(255,255,255,0.8);
+}
+
 /* Option text */
 .mto-text {
     flex: 1;
     font-size: 0.95rem;
     line-height: 1.5;
-    color: rgba(255,255,255,0.8);
-    transition: color 0.18s ease;
+    color: rgba(255,255,255,0.82);
 }
 
-.mocktest-option.selected .mto-text {
-    color: #fff;
-    font-weight: 500;
-}
+.mocktest-option.selected .mto-text { color: #fff; }
 
-/* Right dot indicator */
+/* Right dot */
 .mto-indicator {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: transparent;
-    border: 1.5px solid rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.12);
     flex-shrink: 0;
     transition: all 0.18s ease;
 }
@@ -4080,7 +4071,7 @@ footer p {
 .mocktest-option.selected .mto-indicator {
     background: var(--accent-1);
     border-color: var(--accent-1);
-    box-shadow: 0 0 8px var(--accent-1);
+    box-shadow: 0 0 6px var(--accent-1);
 }
 
 .mocktest-code-area {
