@@ -522,12 +522,11 @@ function renderMockTestQuestion() {
                 <h3>${question.question}</h3>
                 <div class="mocktest-options">
                     ${question.options ? question.options.map((opt, idx) => {
-                        const labels = ['A','B','C','D'];
                         const isSelected = companyMockTestAnswers[currentQuestionIndex] === opt;
                         return `
                         <button class="mocktest-option ${isSelected ? 'selected' : ''}"
                                 onclick="selectMockTestOption('${escapeJsString(opt)}')">
-                            <span class="mocktest-opt-num ${isSelected ? 'selected' : ''}">${labels[idx]}</span>
+                            <span class="mocktest-opt-checkbox ${isSelected ? 'checked' : ''}"></span>
                             <span class="mocktest-opt-text">${opt}</span>
                         </button>`;
                     }).join('') : ''}
