@@ -473,7 +473,6 @@ main {
     padding: 0;
     display: flex;
     flex-direction: column;
-    aspect-ratio: 1 / 1;
     border-radius: 22px;
     overflow: hidden;
     border: 1px solid rgba(148, 163, 184, 0.2);
@@ -498,8 +497,8 @@ button.mnc-company-card {
 }
 
 .mnc-card-top {
-    min-height: 0;
-    flex: 0 0 44%;
+    min-height: 160px;
+    flex: 0 0 160px;
     display: flex;
     align-items: center;
     justify-content: center;
