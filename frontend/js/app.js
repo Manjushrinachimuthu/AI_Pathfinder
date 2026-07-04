@@ -521,10 +521,16 @@ function renderMockTestQuestion() {
                 <span class="mocktest-topic-badge">${question.topic}</span>
                 <h3>${question.question}</h3>
                 <div class="mocktest-options">
-                    ${question.options ? question.options.map((opt, idx) => `
-                        <button class="mocktest-option ${companyMockTestAnswers[currentQuestionIndex] === opt ? 'selected' : ''}" 
-                                onclick="selectMockTestOption('${escapeJsString(opt)}')">${opt}</button>
-                    `).join('') : ''}
+                    ${question.options ? question.options.map((opt, idx) => {
+                        const labels = ['A','B','C','D'];
+                        const isSelected = companyMockTestAnswers[currentQuestionIndex] === opt;
+                        return `
+                        <button class="mocktest-option ${isSelected ? 'selected' : ''}"
+                                onclick="selectMockTestOption('${escapeJsString(opt)}')">
+                            <span class="mocktest-opt-num ${isSelected ? 'selected' : ''}">${labels[idx]}</span>
+                            <span class="mocktest-opt-text">${opt}</span>
+                        </button>`;
+                    }).join('') : ''}
                 </div>
                 <div class="mocktest-actions">
                     ${currentQuestionIndex > 0 ? `<button class="back-btn" onclick="prevMockTestQuestion()">Previous</button>` : ''}
