@@ -1,0 +1,508 @@
+
+/* ============================================================
+   WARM NOTEBOOK THEME OVERRIDE
+   ============================================================ */
+
+:root {
+  --nb-bg:        #faf6f1;
+  --nb-surface:   #fff8f0;
+  --nb-surface2:  #f5ede0;
+  --nb-border:    #e8d5b7;
+  --nb-accent:    #c2692a;
+  --nb-accent2:   #e8943a;
+  --nb-text1:     #2c1a0e;
+  --nb-text2:     #6b4c2a;
+  --nb-text3:     #9e7a52;
+  --nb-green:     #3a7d44;
+  --nb-red:       #b33a2a;
+  --nb-ink:       #1a3a4a;
+}
+
+/* Page background — warm parchment */
+body {
+  background: #faf6f1 !important;
+  color: var(--nb-text1) !important;
+}
+body::before, body::after { display: none !important; }
+
+/* Header */
+.top-header, header {
+  background: #fff8f0 !important;
+  border-bottom: 2px solid var(--nb-border) !important;
+  box-shadow: 0 2px 8px rgba(180,120,60,0.1) !important;
+}
+
+/* Brand */
+.brand-badge {
+  background: var(--nb-accent) !important;
+  color: #fff !important;
+}
+.brand-text { color: #fff !important; }
+
+/* Nav links */
+.skillhive-links a {
+  color: var(--nb-text2) !important;
+}
+.skillhive-links a:hover, .skillhive-links a.active {
+  color: var(--nb-accent) !important;
+  background: rgba(194,105,42,0.1) !important;
+}
+
+/* Status pills */
+.status-pill {
+  background: var(--nb-surface2) !important;
+  color: var(--nb-text2) !important;
+  border: 1px solid var(--nb-border) !important;
+}
+.login-pill {
+  background: var(--nb-accent) !important;
+  color: #fff !important;
+}
+
+/* Main sections */
+.section, .hero, .skillhive-home {
+  background: var(--nb-surface) !important;
+  border: 1px solid var(--nb-border) !important;
+  box-shadow: 0 4px 16px rgba(180,120,60,0.08) !important;
+}
+
+.section h2, .section h3 {
+  color: var(--nb-text1) !important;
+}
+.section-context, .section p {
+  color: var(--nb-text2) !important;
+}
+
+/* Buttons */
+button:not(.apt-topic-card):not(.apt-option-btn):not(.apt-q-opt):not(.coding-subtopic-btn):not(.mnc-company-card):not(.back-btn) {
+  background: var(--nb-accent) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(194,105,42,0.25) !important;
+}
+button:hover:not(.apt-topic-card):not(.apt-option-btn):not(.apt-q-opt):not(.coding-subtopic-btn):not(.mnc-company-card):not(.back-btn) {
+  background: var(--nb-accent2) !important;
+  box-shadow: 0 4px 14px rgba(194,105,42,0.35) !important;
+}
+
+.back-btn {
+  background: var(--nb-surface2) !important;
+  color: var(--nb-text2) !important;
+  border: 1px solid var(--nb-border) !important;
+  box-shadow: none !important;
+}
+.back-btn:hover {
+  background: var(--nb-border) !important;
+  color: var(--nb-text1) !important;
+}
+
+/* Cards */
+.company-topic-card, .coding-language-card, .coding-topic-card,
+.apt-concept-card, .apt-learn-block, .apt-formula-card,
+.apt-keypoints-card, .apt-example-card, .rc-chart-card,
+.resume-form-section, .resume-sidebar-card, .resume-tip-card,
+.upload-result-shell, .career-tool-output {
+  background: var(--nb-surface) !important;
+  border: 1px solid var(--nb-border) !important;
+  color: var(--nb-text1) !important;
+  box-shadow: 0 2px 8px rgba(180,120,60,0.08) !important;
+}
+
+/* Learning hub cards */
+.hub-course-card {
+  background: var(--nb-surface) !important;
+  border: 1px solid var(--nb-border) !important;
+}
+.hub-course-card:hover {
+  border-color: var(--nb-accent) !important;
+  box-shadow: 0 8px 24px rgba(194,105,42,0.15) !important;
+}
+.hub-card-body h3 { color: var(--nb-text1) !important; }
+.hub-card-body p  { color: var(--nb-text2) !important; }
+.hub-card-cta {
+  background: linear-gradient(135deg, var(--nb-accent), var(--nb-accent2)) !important;
+  color: #fff !important;
+  border-color: var(--nb-accent) !important;
+}
+
+/* MNC cards */
+.mnc-company-card {
+  background: var(--nb-surface) !important;
+  border: 1px solid var(--nb-border) !important;
+  box-shadow: 0 4px 16px rgba(180,120,60,0.1) !important;
+}
+.mnc-company-card:hover {
+  box-shadow: 0 8px 24px rgba(180,120,60,0.18) !important;
+}
+.mnc-card-body h3 { color: var(--nb-text1) !important; font-size: 1.5rem !important; }
+.mnc-card-body p  { color: var(--nb-text2) !important; }
+.mnc-card-cta {
+  background: linear-gradient(135deg, var(--nb-accent), var(--nb-accent2)) !important;
+  color: #fff !important;
+  border-color: rgba(194,105,42,0.5) !important;
+  box-shadow: none !important;
+}
+.mnc-card-cta.disabled {
+  background: var(--nb-surface2) !important;
+  color: var(--nb-text3) !important;
+}
+
+/* Mock test questions */
+.mocktest-question {
+  background: var(--nb-surface) !important;
+  border: 1px solid var(--nb-border) !important;
+  color: var(--nb-text1) !important;
+}
+.mocktest-question h3 { color: var(--nb-text1) !important; }
+.mocktest-option {
+  background: var(--nb-surface2) !important;
+  border: 1px solid var(--nb-border) !important;
+  color: var(--nb-text1) !important;
+}
+.mocktest-option:hover {
+  background: rgba(194,105,42,0.12) !important;
+  border-color: var(--nb-accent) !important;
+}
+.mocktest-option.selected {
+  background: rgba(194,105,42,0.18) !important;
+  border-color: var(--nb-accent) !important;
+}
+.mocktest-progress-bar {
+  background: var(--nb-accent) !important;
+}
+.submit-btn {
+  background: var(--nb-accent) !important;
+  color: #fff !important;
+}
+
+/* Aptitude topic page */
+.apt-picker-shell {
+  background: linear-gradient(135deg, #f5ede0, #faf0e6, #f0e8d8) !important;
+}
+.apt-orb-purple {
+  background: radial-gradient(circle, rgba(194,105,42,0.15) 0%, transparent 70%) !important;
+}
+.apt-orb-teal {
+  background: radial-gradient(circle, rgba(58,125,68,0.12) 0%, transparent 70%) !important;
+}
+.apt-orb-coral {
+  background: radial-gradient(circle, rgba(232,148,58,0.12) 0%, transparent 70%) !important;
+}
+.apt-picker-title { color: var(--nb-text1) !important; }
+.apt-stat-pill {
+  background: rgba(194,105,42,0.1) !important;
+  border-color: var(--nb-border) !important;
+  color: var(--nb-text2) !important;
+}
+.apt-tab {
+  background: var(--nb-surface2) !important;
+  border-color: var(--nb-border) !important;
+  color: var(--nb-text2) !important;
+}
+.apt-tab.active {
+  background: var(--nb-accent) !important;
+  border-color: var(--nb-accent) !important;
+  color: #fff !important;
+}
+.apt-tab:hover { background: var(--nb-border) !important; color: var(--nb-text1) !important; }
+.apt-topic-card {
+  background: var(--nb-surface) !important;
+  border-color: var(--nb-border) !important;
+}
+.apt-topic-card:hover {
+  background: rgba(194,105,42,0.06) !important;
+  border-color: var(--nb-accent) !important;
+}
+.apt-topic-card.done {
+  background: rgba(58,125,68,0.1) !important;
+  border-color: rgba(58,125,68,0.4) !important;
+}
+.apt-card-check.checked {
+  background: var(--nb-green) !important;
+  border-color: var(--nb-green) !important;
+}
+.apt-card-title { color: var(--nb-text1) !important; }
+.apt-card-sub   { color: var(--nb-text3) !important; }
+.apt-footer-bar {
+  background: var(--nb-surface2) !important;
+  border-color: var(--nb-border) !important;
+}
+.apt-progress-track { background: var(--nb-border) !important; }
+.apt-progress-fill  { background: linear-gradient(90deg, var(--nb-accent), var(--nb-accent2)) !important; }
+.apt-progress-label { color: var(--nb-text3) !important; }
+.apt-practice-btn {
+  background: var(--nb-accent) !important;
+  border-color: var(--nb-accent) !important;
+  color: #fff !important;
+}
+
+/* Aptitude detail page */
+.apt-topic-hero-bar {
+  background: rgba(194,105,42,0.07) !important;
+  border-color: var(--nb-border) !important;
+}
+.apt-hero-title { color: var(--nb-text1) !important; }
+.apt-section-num {
+  background: rgba(194,105,42,0.1) !important;
+  border-color: var(--nb-accent) !important;
+  color: var(--nb-accent) !important;
+}
+.apt-section-text { color: var(--nb-text2) !important; }
+.apt-intro-card {
+  background: var(--nb-surface2) !important;
+  border-left-color: var(--nb-accent) !important;
+}
+.apt-intro-card p, .apt-formula-text { color: var(--nb-text1) !important; }
+.apt-formula-text {
+  background: rgba(194,105,42,0.06) !important;
+  border-color: rgba(194,105,42,0.3) !important;
+  color: var(--nb-ink) !important;
+}
+.apt-keypoints-list li { color: var(--nb-text1) !important; }
+.apt-keypoints-list li::marker { color: var(--nb-accent) !important; }
+.apt-example-pre { color: var(--nb-ink) !important; background: var(--nb-surface2) !important; }
+.apt-tip-card {
+  background: rgba(232,148,58,0.1) !important;
+  border-color: rgba(194,105,42,0.3) !important;
+  color: var(--nb-text2) !important;
+}
+
+/* Questions */
+.apt-q-item {
+  background: var(--nb-surface) !important;
+  border-color: var(--nb-border) !important;
+}
+.apt-q-text { color: var(--nb-text1) !important; }
+.apt-q-opt {
+  background: var(--nb-surface2) !important;
+  border-color: var(--nb-border) !important;
+  color: var(--nb-text1) !important;
+}
+.apt-q-opt:hover:not(:disabled) {
+  background: rgba(194,105,42,0.1) !important;
+  border-color: var(--nb-accent) !important;
+}
+.apt-q-opt.apt-opt-correct {
+  background: rgba(58,125,68,0.15) !important;
+  border-color: rgba(58,125,68,0.5) !important;
+  color: var(--nb-green) !important;
+}
+.apt-q-opt.apt-opt-wrong {
+  background: rgba(179,58,42,0.12) !important;
+  border-color: rgba(179,58,42,0.4) !important;
+  color: var(--nb-red) !important;
+}
+.apt-diff-btn {
+  background: var(--nb-surface2) !important;
+  border-color: var(--nb-border) !important;
+  color: var(--nb-text2) !important;
+}
+.apt-diff-btn.active {
+  background: var(--nb-accent) !important;
+  border-color: var(--nb-accent) !important;
+  color: #fff !important;
+}
+
+/* Coding section */
+.coding-concepts-shell {
+  background: var(--nb-surface) !important;
+  border-color: var(--nb-border) !important;
+}
+.coding-language-card, .coding-topic-card {
+  background: var(--nb-surface2) !important;
+  border-color: var(--nb-border) !important;
+}
+.coding-language-card h4, .coding-topic-card h4 { color: var(--nb-text1) !important; }
+.coding-language-card p, .coding-topic-card p   { color: var(--nb-text2) !important; }
+.coding-subtopic-btn {
+  background: var(--nb-surface2) !important;
+  border-color: var(--nb-border) !important;
+  color: var(--nb-text1) !important;
+}
+.coding-subtopic-btn.active {
+  background: var(--nb-accent) !important;
+  border-color: var(--nb-accent) !important;
+  color: #fff !important;
+}
+.coding-subtopic-detail {
+  background: var(--nb-surface2) !important;
+  border-color: var(--nb-border) !important;
+}
+.coding-subtopic-detail p { color: var(--nb-text1) !important; }
+.coding-topic-example {
+  background: #f0e8d8 !important;
+  color: var(--nb-ink) !important;
+  border-color: var(--nb-border) !important;
+}
+.coding-concepts-eyebrow { color: var(--nb-accent) !important; }
+.coding-concepts-hero h3 { color: var(--nb-text1) !important; }
+.coding-concepts-hero p  { color: var(--nb-text2) !important; }
+
+/* Practice questions */
+.question-item {
+  background: var(--nb-surface) !important;
+  border-left-color: var(--nb-accent) !important;
+}
+.question-item h3, .question-item h4 { color: var(--nb-text1) !important; }
+.question-item p { color: var(--nb-text1) !important; }
+.options button {
+  background: var(--nb-surface2) !important;
+  color: var(--nb-text1) !important;
+  border: 1px solid var(--nb-border) !important;
+}
+.options button:hover {
+  background: rgba(194,105,42,0.12) !important;
+  border-color: var(--nb-accent) !important;
+}
+.correct { color: var(--nb-green) !important; }
+.incorrect { color: var(--nb-red) !important; }
+.explanation { color: var(--nb-text2) !important; }
+
+/* Resume checker */
+.rc-hero {
+  background: linear-gradient(135deg, rgba(194,105,42,0.08), rgba(232,148,58,0.06)) !important;
+  border-color: var(--nb-border) !important;
+}
+.rc-hero-title { color: var(--nb-text1) !important; }
+.rc-hero-sub   { color: var(--nb-text2) !important; }
+.rc-eyebrow    { color: var(--nb-accent) !important; }
+.resume-tab {
+  color: var(--nb-text3) !important;
+  background: transparent !important;
+}
+.resume-tab.active {
+  background: rgba(194,105,42,0.1) !important;
+  border-color: var(--nb-accent) !important;
+  color: var(--nb-accent) !important;
+}
+.resume-tabs { border-bottom-color: var(--nb-border) !important; }
+.resume-upload-zone {
+  border-color: var(--nb-border) !important;
+  background: var(--nb-surface2) !important;
+}
+.resume-upload-zone.drag-over {
+  border-color: var(--nb-accent) !important;
+  background: rgba(194,105,42,0.06) !important;
+}
+.resume-upload-title { color: var(--nb-text1) !important; }
+.resume-upload-sub   { color: var(--nb-text3) !important; }
+.resume-primary-btn {
+  background: linear-gradient(135deg, var(--nb-accent), var(--nb-accent2)) !important;
+  box-shadow: 0 4px 14px rgba(194,105,42,0.3) !important;
+  color: #fff !important;
+}
+.resume-secondary-btn {
+  background: var(--nb-surface2) !important;
+  color: var(--nb-text2) !important;
+  border-color: var(--nb-border) !important;
+}
+.resume-form-section-title { color: var(--nb-accent) !important; }
+.career-form-grid label { color: var(--nb-text2) !important; }
+.career-form-grid input,
+.career-form-grid textarea,
+.career-form-grid select {
+  background: var(--nb-surface) !important;
+  border-color: var(--nb-border) !important;
+  color: var(--nb-text1) !important;
+}
+.career-form-grid input:focus,
+.career-form-grid textarea:focus {
+  border-color: var(--nb-accent) !important;
+  box-shadow: 0 0 0 2px rgba(194,105,42,0.15) !important;
+}
+.rcl-item { color: var(--nb-text3) !important; background: var(--nb-surface2) !important; border-color: var(--nb-border) !important; }
+.rcl-item.rcl-done { color: var(--nb-green) !important; background: rgba(58,125,68,0.08) !important; border-color: rgba(58,125,68,0.3) !important; }
+.resume-tips-mini li { color: var(--nb-text2) !important; }
+.resume-tips-mini li::before { color: var(--nb-accent) !important; }
+.resume-tip-card { background: var(--nb-surface2) !important; border-color: var(--nb-border) !important; }
+.resume-tip-card h4 { color: var(--nb-text1) !important; }
+.resume-tip-card p  { color: var(--nb-text2) !important; }
+
+/* Score rings */
+.resume-ring-bg { stroke: var(--nb-border) !important; }
+.upload-score-ring svg circle:first-child { stroke: var(--nb-border) !important; }
+
+/* Charts */
+.rc-charts-shell { background: var(--nb-surface2) !important; border-color: var(--nb-border) !important; }
+.rc-chart-card   { background: var(--nb-surface) !important;  border-color: var(--nb-border) !important; }
+.rc-charts-title { color: var(--nb-text1) !important; }
+.rc-chart-label  { color: var(--nb-accent) !important; }
+.rc-bar-label    { color: var(--nb-text2) !important; }
+.rc-bar-track    { background: var(--nb-border) !important; }
+
+/* Upload result */
+.upload-result-title   { color: var(--nb-text1) !important; }
+.upload-result-file    { color: var(--nb-text3) !important; }
+.upload-result-summary { color: var(--nb-accent) !important; }
+.upload-check-row      { background: var(--nb-surface2) !important; border-color: var(--nb-border) !important; }
+.upload-check-row.pass { background: rgba(58,125,68,0.08) !important; border-color: rgba(58,125,68,0.3) !important; }
+.upload-check-label    { color: var(--nb-text1) !important; }
+.upload-check-row.pass .upload-check-icon { color: var(--nb-green) !important; }
+.upload-check-row.fail .upload-check-icon { color: var(--nb-red) !important; }
+.upload-suggestions { background: rgba(179,58,42,0.05) !important; border-color: rgba(179,58,42,0.2) !important; }
+.upload-suggestions-title { color: var(--nb-red) !important; }
+.upload-suggestions-list li { color: var(--nb-text1) !important; }
+
+/* Profile dashboard */
+.upd-shell .upd-header {
+  background: linear-gradient(135deg, rgba(194,105,42,0.08), rgba(232,148,58,0.05)) !important;
+  border-color: var(--nb-border) !important;
+}
+.upd-avatar   { background: linear-gradient(135deg, var(--nb-accent), var(--nb-accent2)) !important; }
+.upd-username { color: var(--nb-text1) !important; }
+.upd-stat-card { background: var(--nb-surface) !important; border-color: var(--nb-border) !important; }
+.upd-stat-value { color: var(--nb-text1) !important; }
+.upd-stat-label { color: var(--nb-text3) !important; }
+.upd-chart-card { background: var(--nb-surface) !important; border-color: var(--nb-border) !important; }
+.upd-rings-card { background: var(--nb-surface) !important; border-color: var(--nb-border) !important; }
+.upd-chart-title { color: var(--nb-text1) !important; }
+.upd-chart-sub   { color: var(--nb-text3) !important; }
+.upd-table-row { background: var(--nb-surface2) !important; border-color: var(--nb-border) !important; }
+.upd-qbox-placeholder { color: var(--nb-text3) !important; }
+
+/* Hero home section */
+.skillhive-home .hero-copy h1 { color: var(--nb-text1) !important; -webkit-text-fill-color: var(--nb-text1) !important; background: none !important; }
+.skillhive-home .hero-copy h1 span { color: var(--nb-accent) !important; -webkit-text-fill-color: var(--nb-accent) !important; }
+.eyebrow { color: var(--nb-accent) !important; }
+.tagline { color: var(--nb-text2) !important; }
+.hero-stats div strong { color: var(--nb-accent) !important; }
+.hero-stats div span   { color: var(--nb-text3) !important; }
+.mascot { background: var(--nb-accent) !important; color: #fff !important; }
+.floating-card { background: var(--nb-surface) !important; border: 1px solid var(--nb-border) !important; color: var(--nb-text2) !important; box-shadow: 0 4px 12px rgba(180,120,60,0.12) !important; }
+.speech-bubble { background: var(--nb-accent) !important; color: #fff !important; }
+.ghost-btn { background: transparent !important; border: 2px solid var(--nb-accent) !important; color: var(--nb-accent) !important; }
+
+/* Interview section */
+.interview-chat-shell { background: var(--nb-surface) !important; border-color: var(--nb-border) !important; }
+#interview-technical-btn, #interview-hr-btn {
+  background: var(--nb-surface2) !important;
+  color: var(--nb-text2) !important;
+  border: 1px solid var(--nb-border) !important;
+}
+#interview-technical-btn.active, #interview-hr-btn.active {
+  background: var(--nb-accent) !important;
+  color: #fff !important;
+  border-color: var(--nb-accent) !important;
+}
+
+/* MNC section */
+#mnc.section { background: transparent !important; }
+#mnc h2 { color: var(--nb-text1) !important; }
+#mnc .section-context { color: var(--nb-text2) !important; }
+
+/* Progress bar generic */
+.career-progress-track { background: var(--nb-border) !important; }
+.career-progress-track span { background: linear-gradient(90deg, var(--nb-accent), var(--nb-accent2)) !important; }
+
+/* Auth modal */
+.auth-modal-card {
+  background: var(--nb-surface) !important;
+  border: 1px solid var(--nb-border) !important;
+  color: var(--nb-text1) !important;
+}
+.auth-modal-card h3 { color: var(--nb-text1) !important; }
+#auth-email, #auth-password {
+  background: var(--nb-surface2) !important;
+  border-color: var(--nb-border) !important;
+  color: var(--nb-text1) !important;
+}
+#auth-submit-btn { background: var(--nb-accent) !important; color: #fff !important; }
