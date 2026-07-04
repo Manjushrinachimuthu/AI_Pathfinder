@@ -5290,7 +5290,7 @@ function renderUserProfileAnalytics() {
                 <div class="upd-header-left">
                     <div class="upd-avatar">${getDisplayInitial()}</div>
                     <div>
-                        <h2 class="upd-username">${getDisplayUsername()}</h2>
+                        <p class="upd-welcome">Welcome back &#128075;</p><h2 class="upd-username">Hello, ${getDisplayUsername()}!</h2>
                         <p class="upd-user-email">${activeUserEmail || "Not logged in"}</p>
                         <span class="upd-badge" style="background:${badge.color}22;color:${badge.color};border-color:${badge.color}44">${badge.label}</span>
                     </div>

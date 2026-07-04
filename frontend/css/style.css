@@ -6535,3 +6535,20 @@ footer p {
     font-size: 1rem;
     margin-bottom: 0.4rem;
 }
+
+/* Profile welcome greeting */
+.upd-welcome {
+    color: rgba(255,255,255,0.45);
+    font-size: 0.78rem;
+    font-weight: 500;
+    margin: 0 0 0.15rem;
+    letter-spacing: 0.03em;
+}
+.upd-username {
+    font-size: 1.4rem !important;
+    background: linear-gradient(135deg, #e0f2fe, #a5f3fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.2rem !important;
+}
