@@ -4,7 +4,7 @@
 
 ### Role-Based Career Preparation Platform
 
-[![Live Demo](https://img.shields.io/badge/🌐%20Live%20Demo-ai--pathfinder--sdcu.vercel.app-brightgreen?style=for-the-badge)](https://ai-pathfinder-sdcu.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/🌐%20Live%20Demo-ai--pathfinder--sdcu.vercel.app-brightgreen?style=for-the-badge)](https://ai-pathfinder-4.onrender.com/)
 
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Flask](https://img.shields.io/badge/Flask-2.3-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com)
